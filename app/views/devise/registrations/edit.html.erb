@@ -1,0 +1,37 @@
+<%= render 'devise/shared/auth_head' %>
+
+<%= render_form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put, class: 'flex flex-col gap-4') do |f| %>
+  <div class="flex h-fit w-full flex-row gap-2">
+    <div class="w-1/2">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name, autocomplete: "name" %>
+      <%= f.error_message :first_name %>
+    </div>
+    <div class="w-1/2">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name, autocomplete: "name" %>
+      <%= f.error_message :last_name %>
+    </div>
+  </div>
+
+  <%= f.label :email %>
+  <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password, autocomplete: "new-password" %>
+  <%= f.error_message :password %>
+
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <%= f.error_message :password_confirmation %>
+
+  <%= f.label :current_password %>
+  <%= f.password_field :current_password, autocomplete: "current-password" %>
+  <%= f.error_message :current_password %>
+
+  <%= f.submit "Update" %>
+<% end %>
+
+<%= render_separator class: 'my-4' %> 
+
+<%= render 'devise/shared/delete_user_button' %>
