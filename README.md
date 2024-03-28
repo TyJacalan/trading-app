@@ -1,29 +1,27 @@
-# RAILS AUTH STARTER
-
-A starter template for a rails application that includes [Devise](https://github.com/heartcombo/devise) user authentication and views; unopiniated components, helpers, and stimulus controllers via [Shadcn](https://shadcn.rails-components.com/) and built with [Tailwind CSS](https://tailwindcss.com/).
+# TRADING APP
 
 ## Main dependencies:
 
 * Devise
-* Omniauth
 * Tailwind CSS
 * Shadcn
-* JSBunding
+* JSBundling
 * Turbo Stimulus
 * Rspec
 
 ## Features
-
-- User authentication w/ tests
-- Light/dark mode
-- Custom error pages
+* Admin console with RESTful actions for users
+* User email and admin verification
+* Users can view stock market information from [api](https://github.com/dblock/iex-ruby-client)
+* Users can create transactions
+* Users can view their transactions
+* Users can view their portfolio
 
 ## Usage/Examples
 1. Install dependencies
 ```bundle install && yarn install```
 
 2. Set the environment variables:
-3. Do a global find and replace for `rails_auth_api_starter` with `your_project_name`
 4. Create the users database
 ```
 bin/rails db:create && 
@@ -43,4 +41,6 @@ google_oauth_client_secret:
   google_smtp
   - email
   - password
+iex_publishable_token:
+iex_secret_token:
 ```

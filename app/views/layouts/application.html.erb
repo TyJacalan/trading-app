@@ -11,10 +11,15 @@
   </head>
 
   <body class="flex h-full w-full min-h-screen flex-col">
-    <%= render 'components/layout/toast_messages' %>
-    <%= render 'components/layout/navbar' %>
+    <% if notice %>
+      <%= render_toast id: "default_toast", description: notice %>
+    <% end %>
+
+    <% if alert %>
+      <%= render_toast description: alert, id: "alert_toast", variant: :destructive %>
+    <% end %>
+
     <%= yield %>
-    <%= render 'components/layout/footer' %>
   </body>
 </html>
 
