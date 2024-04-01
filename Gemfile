@@ -5,6 +5,7 @@ ruby '3.3.0'
 gem 'bootsnap', require: false
 gem 'cssbundling-rails'
 gem 'devise'
+gem 'iex-ruby-client'
 gem 'letter_opener_web'
 gem 'jsbundling-rails'
 gem 'rails', '~> 7.1.3', '>= 7.1.3.2'

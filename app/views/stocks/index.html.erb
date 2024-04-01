@@ -7,7 +7,13 @@
   <li><%= link_to 'Transactions', transactions_path %></li>
   <li><%= link_to "Users", admin_users_path %></li>
   <li><%= link_to "Transactions", admin_transactions_path %></li>
-
 </ul>
+
+<div class="mt-6">
+  <h2>Stocks</h2>
+  <ol>
+    <li>MSFT: <%= @quote %></li>
+  </ol>
+</div>
 
 <%= button_to "Log out", destroy_user_session_path, method: :delete %>
