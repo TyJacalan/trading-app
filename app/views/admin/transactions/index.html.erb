@@ -1,0 +1,14 @@
+<h1>Admin Transactions</h1>
+
+<table>
+  <% @transactions.each do |transaction| %>
+    <tr>
+      <td><%= transaction.id %></li>
+      <td><%= transaction.symbol %></li>
+      <td><%= transaction.transaction_type %></li>
+      <td><%= transaction.price %></li>
+      <td><%= transaction.currency %></li>
+    </tr>
+  <% end %>
+</table>
+

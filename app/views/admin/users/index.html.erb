@@ -1,0 +1,13 @@
+<h1>Admin Users</h1>
+
+<table>
+  <tr>
+    <% @users.each do |user| %>
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td><%= user.email %></td>
+      <td><%= user.role %></td>
+      <td><%= user.approved %></td>
+    <% end %>
+  </tr>
+</table>

@@ -1,7 +1,16 @@
 Rails.application.routes.draw do
+  root "stocks#index"
   devise_for :users
 
-  get "up" => "rails/health#show", as: :rails_health_check
+  resources :admins, only: [:index]
+  namespace :admin do
+    resources :users
+    resources :transactions, only: [:index, :show, :edit, :update]
+  end
+
+  resources :stocks, only: [:index, :show]
+  resources :portfolios, only: [:index, :show]
+  resources :transactions, only: [:index, :show, :create, :update]
 
   # Error routes
   get "/404", to: "errors#not_found", via: :all
