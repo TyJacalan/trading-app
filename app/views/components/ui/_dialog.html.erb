@@ -1,7 +1,7 @@
-<div data-controller="ui--dialog">
+<div data-controller="ui--dialog" data-action="keydown@window->ui--dialog#closeByKey">
   <div data-action="click->ui--dialog#open"><%= content_for(:dialog_trigger) %></div>
 
-  <%= render "components/ui/shared/backdrop", as: "modal" %>
+  <%= render "components/ui/shared/backdrop", as: "modal", action: "click->ui--dialog#closeByModal" %>
 
   <div
     role="dialog"
@@ -13,6 +13,7 @@
       <div><%= content_for(:dialog_content) %></div>
       <button
         data-ui--dialog-target="closeButton"
+        data-action="click->ui--dialog#close"
         type="button"
         class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
         <svg
