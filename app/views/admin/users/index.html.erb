@@ -21,7 +21,11 @@
             <%= f.select :role, ["standard", "admin"], { }, { data: { action: "auto-submit#submit" } } %>
           <% end %>
         <% end %>
-        <%= table_column user.approved %>
+        <%= table_column do %>
+          <%= form_for(user, url: admin_approve_role_path(user), method: :patch, data: { controller: 'auto-submit' } ) do |f| %>
+            <%= f.check_box :approved, data: { action: 'auto-submit#submit' } %>
+          <% end %>
+        <% end %>
         <%= table_column do %>
           <%= link_to "Edit" %>
         <% end %>

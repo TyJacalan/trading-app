@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :users
     resources :transactions, only: [:index, :show, :edit, :update]
     resources :user_roles, only: [:update]
+    resources :approve_roles, only: [:update]
   end
 
   resources :stocks, only: [:index, :show]
