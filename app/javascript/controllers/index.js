@@ -18,3 +18,6 @@ application.register("ui--toast", Ui__ToastController)
 
 import Ui__SwitchModeController from "./ui/switch_mode_controller"
 application.register("ui--switch_mode", Ui__SwitchModeController)
+
+import AutoSubmit from '@stimulus-components/auto-submit'
+application.register('auto-submit', AutoSubmit)
