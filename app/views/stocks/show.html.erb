@@ -11,7 +11,13 @@
   </div>
 
   <div>
-    <%= line_chart @stock[:chart_data], xtitle: 'Date', ytitle: 'Close Price' %>
+    <%= line_chart @stock[:chart_data], 
+    id: "stock-chart",
+    xtitle: 'Date', 
+    ytitle: 'Close Price', 
+    colors: ["#b00", "#666"],
+    discrete: true, 
+    points: false %>
   </div>
 
   <div class="flex items-center space-x-2">

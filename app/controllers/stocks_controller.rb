@@ -22,15 +22,15 @@ class StocksController < ApplicationController
       logo_url: @client.logo(symbol)&.url,
       company: @client.company(symbol),
       quote: @client.quote(symbol),
-      chart_data: format_chart_data(@client.chart(symbol)),
+      chart_data: format_chart_data(@client.chart(symbol, '1y', chart_close_only: true)),
       news: @client.news(symbol)
     }
   end
 
   private
 
-  def format_chart_data(raw_data)
-    chart_data = raw_data.map { |data| [data.date, data.close] }
-    chart_data.group_by { |date, _| date.to_date }
+  def format_chart_data(chart_data)
+    chart_data.map { |data| [data.date, data.close] }
+    # chart.group_by { |date, _| date.to_date }
   end
 end
