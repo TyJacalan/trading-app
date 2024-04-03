@@ -1,15 +1,18 @@
+# frozen_string_literal: true
+
 class StocksController < ApplicationController
   before_action :authorize_user!
   before_action :set_stock_api, only: %i[index show]
 
   def index
-    symbols = %w[AAPL MSFT GOOGL]
-    @stocks = symbols.map do |symbol|
-      quote = @client.quote(symbol)
+    stock_list = @client.stock_market_list(:iexvolume, listLimit: 100)
+    @stocks = stock_list.map do |stock|
+      symbol = stock.symbol
       { symbol:,
-        price: @client.price(symbol),
+        company_name: stock.company_name,
+        price: stock.latest_price,
         logo_url: @client.logo(symbol).url,
-        change: quote.change_percent_s }
+        change: stock.change_percent_s }
     end
   end
 
@@ -18,7 +21,6 @@ class StocksController < ApplicationController
 
     @stock = {
       symbol:,
-      price: @client.price(symbol),
       logo_url: @client.logo(symbol)&.url,
       company: @client.company(symbol),
       quote: @client.quote(symbol),
@@ -31,6 +33,5 @@ class StocksController < ApplicationController
 
   def format_chart_data(chart_data)
     chart_data.map { |data| [data.date, data.close] }
-    # chart.group_by { |date, _| date.to_date }
   end
 end

@@ -6,7 +6,7 @@
   </div>
 
   <div class="flex flex-col justify-center">
-    <div class="font-bold"><%= number_to_currency(@stock[:price], precision: 2) %></div>
+    <div class="font-bold"><%= number_to_currency(@stock[:quote].latest_price, precision: 2) %></div>
     <div><%= @stock[:quote].change_percent_s %></div>
   </div>
 
