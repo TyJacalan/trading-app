@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     redirect_to '/422' unless current_user.admin?
   end
 
-  def set_stock_api 
+  def set_stock_api
     @client = IEX::Api::Client.new(
       publishable_token: IEX::Api.config.publishable_token,
       secret_token: IEX::Api.config.secret_token,

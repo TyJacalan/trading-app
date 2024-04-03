@@ -18,3 +18,6 @@ application.register("ui--toast", Ui__ToastController)
 
 import Ui__SwitchModeController from "./ui/switch_mode_controller"
 application.register("ui--switch_mode", Ui__SwitchModeController)
+
+import Chartjs from '@stimulus-components/chartjs'
+application.register('chartjs', Chartjs)

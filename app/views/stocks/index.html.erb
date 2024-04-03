@@ -12,7 +12,13 @@
 <div class="mt-6">
   <h2>Stocks</h2>
   <ol>
-    <li>MSFT: <%= @quote %></li>
+    <% @stocks.each do |stock| %>
+      <li class="flex items-center gap-2">
+        <%= stock[:logo_url].present? ? image_tag(stock[:logo_url], width: 20, height: 20) : image_tag("https://via.placeholder.com/50") %>
+        <%= link_to "#{stock[:symbol]}: #{number_to_currency(stock[:price], precision: 2)}", stock_path(stock[:symbol]) %>
+        <%= stock[:change] %>
+      </li>
+    <% end %>
   </ol>
 </div>
 
