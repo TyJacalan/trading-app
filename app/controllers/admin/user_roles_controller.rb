@@ -3,11 +3,9 @@ class Admin::UserRolesController < AdminsController
     @user = User.find(params[:id])
 
     if @user.update(user_params)
-      respond_to do |format|
-        format.html { redirect_to admin_users_path, notice: "User role successfully updated." }
-      end
+      redirect_to admin_users_path, notice: "#{@user.first_name}'s role was changed to #{@user.role}"
     else
-      render admin_users_path, alert: "User role was not updated!"
+      redirect_to '/500'
     end
   end
 

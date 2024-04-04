@@ -1,18 +1,17 @@
 class Admin::ApproveRolesController < AdminsController
   def update
     @user = User.find(params[:id])
+    approval_status = params[:user][:approved] == "true" ? 'approved' : 'unapproved'
 
     if @user.update(user_params)
-      respond_to do |format|
-        format.html { redirect_to admin_users_path, notice: "#{@user.first_name} has been approved." }
-      end
+      redirect_to admin_users_path, notice: "#{@user.first_name} has been #{approval_status}."
     else
-      render admin_users_path, alert: "User approval status was not updated!"
+      redirect_to '/500'
     end
   end
   
   private
-
+ 
   def user_params
     params.require(:user).permit(:approved)
   end

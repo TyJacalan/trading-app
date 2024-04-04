@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :admins, only: [:index]
   namespace :admin do
-    resources :users
+    resources :users, except: [:new, :edit]
     resources :transactions, only: [:index, :show, :edit, :update]
     resources :user_roles, only: [:update]
     resources :approve_roles, only: [:update]
