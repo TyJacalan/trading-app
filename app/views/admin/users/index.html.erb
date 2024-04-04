@@ -1,5 +1,7 @@
 <h1>Admin Users</h1>
 
+<%= render partial: 'create_user_form', locals: { user: @user } %>
+
 <%= render_table do %>
   <%= table_head do %>
     <%= table_header "First Name" %>
@@ -13,24 +15,22 @@
   <%= table_body do %>
     <% @users.each do |user| %>
       <%= table_row do %>
-        <%= table_column user.first_name %>
+        <%= table_column do %>
+          <%= link_to user.first_name, admin_user_path(user), class: 'text-primary' %>
+        <% end %>
         <%= table_column user.last_name %>
         <%= table_column user.email %>
         <%= table_column do %>
-          <%= form_for(user, url: admin_user_role_path(user), method: :patch, data: { controller: 'auto-submit' } ) do |f| %>
-            <%= f.select :role, ["standard", "admin"], { }, { data: { action: "auto-submit#submit" } } %>
-          <% end %>
+          <%= render partial: 'role_form', locals: { user: user } %>
         <% end %>
         <%= table_column do %>
-          <%= form_for(user, url: admin_approve_role_path(user), method: :patch, data: { controller: 'auto-submit' } ) do |f| %>
-            <%= f.check_box :approved, { data: { action: 'auto-submit#submit' }}, "true", "false" %>
-          <% end %>
+          <%= render partial: 'approved_form', locals: { user: user } %>
         <% end %>
         <%= table_column do %>
-          <%= link_to "Edit" %>
+          <%= render partial: 'edit_user_form', locals: { user: user } %>
         <% end %>
         <%= table_column do %>
-          <%= link_to "Delete" %>
+          <%= render partial: 'delete_user_form', locals: { user: user } %>
         <% end %>
       <% end %>
     <% end %>
