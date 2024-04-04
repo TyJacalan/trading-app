@@ -23,7 +23,7 @@
         <% end %>
         <%= table_column do %>
           <%= form_for(user, url: admin_approve_role_path(user), method: :patch, data: { controller: 'auto-submit' } ) do |f| %>
-            <%= f.check_box :approved, data: { action: 'auto-submit#submit' } %>
+            <%= f.check_box :approved, { data: { action: 'auto-submit#submit' }}, "true", "false" %>
           <% end %>
         <% end %>
         <%= table_column do %>
