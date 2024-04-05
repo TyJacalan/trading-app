@@ -2,6 +2,14 @@
 
 <%= render partial: 'create_user_form', locals: { user: @user } %>
 
+<ul class="flex flex-row gap-2 p-2">
+  <li><%= link_to "All", admin_users_path %></li>
+  <li><%= link_to "Pending", admin_users_path(filter: 'pending')  %></li>
+  <li><%= link_to "Approved", admin_users_path(filter: 'approved') %></li>
+  <li><%= link_to "Admins", admin_users_path(filter: 'admins') %></li>
+  <li><%= link_to "Standards", admin_users_path(filter: 'standards') %></li>
+</ul>
+
 <%= render_table do %>
   <%= table_head do %>
     <%= table_header "First Name" %>
@@ -27,7 +35,7 @@
           <%= render partial: 'approved_form', locals: { user: user } %>
         <% end %>
         <%= table_column do %>
-          <%= render partial: 'edit_user_form', locals: { user: user } %>
+          <%= link_to "Edit Account", admin_user_path(user) %>
         <% end %>
         <%= table_column do %>
           <%= render partial: 'delete_user_form', locals: { user: user } %>

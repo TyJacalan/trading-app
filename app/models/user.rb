@@ -10,6 +10,11 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validate :password_complexity
 
+  scope :pending, -> { where(approved: [false, nil]) }
+  scope :approved, -> { where(approved: true) }
+  scope :admins, -> { where(role: 1) }
+  scope :standards, -> { where(role: 0) }
+
   def password_complexity
     return unless password.present?
 
