@@ -9,6 +9,11 @@
   <li><%= link_to "Transactions", admin_transactions_path %></li>
 </ul>
 
+<div class="flex space-x-4">
+  <%= link_to "Buy", new_transaction_path(transaction_type: 'buy'), method: :get, class: "button button-primary" %>
+  <%= link_to "Sell", new_transaction_path(transaction_type: 'sell'), method: :get, class: "button button-primary" %>
+</div>
+
 <div class="container mt-6 p-4">
   <h2 class="text-red-500">Stocks</h2>
   <% @stocks.each do |stock| %>
