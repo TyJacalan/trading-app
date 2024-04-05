@@ -35,7 +35,7 @@
           <%= render partial: 'approved_form', locals: { user: user } %>
         <% end %>
         <%= table_column do %>
-          <%= link_to "Edit Account", admin_user_path(user) %>
+          <%= render partial: 'edit_user_form', locals: { user: user } %>
         <% end %>
         <%= table_column do %>
           <%= render partial: 'delete_user_form', locals: { user: user } %>
