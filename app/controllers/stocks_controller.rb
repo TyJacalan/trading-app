@@ -5,7 +5,7 @@ class StocksController < ApplicationController
   before_action :set_stock_api, only: %i[index show]
 
   def index
-    stock_list = @client.stock_market_list(:iexvolume, listLimit: 100)
+    stock_list = @client.stock_market_list(:iexvolume, listLimit: 10)
     @stocks = stock_list.map do |stock|
       symbol = stock.symbol
       { symbol:,
