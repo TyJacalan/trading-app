@@ -29,8 +29,9 @@ class TransactionsController < ApplicationController
   end
 
   def transaction_params
-    params.require(:transaction)
-          .permit(:symbol, :price, :amount, :transaction_type, :currency)
-          .merge(user_id: current_user.id)
+    # memoization
+    @transaction_params ||= params.require(:transaction)
+                                  .permit(:symbol, :price, :amount, :transaction_type, :currency)
+                                  .merge(user_id: current_user.id)
   end
 end
