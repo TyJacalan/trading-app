@@ -9,30 +9,17 @@
   <li><%= link_to "Transactions", admin_transactions_path %></li>
 </ul>
 
+<ul class="flex flex-row gap-2">
+  <li>Most Active</li>
+  <li>Gainers</li>
+  <li>Losers</li>
+</ul>
+
 <div class="flex space-x-4">
   <%= link_to "Buy", new_transaction_path(transaction_type: 'buy'), method: :get, class: "button button-primary" %>
   <%= link_to "Sell", new_transaction_path(transaction_type: 'sell'), method: :get, class: "button button-primary" %>
 </div>
 
-<div class="container mt-6 p-4">
-  <h2 class="text-red-500">Stocks</h2>
-  <% @stocks.each do |stock| %>
-    <div class="flex justify-between w-full space-x-4 p-4">
-      <div class="flex items-center space-x-2">
-        <div class="items-center justify-center">
-          <%= stock[:logo_url].present? ? image_tag(stock[:logo_url], width: 20, height: 20) : image_tag("https://via.placeholder.com/50") %>
-        </div>
-        <div class="flex flex-col justify-center">
-          <%= link_to stock[:company_name], stock_path(stock[:symbol]), class: "font-semibold" %>
-          <span class="text-sm text-red-500"><%= stock[:symbol] %></span>
-        </div>
-      </div>
-      <div class="flex flex-col justify-center">
-        <div><%= number_to_currency(stock[:price], precision: 2) %></div>
-        <%= content_tag :div, stock[:change], class: stock[:change].to_f < 0 ? "text-red-500" : "text-green-500" %>
-      </div>
-    </div>
-  <% end %>
-</div>
+<%= render partial: 'stocks_table', locals: { stocks: @stocks } %>
 
 <%= button_to "Log out", destroy_user_session_path, method: :delete %>
