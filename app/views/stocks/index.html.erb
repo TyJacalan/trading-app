@@ -10,9 +10,9 @@
 </ul>
 
 <ul class="flex flex-row gap-2">
-  <li>Most Active</li>
-  <li>Gainers</li>
-  <li>Losers</li>
+  <li><%= link_to "Most Active", root_path(filter: 'most-active') %></li>
+  <li><%= link_to "Gainers", root_path(filter: 'gainers') %></li>
+  <li><%= link_to "Losers", root_path(filter: 'losers') %></li>
 </ul>
 
 <div class="flex space-x-4">
@@ -20,6 +20,8 @@
   <%= link_to "Sell", new_transaction_path(transaction_type: 'sell'), method: :get, class: "button button-primary" %>
 </div>
 
-<%= render partial: 'stocks_table', locals: { stocks: @stocks } %>
+<%= turbo_frame_tag :stocks_tables, src: stocks_tables_path(filter: params[:filter]) do %>
+  Loading...
+<% end %>
 
 <%= button_to "Log out", destroy_user_session_path, method: :delete %>

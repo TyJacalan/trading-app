@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :portfolios, only: %i[index show]
   resources :transactions, only: %i[index show new create]
 
+  get :stocks_tables, to: 'stocks_tables#show'
+
   # Error routes
   get '/404', to: 'errors#not_found', via: :all
   get '/403', to: 'errors#forbidden', via: :all
