@@ -1,0 +1,11 @@
+<%= turbo_frame_tag :stocks_articles do %>
+  <div>
+    <% @news_feed.each do |article| %>
+      <%= image_tag(article[:image], class: "h-36 w-36 py-4 rounded-m") %>
+      <h2><%= article[:source] %></h2>
+      <span><%= article[:datetime] %></span>
+      <h1><%= article[:headline] %></h1>
+      <p><%= article[:summary] %></p>
+    <% end %>
+  </div>
+<% end %>

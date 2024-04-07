@@ -1,6 +1,7 @@
 class StocksTablesController < StocksController
   def show
-    stock_list = case params[:filter] 
+    filter = params[:filter]
+    stock_list = case filter
                  when 'gainers'
                    @client.stock_market_list(:gainers, listLimit: 25)
                  when 'losers'
@@ -9,6 +10,6 @@ class StocksTablesController < StocksController
                    @client.stock_market_list(:mostactive, listLimit: 25)
                  end
     @stocks = map_stock_list(stock_list)
-    @name = params[:filter].gsub("-", " ").titleize
+    @name = (filter ? filter.gsub("-", " ").to_s.titleize : :mostactive.to_s.titleize)
   end
 end

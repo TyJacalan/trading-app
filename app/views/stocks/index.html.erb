@@ -20,6 +20,10 @@
   <%= link_to "Sell", new_transaction_path(transaction_type: 'sell'), method: :get, class: "button button-primary" %>
 </div>
 
+<%= turbo_frame_tag :stocks_articles, src: stocks_articles_path do %>
+  Loading...
+<% end %>
+
 <%= turbo_frame_tag :stocks_tables, src: stocks_tables_path(filter: params[:filter]) do %>
   Loading...
 <% end %>

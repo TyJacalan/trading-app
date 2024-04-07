@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :portfolios, only: %i[index show]
   resources :transactions, only: %i[index show new create]
 
+  get :stocks_articles, to: 'stocks_articles#show'
   get :stocks_tables, to: 'stocks_tables#show'
 
   # Error routes

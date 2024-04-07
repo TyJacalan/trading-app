@@ -5,11 +5,10 @@ class StocksController < ApplicationController
   include StocksConcern
 
   def index
-    stock_list = @client.stock_market_list(:mostactive)
-    @stocks = map_stock_list(stock_list)
   end
 
   def show
     @stock = chart_stock(params[:id])
+    @news_feed = cache_news(params[:id], 5)
   end
 end
