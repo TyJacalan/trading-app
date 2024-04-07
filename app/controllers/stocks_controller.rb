@@ -10,6 +10,6 @@ class StocksController < ApplicationController
   end
 
   def show
-    @stock = chart_stock(params[:symbol])
+    @stock = chart_stock(params[:id])
   end
 end

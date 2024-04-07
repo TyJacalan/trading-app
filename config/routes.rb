@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :transactions, only: %i[index show edit update]
   end
 
-  resources :stocks, param: :symbol, only: %i[index show]
+  resources :stocks, only: %i[index show]
   resources :portfolios, only: %i[index show]
   resources :transactions, only: %i[index show new create]
 
