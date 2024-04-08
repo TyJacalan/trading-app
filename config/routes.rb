@@ -4,10 +4,11 @@ Rails.application.routes.draw do
 
   resources :admins, only: [:index]
   namespace :admin do
-    resources :users
-    resources :transactions, only: %i[index show edit update]
+    resources :users, except: [:new, :edit]
+    resources :transactions, only: [:index, :show, :edit, :update]
+    resources :user_roles, only: [:update]
+    resources :approve_roles, only: [:update]
   end
-
   resources :stocks, only: %i[index show]
   resources :portfolios, only: %i[index show]
   resources :transactions, only: %i[index show new create]

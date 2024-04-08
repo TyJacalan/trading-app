@@ -1,0 +1,36 @@
+<%= render_dialog do %>
+  <%= dialog_trigger do %>
+    <%= render_button "Create User", variant: :outline %>
+  <% end %>
+  <%= dialog_content do %>
+    <%= render_form_for(user, url: admin_users_path, method: :post, class: "flex flex-col gap-2") do |f| %>
+      <div class="flex w-full flex-row gap-2">
+        <div class= "flex w-1/2 flex-col gap-2">
+          <%= f.label :first_name, required: true %>
+          <%= f.text_field :first_name, autocomplete: "name" %>
+          <%= f.error_message :first_name %>
+        </div>
+        <div class="flex w-1/2 flex-col gap-2">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, autocomplete: "name" %>
+          <%= f.error_message :last_name %>
+        </div>
+      </div>
+
+      <%= f.label :email, required: true %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <%= f.error_message :email %>
+
+      <%= f.label :password, required: true %>
+      <%= f.password_field :password, autocomplete: "new-password" %>
+      <%= f.error_message :password %>
+
+      <%= f.label :password_confirmation, required: true %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+      <%= f.error_message :password_confirmation %>
+
+      <%= f.submit "Create User", class: "mt-2" %>
+    <% end %>
+
+  <% end %>
+<% end %>
