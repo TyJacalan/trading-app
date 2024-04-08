@@ -1,4 +1,8 @@
-class TransactionsController < ApplicationController
+# frozen_string_literal: true
+
+class TransactionsController < ApplicationController # rubocop:disable Style/Documentation
+  include TransactionsConcern
+
   before_action :authorize_user!
   before_action :set_transaction, only: %i[new create]
 
@@ -8,7 +12,7 @@ class TransactionsController < ApplicationController
 
   def new
     @transaction = Transaction.new(transaction_type: params[:transaction_type])
-    @stocks_balance = Transaction.aggregate_balance_by_symbol(current_user.id) || {}
+    @stocks_balance = aggregate_balance_by_symbol(current_user.id) || {}
   end
 
   def create
@@ -31,7 +35,7 @@ class TransactionsController < ApplicationController
   def transaction_params
     # memoization
     @transaction_params ||= params.require(:transaction)
-                                  .permit(:symbol, :price, :amount, :transaction_type, :currency)
+                                  .permit(:symbol, :price, :quantity, :transaction_type, :currency)
                                   .merge(user_id: current_user.id)
   end
 end

@@ -9,7 +9,7 @@
     <h1 class="py-4">Portfolio:</h1>
     <% if @stocks_balance.present? %>
       <%= @stocks_balance.each do |symbol, balance| %>
-        <p><%= symbol %>: <%= number_to_currency(balance) %></p>
+        <p><%= symbol %>: <%= balance %></p>
       <% end %>
     <% end %>
   </div>
