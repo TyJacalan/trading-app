@@ -1,4 +1,6 @@
-module StocksConcern
+# frozen_string_literal: true
+
+module StocksConcern # rubocop:disable Style/Documentation
   extend ActiveSupport::Concern
 
   included do
@@ -29,7 +31,6 @@ module StocksConcern
     def format_chart_data(chart_data)
       chart_data.map { |data| [data.date, data.close] }
     end
-
 
     def cache_news(symbol, quantity = nil)
       Rails.cache.fetch("#{symbol}_news", expires_in: 1.hours) do
