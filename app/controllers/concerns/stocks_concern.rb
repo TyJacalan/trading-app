@@ -30,6 +30,7 @@ module StocksConcern
       chart_data.map { |data| [data.date, data.close] }
     end
 
+
     def cache_news(symbol, quantity = nil)
       Rails.cache.fetch("#{symbol}_news", expires_in: 1.hours) do
         news = if quantity
@@ -44,7 +45,7 @@ module StocksConcern
             headline: article.headline,
             image: article.image,
             summary: article.summary,
-            source: article.source,
+            source: article.source
           }
         end
       end
