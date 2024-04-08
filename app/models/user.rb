@@ -1,9 +1,10 @@
 class User < ApplicationRecord
+  has_many :transactions
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
   enum role: { standard: 0, admin: 1 }
-  has_many :transactions
+  enum approved: { false: 0, true: 1 }
 
   validates :first_name, presence: true, length: { minimum: 2, maximum: 30 }
   validates :last_name, length: { minimum: 2, maximum: 30 }, allow_blank: true
