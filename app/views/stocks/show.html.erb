@@ -32,12 +32,8 @@
     <%= @stock[:company].description %>
   </div>
 
-  <div class="flex flex-col py-4 mt-4">
-    <h1 class="font-bold">What's New</h1>
-    <%= image_tag(@stock[:news].last.image, class: "py-4 rounded-m") %>
-    <div class="p-4">
-      <h2 class="font-semibold"><%= link_to @stock[:news].last.headline, @stock[:news].last.url %></h2>
-      <%= @stock[:news].last.summary %>
-    </div>
-  </div>
+  <%= turbo_frame_tag :stocks_articles, src: stocks_articles_path(symbol: params[:id]) do %>
+    Loading...
+  <% end %>
+  
 </div>
