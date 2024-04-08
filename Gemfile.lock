@@ -85,6 +85,7 @@ GEM
     bootsnap (1.18.3)
       msgpack (~> 1.2)
     builder (3.2.4)
+    chartkick (5.0.6)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -109,7 +110,12 @@ GEM
       multipart-post (~> 2)
     faraday-net_http (3.1.0)
       net-http
+    ffi (1.16.3)
+    font-awesome-sass (6.5.1)
+      sassc (~> 2.0)
     globalid (1.2.1)
+      activesupport (>= 6.1)
+    groupdate (6.4.0)
       activesupport (>= 6.1)
     hashie (5.0.0)
     i18n (1.14.4)
@@ -268,6 +274,8 @@ GEM
     rubocop-ast (1.31.2)
       parser (>= 3.3.0.4)
     ruby-progressbar (1.13.0)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     shadcn-ui (0.0.12)
       tailwind_merge (~> 0.7)
     sprockets (4.2.1)
@@ -315,9 +323,12 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  chartkick
   cssbundling-rails
   debug
   devise
+  font-awesome-sass
+  groupdate
   iex-ruby-client
   jsbundling-rails
   letter_opener_web

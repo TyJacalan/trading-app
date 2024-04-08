@@ -1,0 +1,43 @@
+<div class="flex flex-col justify-center space-y-4 p-4">
+  <div class="mb-4">
+    <%= link_to stocks_path, class: "text-gray-500 hover:text-gray-700" do %>
+      <i class="fa fa-arrow-left"></i>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col justify-center">
+    <div class="font-bold"><%= number_to_currency(@stock[:quote].latest_price, precision: 2) %></div>
+    <div><%= @stock[:quote].change_percent_s %></div>
+  </div>
+
+  <div>
+    <%= line_chart @stock[:chart_data], 
+    id: "stock-chart",
+    xtitle: 'Date', 
+    ytitle: 'Close Price', 
+    colors: ["#b00", "#666"],
+    discrete: true, 
+    points: false %>
+  </div>
+
+  <div class="flex items-center space-x-2">
+    <%= image_tag(@stock[:logo_url], width: 50, height: 50) %>
+    <div>
+      <div class="font-bold"><%= @stock[:company].company_name %></div>
+      <div><%= @stock[:symbol] %></div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <%= @stock[:company].description %>
+  </div>
+
+  <div class="flex flex-col py-4 mt-4">
+    <h1 class="font-bold">What's New</h1>
+    <%= image_tag(@stock[:news].last.image, class: "py-4 rounded-m") %>
+    <div class="p-4">
+      <h2 class="font-semibold"><%= link_to @stock[:news].last.headline, @stock[:news].last.url %></h2>
+      <%= @stock[:news].last.summary %>
+    </div>
+  </div>
+</div>
