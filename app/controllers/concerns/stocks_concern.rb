@@ -1,7 +1,7 @@
-module StocksConcern # rubocop:disable Style/Documentation,Style/FrozenStringLiteralComment
+module StocksConcern
   extend ActiveSupport::Concern
 
-  included do # rubocop:disable Metrics/BlockLength
+  included do
     before_action :set_stock_api
 
     def map_stock_list(stock_list)
@@ -30,7 +30,8 @@ module StocksConcern # rubocop:disable Style/Documentation,Style/FrozenStringLit
       chart_data.map { |data| [data.date, data.close] }
     end
 
-    def cache_news(symbol, quantity = nil) # rubocop:disable Metrics/MethodLength
+
+    def cache_news(symbol, quantity = nil)
       Rails.cache.fetch("#{symbol}_news", expires_in: 1.hours) do
         news = if quantity
                  @client.news(symbol, quantity)

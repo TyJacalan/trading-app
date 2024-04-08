@@ -1,0 +1,26 @@
+<%= render_dialog do %>
+  <%= dialog_trigger do %>
+    <%= render_button "Edit account", variant: :outline %>
+  <% end %>
+  <%= dialog_content do %>
+    <%= render_form_for(user, url: admin_user_path(user), method: :put, class: 'flex flex-col gap-4') do |f| %>
+      <div class="flex h-fit w-full flex-row gap-2">
+        <div class="w-1/2">
+          <%= f.label :first_name, required: true %>
+          <%= f.text_field :first_name, autocomplete: "name" %>
+          <%= f.error_message :first_name %>
+        </div>
+        <div class="w-1/2">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, autocomplete: "name" %>
+          <%= f.error_message :last_name %>
+        </div>
+      </div>
+
+      <%= f.label :email, required: true %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+
+      <%= f.submit "Update" %>
+    <% end %>
+  <% end %>
+<% end %>
