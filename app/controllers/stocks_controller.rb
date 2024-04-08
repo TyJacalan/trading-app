@@ -1,11 +1,14 @@
+# frozen_string_literal: true
+
 class StocksController < ApplicationController
   before_action :authorize_user!
-  before_action :set_stock_api, only: [:index]
+  include StocksConcern
 
   def index
-    @quote = @client.price('MSFT')
   end
 
   def show
+    @stock = chart_stock(params[:id])
+    @news_feed = cache_news(params[:id], 5)
   end
 end

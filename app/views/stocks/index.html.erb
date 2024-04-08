@@ -9,11 +9,23 @@
   <li><%= link_to "Transactions", admin_transactions_path %></li>
 </ul>
 
-<div class="mt-6">
-  <h2>Stocks</h2>
-  <ol>
-    <li>MSFT: <%= @quote %></li>
-  </ol>
+<ul class="flex flex-row gap-2">
+  <li><%= link_to "Most Active", root_path(filter: 'most-active') %></li>
+  <li><%= link_to "Gainers", root_path(filter: 'gainers') %></li>
+  <li><%= link_to "Losers", root_path(filter: 'losers') %></li>
+</ul>
+
+<div class="flex space-x-4">
+  <%= link_to "Buy", new_transaction_path(transaction_type: 'buy'), method: :get, class: "button button-primary" %>
+  <%= link_to "Sell", new_transaction_path(transaction_type: 'sell'), method: :get, class: "button button-primary" %>
 </div>
+
+<%= turbo_frame_tag :stocks_articles, src: stocks_articles_path do %>
+  Loading...
+<% end %>
+
+<%= turbo_frame_tag :stocks_tables, src: stocks_tables_path(filter: params[:filter]) do %>
+  Loading...
+<% end %>
 
 <%= button_to "Log out", destroy_user_session_path, method: :delete %>
