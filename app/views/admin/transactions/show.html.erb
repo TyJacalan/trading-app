@@ -1,0 +1,19 @@
+<h1>User Details</h1>
+<ul>
+  <li><%= @user.first_name %></li>
+  <li><%= @user.last_name %></li>
+  <li><%= @user.email %></li>
+  <li><%= link_to "Go to User", admin_user_path(@user) %></li>
+</ul>
+<%= @user.first_name %>
+
+<h1>Transaction Details</h1>
+<ul>
+  <li><%= @transaction.id %></li>
+  <li><%= @transaction.symbol %></li>
+  <li><%= @transaction.transaction_type %></li>
+  <li><%= @transaction.price %></li>
+  <li><%= @transaction.amount %></li>
+  <li><%= @transaction.currency %></li>
+  <li><%= @transaction.created_at %></li>
+</ul>
