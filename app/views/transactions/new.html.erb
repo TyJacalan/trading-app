@@ -1,0 +1,16 @@
+<%= link_to root_path, class: "p-4" do %>
+    <i class="fa fa-arrow-left"></i>
+<% end %>
+
+<div class="flex justify-between">
+  <%= render "form", transaction: @transaction %>
+  
+  <div class="p-4">
+    <h1 class="py-4">Portfolio:</h1>
+    <% if @portfolio.present? %>
+      <%= @portfolio.each do |symbol, balance| %>
+        <p><%= symbol %>: <%= balance %></p>
+      <% end %>
+    <% end %>
+  </div>
+</div>
