@@ -26,4 +26,8 @@ class ApplicationController < ActionController::Base
       endpoint: IEX::Api.config.endpoint
     )
   end
+
+  def set_portfolio
+    @portfolio = aggregate_stocks_by_symbol(current_user.id) || {}
+  end
 end

@@ -10,7 +10,7 @@ module TransactionsConcern # rubocop:disable Style/Documentation
       buy_balance - sell_balance
     end
 
-    def aggregate_balance_by_symbol(user_id)
+    def aggregate_stocks_by_symbol(user_id)
       buy_balances = Transaction.where(user_id:, transaction_type: :buy).group(:symbol).sum(:quantity)
       sell_balances = Transaction.where(user_id:, transaction_type: :sell).group(:symbol).sum(:quantity)
 
