@@ -1,4 +1,6 @@
 class Admin::ApproveRolesController < AdminsController
+  include AdminConcern
+
   def update
     @user = User.find(params[:id])
     approval_status = params[:user][:approved] == "true" ? 'approved' : 'unapproved'
