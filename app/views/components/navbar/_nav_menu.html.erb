@@ -1,0 +1,6 @@
+<div class="hidden lg:flex lg:gap-x-12 items-center">
+  <% links.each do |link| %>
+    <%= link_to link[:name], link[:path] %>
+  <% end %>
+  <%= render 'components/navbar/nav_account_menu' %>
+</div>

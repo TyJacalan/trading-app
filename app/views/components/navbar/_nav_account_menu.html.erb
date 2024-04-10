@@ -1,0 +1,16 @@
+<%= render_dropdown_menu do %>
+  <%= dropdown_menu_trigger do %>
+    <%= render_avatar %>
+  <% end %>
+
+  <%= dropdown_menu_content do %>
+    <%= dropdown_menu_label "My Account" %>
+    <%= render_separator class: "my-1" %>
+    <%= dropdown_menu_item do %>
+      <%= link_to "Profile", edit_user_registration_path %>
+    <% end %>
+    <%= dropdown_menu_item do %>
+      <%= button_to "Logout", destroy_user_session_path, method: :delete %>
+    <% end %>
+  <% end %>
+<% end %>
