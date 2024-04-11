@@ -1,13 +1,22 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class UIFilter extends Controller {
-  static targets = ["source", "item"];
+  static targets = ["source", "items", "item"];
 
   connect() {}
+
+  showItems() {
+    this.itemsTarget.classList.remove("hidden")
+  }
+
+  hideItems() {
+    this.itemsTarget.classList.add("hidden")
+  }
 
   filter(event) {
     let lowerCaseFilterTerm = this.sourceTarget.value.toLowerCase();
     let regex = new RegExp("^" + lowerCaseFilterTerm);
+
     if (this.hasItemTarget) {
       this.itemTargets.forEach((el, i) => {
         let filterableKey = el.innerText.toLowerCase();
