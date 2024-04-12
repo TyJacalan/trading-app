@@ -10,6 +10,6 @@ class StocksTablesController < StocksController
                    @client.stock_market_list(:mostactive, listLimit: 25)
                  end
     @stocks = map_stock_list(stock_list)
-    @name = (filter ? filter.gsub("-", " ").to_s.titleize : :mostactive.to_s.titleize)
+    @name = (filter ? filter.gsub('-', ' ').to_s.titleize : :mostactive.to_s.titleize)
   end
 end

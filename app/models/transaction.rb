@@ -1,40 +1,25 @@
 class Transaction < ApplicationRecord
+  include TransactionsConcern
+
   belongs_to :user
   enum transaction_type: { buy: 0, sell: 1 }
 
-  validates :symbol, :transaction_type, :price, :amount, :currency, presence: true
+  validates :symbol, :transaction_type, :price, :quantity, :currency, presence: true
 
-  validate :validate_amount, if: -> { transaction_type == 'sell' }
+  validate :validate_quantity, if: -> { sell? }
 
-  def self.stock_available_balance(symbol, user_id)
-    buy_balance = where(symbol:, transaction_type: :buy, user_id:).sum('price * amount')
-    sell_balance = where(symbol:, transaction_type: :sell, user_id:).sum('price * amount')
-    buy_balance - sell_balance
-  end
-
-  def self.aggregate_balance_by_symbol(user_id)
-    buy_balances = Transaction.group(:symbol).where(user_id:, transaction_type: :buy).sum('price * amount')
-    sell_balances = Transaction.group(:symbol).where(user_id:, transaction_type: :sell).sum('price * amount')
-
-    aggregated_balances = {}
-
-    buy_balances.each do |symbol, buy_balance|
-      sell_balance = sell_balances[symbol] || 0
-      aggregated_balances[symbol] = buy_balance - sell_balance
-    end
-
-    aggregated_balances
-  end
+  scope :buy, ->(user_id) { where(transaction_type: :buy, user_id:) }
+  scope :sell, ->(user_id) { where(transaction_type: :sell, user_id:) }
+  scope :buy_by_symbol, ->(symbol, user_id) { where(symbol:, transaction_type: :buy, user_id:) }
+  scope :sell_by_symbol, ->(symbol, user_id) { where(symbol:, transaction_type: :sell, user_id:) }
+  scope :by_symbol, ->(symbol, user_id) { where(symbol:, user_id:) }
 
   private
 
-  def validate_amount
-    return unless price && amount
+  def validate_quantity
+    return unless price && quantity
 
-    available_balance = Transaction.stock_available_balance(symbol, user_id)
-    transaction_amount = price * amount
-    return if transaction_amount <= available_balance
-
-    errors.add :amount, 'cannot exceed available balance'
+    available_balance = stock_available_balance(symbol, user_id)
+    errors.add :quantity, 'cannot exceed available balance' if quantity > available_balance
   end
 end
