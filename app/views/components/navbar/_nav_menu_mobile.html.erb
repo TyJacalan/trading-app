@@ -15,6 +15,7 @@
         <% active_link = (request.path == link[:path]) ? "text-foreground" : "" %>
         <%= link_to link[:name], link[:path], class: active_link %>
       <% end %>
+      <%= render 'components/navbar/shared_buttons' %>
     </div>
   <% end %>
 <% end %>    

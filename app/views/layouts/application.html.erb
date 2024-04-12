@@ -15,9 +15,13 @@
   <header>
     <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-6" aria-label="Global">
       <div class="flex lg:flex-1">
-        <%= link_to "Trading App", root_path %>
+        <%= render 'components/navbar/logo' %>
       </div>
-      <%= render 'components/navbar/admin' %>
+      <% if current_user.present? && current_user.role == 'admin' %>
+          <%= render 'components/navbar/admin' %>
+        <% else %>
+          <%= render 'components/navbar/user' %>
+      <% end %>
     </nav>
   </header>
   <body class="flex h-full w-full min-h-screen flex-col">
