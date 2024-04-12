@@ -1,6 +1,10 @@
-<div class="hidden lg:flex lg:gap-x-12 items-center">
+<div class="hidden lg:flex lg:gap-x-12 items-center text-muted-foreground">
+  <% if request.path == admin_users_path %>
+    <%= render partial: 'create_user_form', locals: { user: @user } %>
+  <% end %>
   <% links.each do |link| %>
-    <%= link_to link[:name], link[:path] %>
+    <% active_link = (request.path == link[:path]) ? "text-foreground" : "" %>
+    <%= link_to link[:name], link[:path], class:  active_link %>
   <% end %>
   <%= render 'components/navbar/nav_account_menu' %>
 </div>
