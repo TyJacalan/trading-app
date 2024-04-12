@@ -1,4 +1,6 @@
-module StocksConcern
+# frozen_string_literal: true
+
+module StocksConcern # rubocop:disable Style/Documentation
   extend ActiveSupport::Concern
 
   included do
@@ -44,7 +46,7 @@ module StocksConcern
             headline: article.headline,
             image: article.image,
             summary: article.summary,
-            source: article.source,
+            source: article.source
           }
         end
       end

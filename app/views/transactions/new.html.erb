@@ -3,13 +3,13 @@
 <% end %>
 
 <div class="flex justify-between">
-  <%= render "form", transaction: @transaction, transaction_type: @transaction_type %>
+  <%= render "form", transaction: @transaction %>
   
   <div class="p-4">
     <h1 class="py-4">Portfolio:</h1>
-    <% if @stocks_balance.present? %>
-      <%= @stocks_balance.each do |symbol, balance| %>
-        <p><%= symbol %>: <%= number_to_currency(balance) %></p>
+    <% if @portfolio.present? %>
+      <%= @portfolio.each do |symbol, balance| %>
+        <p><%= symbol %>: <%= balance %></p>
       <% end %>
     <% end %>
   </div>
