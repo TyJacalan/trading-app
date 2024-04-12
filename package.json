@@ -8,6 +8,7 @@
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo-rails": "^8.0.4",
+    "@kanety/stimulus-static-actions": "^1.0.1",
     "@stimulus-components/auto-submit": "^6.0.0",
     "autoprefixer": "latest",
     "chartkick": "^5.0.1",
