@@ -4,9 +4,6 @@
 
 import { application } from "./application"
 
-import AutoSubmit from '@stimulus-components/auto-submit'
-application.register('auto-submit', AutoSubmit)
-
 import Ui__DialogController from "./ui/dialog_controller"
 application.register("ui--dialog", Ui__DialogController)
 

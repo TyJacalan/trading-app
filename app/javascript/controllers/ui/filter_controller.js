@@ -13,6 +13,15 @@ export default class UIFilter extends Controller {
     this.itemsTarget.classList.add("hidden")
   }
 
+  selectItem(event){
+    const selectedItem = event.currentTarget
+    const itemValue = selectedItem.dataset.value
+
+    this.sourceTarget.value = itemValue
+
+    this.itemsTarget.classList.add("hidden")
+  }
+
   filter(event) {
     let lowerCaseFilterTerm = this.sourceTarget.value.toLowerCase();
     let regex = new RegExp("^" + lowerCaseFilterTerm);

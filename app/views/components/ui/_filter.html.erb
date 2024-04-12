@@ -7,17 +7,15 @@
     variant: :borderless, 
     class: input_class, 
     data: {"ui--filter-target": "source", 
-           action: "focus->ui--filter#showItems blur->ui--filter#hideItems input->ui--filter#filter"} %>
+      action: "focus->ui--filter#showItems input->ui--filter#filter"} %>
   </div>
   <%= render_separator %>
   <div class="hidden <%= options[:class] %>" data-ui--filter-target="items">
     <%= content_tag :div, role: "group" do
       items.each do |item| %>
-      <div data-ui--filter-target="item">
-        <div class="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm
-         outline-none aria-selected:bg-accent aria-selected:text-accent-foreground hover:bg-accent hover:text-accent-foreground
-         data-[disabled]:pointer-events-none data-[disabled]:opacity-50" role="option" data-value="Ruby on Rails"><%= item[:name] %></div>
-      </div>
+        <div data-ui--filter-target="item">
+          <%= list_item(value: item[:value], name: item[:name], selected: item[:selected], action: "click->ui--filter#selectItem") %>
+        </div>
       <% end
     end %>
   </div>
