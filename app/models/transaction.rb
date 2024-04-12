@@ -8,6 +8,12 @@ class Transaction < ApplicationRecord
 
   validate :validate_quantity, if: -> { sell? }
 
+  scope :buy, ->(user_id) { where(transaction_type: :buy, user_id:) }
+  scope :sell, ->(user_id) { where(transaction_type: :sell, user_id:) }
+  scope :buy_by_symbol, ->(symbol, user_id) { where(symbol:, transaction_type: :buy, user_id:) }
+  scope :sell_by_symbol, ->(symbol, user_id) { where(symbol:, transaction_type: :sell, user_id:) }
+  scope :by_symbol, ->(symbol, user_id) { where(symbol:, user_id:) }
+
   private
 
   def validate_quantity
