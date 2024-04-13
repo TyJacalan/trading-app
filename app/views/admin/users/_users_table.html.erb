@@ -12,10 +12,14 @@
     <% @users.each do |user| %>
       <%= table_row do %>
         <%= table_column do %>
-          <%= link_to user.first_name, admin_user_path(user), class: 'text-primary' %>
+          <%= link_to user.first_name, admin_user_path(user) %>
         <% end %>
-        <%= table_column user.last_name %>
-        <%= table_column user.email %>
+        <%= table_column do %>
+          <%= link_to user.last_name, admin_user_path(user) %>
+        <% end %>
+        <%= table_column do %>
+          <%= link_to user.email, admin_user_path(user) %>
+        <% end %>
         <%= table_column do %>
           <%= render partial: 'role_form', locals: { user: user } %>
         <% end %>
