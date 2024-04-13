@@ -4,6 +4,9 @@
 
 import { application } from "./application"
 
+import AutoSubmit from '@stimulus-components/auto-submit'
+application.register('auto-submit', AutoSubmit)
+
 import Ui__DialogController from "./ui/dialog_controller"
 application.register("ui--dialog", Ui__DialogController)
 
@@ -12,6 +15,9 @@ application.register("ui--filter", Ui__FilterController)
 
 import Ui__PopoverController from "./ui/popover_controller"
 application.register("ui--popover", Ui__PopoverController)
+
+import Ui__SheetController from "./ui/sheet_controller"
+application.register("ui--sheet", Ui__SheetController)
 
 import Ui__SwitchController from "./ui/switch_controller"
 application.register("ui--switch", Ui__SwitchController)

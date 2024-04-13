@@ -14,7 +14,7 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
   def new
     @transaction = Transaction.new(transaction_type: params[:transaction_type])
     @stocks = [{ value: 'AAPL', name: 'Apple' }, { value: 'GOOGL', name: 'Google' },
-               { value: 'MSFT', name: 'Microsoft' }]
+               { value: 'MSFT', name: 'Microsoft' }] || []
   end
 
   def create
