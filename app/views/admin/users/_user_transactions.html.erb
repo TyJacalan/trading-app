@@ -1,6 +1,6 @@
 <% headers = ["ID", "Type", "Symbol", "Quantity", "Price", "Value", "Created at"] %>
 
-<%= render_card class: 'w-full' do %>
+<%= render_card class: 'w-full p-6' do %>
   <%= render_table do %>
     <%= table_head do %>
       <% headers.each do |header| %>
@@ -27,5 +27,9 @@
         <% end %>
       <% end %>
     <% end %>
+  <% end %>
+
+  <% if @transactions.empty? %>
+    <div class="my-12 w-full text-center text-sm text-muted-foreground">No transactions found.</div>
   <% end %>
 <% end %>
