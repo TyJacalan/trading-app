@@ -2,6 +2,7 @@
 
 class TransactionsController < ApplicationController # rubocop:disable Style/Documentation
   include TransactionsConcern
+  include StocksConcern
 
   before_action :authorize_user!
   before_action :set_portfolio
@@ -13,8 +14,7 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
 
   def new
     @transaction = Transaction.new(transaction_type: params[:transaction_type])
-    @stocks = [{ value: 'AAPL', name: 'Apple' }, { value: 'GOOGL', name: 'Google' },
-               { value: 'MSFT', name: 'Microsoft' }] || []
+    @stocks = search_stock_data.map { |stock| { value: stock[:symbol], name: stock[:name]}} || []
   end
 
   def create
