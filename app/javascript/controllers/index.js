@@ -27,3 +27,6 @@ application.register("ui--switch-mode", Ui__SwitchModeController)
 
 import Ui__ToastController from "./ui/toast_controller"
 application.register("ui--toast", Ui__ToastController)
+
+import TransactionForm from "./transaction_form_controller"
+application.register("transaction-form", TransactionForm)

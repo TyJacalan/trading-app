@@ -18,6 +18,7 @@ export default class UIFilter extends Controller {
     const itemValue = selectedItem.dataset.value
 
     this.sourceTarget.value = itemValue
+    this.sourceTarget.dataset.value = itemValue
 
     this.itemsTarget.classList.add("hidden")
   }
