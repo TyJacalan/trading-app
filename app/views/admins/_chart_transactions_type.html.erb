@@ -1,0 +1,3 @@
+<%= pie_chart @transactions.group(:transaction_type).count,
+  colors: ['#d94545', '#122842']
+%>

@@ -1,0 +1,9 @@
+<%= render_card class: 'w-full lg:flex-1 p-6 text-center' do %>
+  <label class='text-lg text-primary font-bold tracking-tight'>Users over time</label>
+  <%= line_chart User.group_by_day(:created_at).count,
+    xtitle: 'Time', 
+    ytitle: 'Count', 
+    empty: 'No users data', 
+    colors: ['#d94545']
+  %>
+<% end %>
