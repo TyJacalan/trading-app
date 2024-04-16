@@ -1,0 +1,7 @@
+<div class='ml-4 h-6 w-6 rounded-md ring-1 ring-muted-foreground/50 text-center'>
+  <% unless current_page.last? %>
+    <%= link_to url, rel: 'next', remote: remote do %>
+    <i class='fa fa-angle-right' aria-hidden='true'></i>
+  <% end %>
+  <% end %>
+</div>
