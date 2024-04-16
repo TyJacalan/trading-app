@@ -1,13 +1,10 @@
-<%= link_to 'Back', admin_users_path %>
-<ul class='flex flex-col gap-2'>
-  <li><%= @user.first_name %></li>
-  <li><%= @user.last_name %></li>
-  <li><%= @user.email %></li>
-  <li><%= @user.role %></li>
-  <li><%= @user.approved %></li>
-</ul>
-
-<div class='w-96'>
-  <%= render partial: 'edit_user_form', locals: { user: @user } %>
-  <%= render partial: 'delete_user_form', locals: { user: @user } %>
+<div class="flex flex-col h-full w-full gap-4">
+  <div>
+    <%= link_to admin_users_path, class: "text-muted-foreground" do %>
+      <i class="fa fa-arrow-left"></i>
+      <span>Back</span>
+    <% end %>
+  </div>
+  <%= render 'user_details', collection: @user %>
+  <%= render 'user_transactions', collection: @transactions %>
 </div>

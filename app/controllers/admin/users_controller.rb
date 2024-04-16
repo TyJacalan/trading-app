@@ -18,7 +18,9 @@ class Admin::UsersController < AdminsController
              end
   end
 
-  def show; end
+  def show
+    @transactions = @user.transactions.order(created_at: :desc)
+  end
 
   def create
     @user = User.build(user_params)
