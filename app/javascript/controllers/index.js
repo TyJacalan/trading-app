@@ -10,6 +10,9 @@ application.register('auto-submit', AutoSubmit)
 import Ui__DialogController from "./ui/dialog_controller"
 application.register("ui--dialog", Ui__DialogController)
 
+import Ui__FilterController from "./ui/filter_controller"
+application.register("ui--filter", Ui__FilterController)
+
 import Ui__PopoverController from "./ui/popover_controller"
 application.register("ui--popover", Ui__PopoverController)
 
@@ -24,3 +27,6 @@ application.register("ui--switch-mode", Ui__SwitchModeController)
 
 import Ui__ToastController from "./ui/toast_controller"
 application.register("ui--toast", Ui__ToastController)
+
+import TransactionForm from "./transaction_form_controller"
+application.register("transaction-form", TransactionForm)
