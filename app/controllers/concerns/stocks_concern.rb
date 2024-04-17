@@ -8,6 +8,10 @@ module StocksConcern # rubocop:disable Style/Documentation
   included do
     before_action :set_stock_api
 
+    def fetch_stock(symbol)
+      @client.quote(symbol)
+    end
+
     def map_stock_list(stock_list)
       stock_list.map do |stock|
         symbol = stock.symbol
