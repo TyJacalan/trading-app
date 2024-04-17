@@ -19,7 +19,7 @@ module StocksConcern # rubocop:disable Style/Documentation
       end
     end
 
-    def search_stock_data
+    def cache_all_stocks
       Rails.cache.fetch('stock_search_data', expires_in: 1.hour) do
         iex_api = IEXApi.new
         response = iex_api.all_stocks
