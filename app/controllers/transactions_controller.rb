@@ -14,7 +14,6 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
 
   def new
     @transaction = Transaction.new(transaction_type: params[:transaction_type])
-    @stocks = search_stock_data.map { |stock| { value: stock[:symbol], name: stock[:name]}} || []
   end
 
   def create
