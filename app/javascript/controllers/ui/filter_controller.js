@@ -23,21 +23,18 @@ export default class UIFilter extends Controller {
     this.itemsTarget.classList.add("hidden")
   }
 
-  filter(event) {
+  filter() {
 
-    // Clear any previously scheduled filter operation
     clearTimeout(this.filterTimeout)
 
-    // Schedule a new filter operation after a delay
     this.filterTimeout = setTimeout(() => {
       let lowerCaseFilterTerm = this.sourceTarget.value.toLowerCase();
       let regex = new RegExp("^" + lowerCaseFilterTerm);
   
       if (this.hasItemTarget) {
-        this.itemTargets.forEach((el, i) => {
+        this.itemTargets.forEach((el) => {
           let filterableKey = el.innerText.toLowerCase();
   
-          // Check for consecutive characters match using regex
           el.classList.toggle("hidden", !regex.test(filterableKey));
         });
       }
