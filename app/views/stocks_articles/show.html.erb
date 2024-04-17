@@ -1,11 +1,16 @@
 <%= turbo_frame_tag :stocks_articles do %>
-  <div>
-    <% @news_feed.each do |article| %>
-      <%= image_tag(article[:image], class: "h-36 w-36 py-4 rounded-m") %>
-      <h2><%= article[:source] %></h2>
-      <span><%= article[:datetime] %></span>
-      <h1><%= article[:headline] %></h1>
-      <p><%= article[:summary] %></p>
-    <% end %>
-  </div>
+    <div>
+      <% @news_feed.each do |article| %>
+        <div class="flex justify-between border-b border-b-gray-200">
+          <div class="flex flex-col py-4">
+            <div class="flex text-xs text-gray-300 gap-2">
+              <h2><%= article[:source] %></h2>
+              <span><%= article[:datetime] %></span>
+            </div>
+            <h1 class="font-semibold"><%= article[:headline] %></h1>
+          </div>
+          <%= image_tag(article[:image], class: "h-24 w-24 py-4 rounded") %>
+        </div>
+      <% end %>
+    </div>
 <% end %>

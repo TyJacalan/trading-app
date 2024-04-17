@@ -1,31 +1,84 @@
-<h1>Stocks</h1>
 
-<h2>Pages</h2>
-<ul>
-  <li><%= link_to 'Home', root_path %></li>
-  <li><%= link_to 'Porfolio', portfolios_path %></li>
-  <li><%= link_to 'Transactions', transactions_path %></li>
-  <li><%= link_to "Users", admin_users_path %></li>
-  <li><%= link_to "Transactions", admin_transactions_path %></li>
-</ul>
-
-<ul class="flex flex-row gap-2">
-  <li><%= link_to "Most Active", root_path(filter: 'most-active') %></li>
-  <li><%= link_to "Gainers", root_path(filter: 'gainers') %></li>
-  <li><%= link_to "Losers", root_path(filter: 'losers') %></li>
-</ul>
 
 <div class="flex space-x-4">
   <%= link_to "Buy", new_transaction_path(transaction_type: 'buy'), method: :get, class: "button button-primary" %>
   <%= link_to "Sell", new_transaction_path(transaction_type: 'sell'), method: :get, class: "button button-primary" %>
 </div>
 
-<%= turbo_frame_tag :stocks_articles, src: stocks_articles_path do %>
-  Loading...
-<% end %>
+<div class="flex flex-col gap-2">
 
-<%= turbo_frame_tag :stocks_tables, src: stocks_tables_path(filter: params[:filter]) do %>
-  Loading...
-<% end %>
+  <div class="flex w-full justify-center items-center p-4">
+    <%= render_filter @stocks, placeholder: "Search for stocks", data: { action: ""}, class: "rounded-md" do %>
+      <%= filter_icon do %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-4 w-4 shrink-0 opacity-50 ml-2"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+      <% end %>
+    <% end %>
+  </div>
 
-<%= button_to "Log out", destroy_user_session_path, method: :delete %>
+  <div class="flex flex-col lg:flex-row gap-2">
+    <div class="w-full lg:w-3/5">
+      <!-- Today's Financial News -->
+      <%= render_card title: "Today's Financial news", class: "w-full p-4" do %>
+        <%= turbo_frame_tag :stocks_articles, src: stocks_articles_path do %>
+          <%= render_skeleton %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="flex flex-col w-full lg:w-2/5 gap-2">
+      <!-- Market Trends -->
+      <%= render_card title: "Market trends", class: "p-4 w-full" do %>
+        <ul class="flex flex-row flex-wrap gap-2">
+          <li>
+            <%= link_to stocks_tables_path(filter: 'most-active'), class: "border rounded-full py-1 px-3" do %>
+              <i class="fas fa-chart-line mr-1"></i> Most Active
+            <% end %>
+          </li>
+          <li>
+            <%= link_to stocks_tables_path(filter: 'gainers'), class: "border rounded-full py-1 px-3" do %>
+              <i class="fas fa-caret-up text-green-500 mr-1"></i> Gainers
+            <% end %>
+          </li>
+          <li>
+            <%= link_to stocks_tables_path(filter: 'losers'), class: "border rounded-full py-1 px-3" do %>
+              <i class="fas fa-caret-down text-red-500 mr-1"></i> Losers
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
+
+      <!-- You may be interested in -->
+      <%= render_card title: "You may be interested in", class: "p-4 w-full" do %>
+        <%= turbo_frame_tag :stocks_tables, src: stocks_tables_path(filter: 'most-active') do %>
+          <% render_skeleton %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Market Trends -->
+  <%= render_card title: "Market trends", class: "w-full p-4" do %>
+    <ul class="flex flex-row gap-2">
+      <li>
+        <%= link_to stocks_tables_path(filter: 'most-active'), data: { turbo_frame: 'market_trends_frame', controller: 'update-link-appearance' }, class: "border rounded-full py-1 px-3" do %>
+          <i class="fas fa-chart-line mr-1"></i> Most Active
+        <% end %>
+      </li>
+      <li>
+        <%= link_to stocks_tables_path(filter: 'gainers'), data: { turbo_frame: 'market_trends_frame', controller: 'update-link-appearance' }, class: "border rounded-full py-1 px-3" do %>
+          <i class="fas fa-caret-up text-green-500 mr-1"></i> Gainers
+        <% end %>
+      </li>
+      <li>
+        <%= link_to stocks_tables_path(filter: 'losers'), data: { turbo_frame: 'market_trends_frame', controller: 'update-link-appearance' }, class: "border rounded-full py-1 px-3" do %>
+          <i class="fas fa-caret-down text-red-500 mr-1"></i> Losers
+        <% end %>
+      </li>
+    </ul>
+
+    <%= turbo_frame_tag 'market_trends_frame', src: stocks_tables_path(filter: params[:filter]) do %>
+      <%= render_skeleton %>
+    <% end %>
+  <% end %>
+
+</div>

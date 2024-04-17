@@ -53,11 +53,28 @@ module StocksConcern # rubocop:disable Style/Documentation
 
         news.map do |article|
           {
-            datetime: article.datetime.strftime('%Y-%m-%d'),
+            datetime: article.datetime,
             headline: article.headline,
             image: article.image,
             summary: article.summary,
             source: article.source
+          }
+        end
+      end
+    end
+
+    def display_all_news
+      Rails.cache.fetch('index_news', expires_in: 1.hour) do
+        iex_api = IEXApi.new
+        response = iex_api.all_news
+        news = response.success? ? response.parsed_response : []
+        news.map do |article|
+          {
+            datetime: article['datetime'],
+            headline: article['headline'],
+            image: article['image'],
+            summary: article['summary'],
+            source: article['source']
           }
         end
       end
