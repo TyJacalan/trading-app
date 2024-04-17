@@ -3,12 +3,6 @@
 <% end %>
 
 <div class="flex justify-between">
-  <%= form_with url: stocks_search_path, method: :get, data: { controller: 'auto-submit' } do |f| %>
-    <%= f.text_field :query, data: { action: 'input->auto-submit#submit' } %>
-    <turbo-frame id="suggestions">
-      <%= render partial: 'stocks_search/suggestions', locals: { 
-        suggestions: @suggestions } %>
-    </turbo-frame>
-  <% end %>
+  <%= render 'stocks_search/form' %>
   <%= render "form", transaction: @transaction, items: @stocks %>
 </div>

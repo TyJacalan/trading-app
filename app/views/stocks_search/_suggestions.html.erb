@@ -1,8 +1,10 @@
-<ul>
-  <p>suggestions: <%= @suggestions %></p>
-  <% unless @suggestions.nil? %>
-    <% @suggestions.each do |suggestion| %>
-      <li><%= suggestion %></li>
+<% unless @suggestions.nil? || @suggestions.empty? %>
+  <ul>
+    <% @suggestions.cycle.take([@suggestions.count, 5].min).each do |item| %>
+      <%= list_item(value: item[:value], 
+                    name: item[:name], 
+                    selected: item[:selected], 
+                    action: "click->ui--filter#selectItem") %>
     <% end %>
-  <% end %>
-</ul>
+  </ul>
+<% end %>
