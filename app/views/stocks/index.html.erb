@@ -1,12 +1,10 @@
-
-
 <div class="flex space-x-4">
   <%= link_to "Buy", new_transaction_path(transaction_type: 'buy'), method: :get, class: "button button-primary" %>
   <%= link_to "Sell", new_transaction_path(transaction_type: 'sell'), method: :get, class: "button button-primary" %>
 </div>
 
 <div class="flex flex-col gap-2">
-
+  <!-- Search stocks -->
   <div class="flex w-full justify-center items-center p-4">
     <%= render_filter @stocks, placeholder: "Search for stocks", data: { action: ""}, class: "rounded-md" do %>
       <%= filter_icon do %>
@@ -49,7 +47,7 @@
 
       <!-- You may be interested in -->
       <%= render_card title: "You may be interested in", class: "p-4 w-full" do %>
-        <%= turbo_frame_tag :stocks_tables, src: stocks_tables_path(filter: 'most-active') do %>
+        <%= turbo_frame_tag :stocks_tables, src: stocks_tables_path(filter: 'iexvolume') do %>
           <% render_skeleton %>
         <% end %>
       <% end %>
@@ -60,7 +58,7 @@
   <%= render_card title: "Market trends", class: "w-full p-4" do %>
     <ul class="flex flex-row gap-2">
       <li>
-        <%= link_to stocks_tables_path(filter: 'most-active'), data: { turbo_frame: 'market_trends_frame', controller: 'update-link-appearance' }, class: "border rounded-full py-1 px-3" do %>
+        <%= link_to stocks_tables_path(filter: 'most-active'), data: { turbo_frame: 'market_trends_frame', controller: 'update-link-appearance' }, class: "border rounded-full py-1 px-3 bg-blue-100" do %>
           <i class="fas fa-chart-line mr-1"></i> Most Active
         <% end %>
       </li>
