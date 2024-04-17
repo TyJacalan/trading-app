@@ -1,6 +1,6 @@
 class StocksSearchController < StocksController
-  def suggestions
-    query = params[:query].downcase
+  def show
+    query = params[:query].present? ? params[:query].downcase : '*'
 
     @stocks = cache_all_stocks
     @suggestions = @stocks.select { |stock| stock[:symbol].downcase.include?(query) }
