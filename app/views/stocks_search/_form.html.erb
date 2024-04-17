@@ -1,0 +1,7 @@
+<%= form_with url: stocks_search_path, method: :get do |f| %>
+  <%= f.text_field :query %>
+  <turbo-frame id="suggestions">
+    <%= render partial: 'stocks_search/suggestions', locals: { 
+      suggestions: @suggestions } %>
+  </turbo-frame>
+<% end %>

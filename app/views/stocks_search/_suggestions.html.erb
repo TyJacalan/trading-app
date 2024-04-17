@@ -1,0 +1,8 @@
+<ul>
+  <p>suggestions: <%= @suggestions %></p>
+  <% unless @suggestions.nil? %>
+    <% @suggestions.each do |suggestion| %>
+      <li><%= suggestion %></li>
+    <% end %>
+  <% end %>
+</ul>
