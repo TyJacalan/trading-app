@@ -13,4 +13,8 @@ class IEXApi # rubocop:disable Style/Documentation
   def all_stocks
     self.class.get('/REF_DATA', @options)
   end
+
+  def all_news
+    self.class.get('/news?last=10', @options)
+  end
 end
