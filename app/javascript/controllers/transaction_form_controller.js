@@ -18,14 +18,11 @@ export default class TransactionForm extends Controller {
 
         const symbolField = this.element.querySelector("[name='transaction[symbol]']")
         const priceField = this.element.querySelector("[name='transaction[price]']")
-        const currencyField = this.element.querySelector("[name='transaction[currency]']")
         const symbolValue = selectedItem.dataset.value
         const priceValue = '100'
-        const currencyValue = 'USD'
         
         symbolField.value = symbolValue
         priceField.value = priceValue
-        currencyField.value = currencyValue
     }
 
 

@@ -3,5 +3,15 @@
 <% end %>
 
 <% if current_user.role == 'standard' %>
-  <%= render_button "Buy / Sell", href: new_transaction_path, variant: :outline, class: 'w-fit' %>
+  <%= render_dialog do %>
+    <%= dialog_trigger do %>
+      <%= render_button("Buy / Sell", variant: :outline) %>
+    <% end %>
+    <%= dialog_content do %>
+      <div class="w-full">
+        <h1 class="font-semibold">Buy / Sell stock</h1>
+        <%= render "transactions/form", transaction: @transaction, items: @stocks %>
+      </div>
+    <% end %>
+  <% end %>
 <% end %>

@@ -1,16 +1,18 @@
-<%= link_to root_path, class: "p-4" do %>
-    <i class="fa fa-arrow-left"></i>
-<% end %>
+<%= turbo_frame_tag "transaction_frame" do %>
+  <%= link_to root_path, class: "p-4" do %>
+      <i class="fa fa-arrow-left"></i>
+  <% end %>
 
-<div class="flex justify-between">
-  <%= render "form", transaction: @transaction, items: @stocks %>
-  
-  <div class="p-4">
-    <h1 class="py-4">Portfolio:</h1>
-    <% if @portfolio.present? %>
-      <%= @portfolio.each do |symbol, balance| %>
-        <p><%= symbol %>: <%= balance %></p>
+  <div class="flex justify-between">
+    <%= render "form", transaction: @transaction, items: @stocks %>
+    
+    <div class="p-4">
+      <h1 class="py-4">Portfolio:</h1>
+      <% if @portfolio.present? %>
+        <%= @portfolio.each do |symbol, balance| %>
+          <p><%= symbol %>: <%= balance %></p>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>

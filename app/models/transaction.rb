@@ -4,7 +4,7 @@ class Transaction < ApplicationRecord
   belongs_to :user
   enum transaction_type: { buy: 0, sell: 1 }
 
-  validates :symbol, :transaction_type, :price, :quantity, :currency, presence: true
+  validates :symbol, :transaction_type, :price, :quantity, presence: true
 
   validate :validate_quantity, if: -> { sell? }
 

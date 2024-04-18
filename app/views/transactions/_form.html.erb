@@ -1,29 +1,34 @@
-<div class="flex flex-col justify-center p-4" data-controller="transaction-form">
+<div class="flex items-center justify-center p-4" data-controller="transaction-form">
 
-  <%= render_filter items, placeholder: "Search Stock", data: { action: "click->transaction-form#updateSymbol"}, class: "p-1" do %>
-    <%= filter_icon do %>
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-4 w-4 shrink-0 opacity-50 ml-2"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
-    <% end %>
-  <% end %>
+  <%#= render_card title: "Buy / Sell stock" do %>
+    <div class="p-4">
+      <%= render_filter items, placeholder: "Search Stock", data: { action: "click->transaction-form#updateSymbol"}, class: "p-1" do %>
+        <%= filter_icon do %>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-4 w-4 shrink-0 opacity-50 ml-2"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+        <% end %>
+      <% end %>
 
-  <%= form_with model: transaction do |form| %>
-    <div class="flex flex-col justify-center p-4">
+      <%= render_form_for(transaction) do |form| %>
+        <div class="flex flex-col justify-center items-center p-4">
 
-      <%= form.label :symbol, "Symbol" %>
-      <%= form.text_field :symbol %>
+          <%= form.label :symbol, class: "label-left" %>
+          <%= form.text_field :symbol %>
 
-      <%= form.label :price, "Price" %>
-      <%= form.text_field :price %>
-      
-      <%= form.label :currency, "Currency" %>
-      <%= form.text_field :currency %>
+          <%= form.label :price, class: "text-right" %>
+          <%= form.number_field :price %>
 
-      <%= form.label :quantity, "Quantity" %>
-      <%= form.text_field :quantity %>
+          <%= form.label :quantity, class: "text-right" %>
+          <%= form.number_field :quantity %>
 
-      <%= form.hidden_field :transaction_type, class: "form-control" %>
+          <%= form.hidden_field :transaction_type, class: "form-control" %>
 
-      <%= form.submit transaction.transaction_type.capitalize, class: "p-4 cursor-pointer button button-primary" %>
+          <%#= form.submit transaction.transaction_type.capitalize, class: "p-4 cursor-pointer button button-primary" %>
+          <div class="flex justify-center items-center gap-2 p-4">
+            <%= form.submit "Buy", class: "p-4 cursor-pointer button button-primary" %>
+            <%= form.submit "Sell", class: "p-4 cursor-pointer button button-primary" %>
+          </div>
+        </div>
+      <% end %>
     </div>
-  <% end %>
+  <%# end %>
 </div>
