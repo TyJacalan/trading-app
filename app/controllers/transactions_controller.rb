@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class TransactionsController < ApplicationController # rubocop:disable Style/Documentation
-  include TransactionsConcern
-  include StocksConcern
-
   before_action :authorize_user!
+  before_action :set_stock_api
   before_action :set_portfolio
   before_action :set_transaction, only: %i[new create]
+  include StocksConcern
+
 
   def index
     @transactions = current_user.transactions
@@ -14,7 +14,6 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
 
   def new
     @transaction = Transaction.new(transaction_type: params[:transaction_type])
-    @stocks = search_stock_data.map { |stock| { value: stock[:symbol], name: stock[:name]}} || []
   end
 
   def create
