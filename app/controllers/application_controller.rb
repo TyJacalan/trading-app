@@ -19,6 +19,8 @@ class ApplicationController < ActionController::Base
     redirect_to '/422' unless current_user.admin?
   end
 
+  public
+
   def set_stock_api
     @client = IEX::Api::Client.new(
       publishable_token: IEX::Api.config.publishable_token,
@@ -28,6 +30,6 @@ class ApplicationController < ActionController::Base
   end
 
   def set_portfolio
-    @portfolio = aggregate_stocks_by_symbol(current_user.id) || {}
+    @portfolio = Transaction.aggregate_stocks_by_symbol(current_user.id) || []
   end
 end
