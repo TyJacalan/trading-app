@@ -1,19 +1,26 @@
-<div class="container p-4">
-    <% stocks.take(5).each do |stock| %>
-      <div class="flex justify-between w-full space-x-4 p-4 border-b border-b-gray-200 cursor:pointer hover:bg-gray-200">
-        <div class="flex items-center space-x-2">
+<%= render_table do %>
+  <%= table_body do %>
+    <% stocks.each do |stock| %>
+      <%= table_row class: 'flex flex-row' do %>
+        <%= table_column do %>
           <%= image_tag(stock[:logo_url], width: 25, height: 25) if stock[:logo_url].present? %>
-          <div class="flex flex-col justify-center">
-            <%= link_to stock[:company_name], stock_path(stock[:symbol]), class: "font-semibold", data: { turbo: false } %>
-            <span class="text-sm text-gray-500"><%= stock[:symbol] %></span>
-          </div>
-        </div>
-        <div class="flex justify-center items-center gap-2">
-          <div class="font-semibold"><%= number_to_currency(stock[:price], precision: 2) %></div>
-          <%= content_tag :div, class: stock[:change].to_f < 0 ? "bg-red-100 px-2 rounded" : "bg-green-100 px-2 rounded" do %>
-            <%= content_tag :div, stock[:change], class: stock[:change].to_f < 0 ? "text-red-500" : "text-green-500" %>
-          <% end %>
-        </div>
-      </div>
+        <% end %>
+        <%= table_column class: 'flex-1 p-4 align-middle' do %>
+          <%= link_to stock[:company_name], 
+            stock_path(stock[:symbol]),
+            class: 'whitespace-nowrap overflow-hidden',
+            data: { turbo: false } %>
+          <br><span class="text-sm text-muted-foreground"><%= stock[:symbol] %></span>
+        <% end %>
+        <%= table_column do %>
+          <span><%= number_to_currency(stock[:price], precision: 2) %></span>
+        <% end %>
+        <%= table_column do %>
+          <span class="<%= stock[:change].to_f < 0 ? 'text-destructive' : 'text-success' %>">
+            <%= stock[:change] %>
+          </span>
+        <% end %>
+      <% end %>
     <% end %>
-  </div>
+  <% end %>
+<% end %>
