@@ -8,7 +8,7 @@
         </div>
         <h1 class="font-medium"><%= article[:headline] %></h1>
       </div>
-      <%= image_tag(article[:image], src: article[:image_url], class: "h-auto w-full md:w-24 object-cover rounded") %>
+      <%= image_tag(article[:image], class: "h-auto w-full md:w-24 object-cover rounded") %>
     </div> 
     <%= render_separator class: 'my-4' %>
   <% end %>

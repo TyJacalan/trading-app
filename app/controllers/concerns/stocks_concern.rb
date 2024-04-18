@@ -60,7 +60,6 @@ module StocksConcern # rubocop:disable Style/Documentation
             datetime: article.datetime,
             headline: article.headline,
             image: article.image,
-            image_url: article.imageUrl,
             summary: article.summary,
             source: article.source
           }
