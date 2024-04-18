@@ -6,9 +6,9 @@ export default class UpdateLinkAppearance extends Controller {
       this.element.addEventListener("click", () => {
 
         const links = document.querySelectorAll(`[data-controller="${this.element.dataset.controller}"]`)
-        links.forEach(link => link.classList.remove("bg-blue-100"))
+        links.forEach(link => link.classList.remove("bg-accent"))
 
-        this.element.classList.add("bg-blue-100")
+        this.element.classList.add("bg-accent")
       })
     }
 
