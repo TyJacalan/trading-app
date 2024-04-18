@@ -1,8 +1,12 @@
 <div class="w-full mb-6 font-thin text-xs hover:underline">
-  <%= render_breadcrumbs :separator => ' > ' %>
+  <%# render_breadcrumbs :separator => ' > ' %>
 </div>
 
-<h1 class="text-3xl font-bold mb-6">My Portfolio</h1>
+<%= render 'components/text/header' do %>
+  My Portfolio
+<% end %>
+
+<%= render_separator class: 'my-6' %>
 
 <div class="flex flext-col gap-2">
   <%= render_card title: "#{number_to_currency(@total_value, precision: 2)}" do %>
@@ -11,35 +15,32 @@
 
   <%= render_card title: "Portfolio Overview", class: "w-full p-4" do %>
     <% if @portfolio.present? %>
-      <table class="min-w-full w-full divide-y divide-gray-200">
-        <thead class="border-b">
-          <tr>
-            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Symbol</th>
-            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company Name</th>
-            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
-            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Change</th>
-            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Day Gain</th>
-            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
+      <%= render_table do %>
+        <%= table_head do %>
+          <%= table_header 'Symbol' %>
+          <%= table_header 'Company Name' %>
+          <%= table_header 'Price' %>
+          <%= table_header 'Quantity' %>
+          <%= table_header 'Change' %>
+          <%= table_header 'Gain (1d)' %>
+          <%= table_header 'Value' %>
+        <% end %>
+        <%= table_body do %>
           <% @portfolio.each do |stock| %>
-            <tr class="border-b">
-              <td class="px-6 py-4 whitespace-nowrap font-semibold"><%= stock[:symbol] %></td>
-              <td class="px-6 py-4 whitespace-nowrap"><%= stock[:name] %></td>
-              <td class="px-6 py-4 whitespace-nowrap"><%= number_to_currency(stock[:price], precision: 2) %></td>
-              <td class="px-6 py-4 whitespace-nowrap"><%= stock[:quantity] %></td>
-              <td class="px-6 py-4 whitespace-nowrap"><%= content_tag :div, stock[:change], class: stock[:change].to_d < 0 ? "text-red-500" : "text-green-500" %></td>
-              <td class="px-6 py-4 whitespace-nowrap"><%= content_tag :div, "#{stock[:day_gain]}%", class: stock[:day_gain].to_f < 0 ? "text-red-500" : "text-green-500" %></td>
-              <td class="px-6 py-4 whitespace-nowrap"><%= number_to_currency(stock[:value], precision: 2) %></td>
-            </tr>
+            <%= table_row do %>
+              <%= table_column stock[:symbol] %>
+              <%= table_column stock[:name] %>
+              <%= table_column number_to_currency(stock[:price], precision: 2) %>
+              <%= table_column stock[:quantity].to_s %>
+              <%= table_column stock[:change], class: stock[:change].to_d < 0 ? 'text-destructive' : 'text-success' %>
+              <%= table_column number_to_currency(stock[:day_gain], precision: 2), class: stock[:day_gain].to_f < 0 ? 'text-destructive' : 'text-success' %>
+              <%= table_column number_to_currency(stock[:value], precision: 2) %>
+            <% end %>
           <% end %>
-        </tbody>
-      </table>
-
+        <% end %>
+      <% end %>
     <% else %>
-      <p class="text-gray-500">Your portfolio is empty.</p>
+      <p class="w-full px-6 text-muted-foreground">Your portfolio is empty.</p>
     <% end %>
   <% end %>
 </div>
