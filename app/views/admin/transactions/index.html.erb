@@ -1,17 +1,25 @@
-<h1>Admin Transactions</h1>
-
-<table>
-  <tbody>
-    <% @transactions.each do |transaction| %>
-        <tr>
-          <td><%= transaction.id %></td>
-          <td><%= transaction.symbol %></td>
-          <td><%= transaction.transaction_type %></td>
-          <td><%= transaction.price %></td>
-          <td><%= transaction.user_id %></td> 
-          <td><%= transaction.created_at %></td>
-          <td><%= link_to "Show", admin_transaction_path(transaction) %>
-        </tr>
+<% headers = ['Id', 'Symbol', 'Type', 'Price', 'User Id', 'Created At', ''] %>
+<%= render_card class: 'w-full p-6' do %>
+  <%= render_table do %>
+    <%= table_head do %>
+      <% headers.each do |header| %>
+        <%= table_header header %>
+      <% end %>
     <% end %>
-  </tbody>
-</table>
+    <%= table_body do %>
+      <% @transactions.each do |transaction| %>
+        <%= table_row do %>
+          <%= table_column transaction.id.to_s %>
+          <%= table_column transaction.symbol %>
+          <%= table_column transaction.transaction_type %>
+          <%= table_column number_to_currency(transaction.price, precision: 2) %>
+          <%= table_column transaction.user_id.to_s %>
+          <%= table_column transaction.created_at.strftime('%Y-%m-%d') %>
+          <%= table_column do %>
+            <%= link_to "Show", admin_transaction_path(transaction) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
