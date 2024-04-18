@@ -1,12 +1,12 @@
 <div class="w-full mb-6 font-thin text-xs hover:underline">
-  <%# render_breadcrumbs :separator => ' > ' %>
+  <%= render_breadcrumbs :separator => ' > ' %>
 </div>
 
 <%= render 'components/text/header' do %>
   My Portfolio
 <% end %>
 
-<%= render_separator class: 'my-6' %>
+<%= render_separator class: 'my-6'%>
 
 <div class="flex flext-col gap-2">
   <%= render_card title: "#{number_to_currency(@total_value, precision: 2)}" do %>

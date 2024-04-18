@@ -4,8 +4,8 @@ class PortfoliosController < ApplicationController
   before_action :set_portfolio
   before_action :set_stock_api
 
-#  add_breadcrumb "Home", :root_path
-  #add_breadcrumb "My Portfolio", :portfolios_path
+  add_breadcrumb "Home", :root_path
+  add_breadcrumb "My Portfolio", :portfolios_path
 
   def index
     @total_value = @portfolio.sum { |stock| stock[:value] }
