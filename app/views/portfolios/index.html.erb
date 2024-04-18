@@ -1,4 +1,4 @@
-<div class="w-full mb-6 font-thin text-xs hover:underline">
+<div class="w-full mb-6 font-thin text-xs cursor-pointer">
   <%= render_breadcrumbs :separator => ' > ' %>
 </div>
 
@@ -22,7 +22,6 @@
           <%= table_header 'Price' %>
           <%= table_header 'Quantity' %>
           <%= table_header 'Change' %>
-          <%= table_header 'Gain (1d)' %>
           <%= table_header 'Value' %>
         <% end %>
         <%= table_body do %>
@@ -33,7 +32,6 @@
               <%= table_column number_to_currency(stock[:price], precision: 2) %>
               <%= table_column stock[:quantity].to_s %>
               <%= table_column stock[:change], class: stock[:change].to_d < 0 ? 'text-destructive' : 'text-success' %>
-              <%= table_column number_to_currency(stock[:day_gain], precision: 2), class: stock[:day_gain].to_f < 0 ? 'text-destructive' : 'text-success' %>
               <%= table_column number_to_currency(stock[:value], precision: 2) %>
             <% end %>
           <% end %>
