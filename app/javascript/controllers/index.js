@@ -30,3 +30,9 @@ application.register("ui--toast", Ui__ToastController)
 
 import TransactionForm from "./transaction_form_controller"
 application.register("transaction-form", TransactionForm)
+
+import UpdateLinkAppearance from "./update_link_appearance_controller"
+application.register("update-link-appearance", UpdateLinkAppearance)
+
+import HeaderShadow from "./header_shadow_controller"
+application.register("header-shadow", HeaderShadow)

@@ -1,0 +1,26 @@
+<%= render_table do %>
+  <%= table_body do %>
+    <% stocks.each do |stock| %>
+      <%= table_row class: 'flex flex-row' do %>
+        <%= table_column do %>
+          <%= image_tag(stock[:logo_url], width: 25, height: 25) if stock[:logo_url].present? %>
+        <% end %>
+        <%= table_column class: 'flex-1 p-4 align-middle' do %>
+          <%= link_to stock[:company_name], 
+            stock_path(stock[:symbol]),
+            class: 'whitespace-nowrap overflow-hidden',
+            data: { turbo: false } %>
+          <br><span class="text-sm text-muted-foreground"><%= stock[:symbol] %></span>
+        <% end %>
+        <%= table_column do %>
+          <span><%= number_to_currency(stock[:price], precision: 2) %></span>
+        <% end %>
+        <%= table_column do %>
+          <span class="<%= stock[:change].to_f < 0 ? 'text-destructive' : 'text-success' %>">
+            <%= stock[:change] %>
+          </span>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

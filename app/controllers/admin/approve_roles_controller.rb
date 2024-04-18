@@ -1,4 +1,5 @@
 class Admin::ApproveRolesController < AdminsController
+  include AdminConcern
   include UserCacheManagement
 
   def update
