@@ -3,11 +3,13 @@ source 'https://rubygems.org'
 ruby '3.3.0'
 
 gem 'bootsnap', require: false
+gem 'breadcrumbs_on_rails'
 gem 'chartkick'
 gem 'cssbundling-rails'
 gem 'devise'
 gem 'font-awesome-sass'
 gem 'groupdate'
+gem 'httparty', '~> 0.21.0'
 gem 'iex-ruby-client'
 gem 'jsbundling-rails'
 gem 'kaminari'
@@ -30,5 +32,3 @@ end
 group :development do
   gem 'web-console'
 end
-
-gem "httparty", "~> 0.21.0"

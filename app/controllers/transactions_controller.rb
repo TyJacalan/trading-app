@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
 class TransactionsController < ApplicationController # rubocop:disable Style/Documentation
-  include TransactionsConcern
-  include StocksConcern
-
   before_action :authorize_user!
+  before_action :set_stock_api
   before_action :set_portfolio
   before_action :set_transaction, only: %i[new create]
+  include StocksConcern
+
 
   def index
     @transactions = current_user.transactions
