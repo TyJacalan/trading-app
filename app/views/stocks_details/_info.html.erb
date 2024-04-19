@@ -1,25 +1,23 @@
-<% if details.nil? || details.empty? %>
-  <p class='text-sm text-center text-muted-foreground font-bold mt-4'>No stock selected</p>
-<% else %>
+<% if details %>
   <div class="flex flex-col gap-2">
-    <%= render_card title: "#{details.company_name}", class: "w-full" do %>
-      <%= line_chart chart_data,
-        id: 'stock-chart',
-        xtitle: 'Date',
-        ytitle: 'Close Price',
-        discrete: true,
-        points: false
-      %>
-    <% end %>
+    <%= line_chart chart_data,
+      id: 'stock-chart',
+      xtitle: 'Date',
+      ytitle: 'Close Price',
+      discrete: true,
+      points: false
+    %>
     <%= render_card do %>
-      <div class="flex flex-col gap-2 p-4 w-full">
-        <%= "Average Total Volume: #{details.avg_total_volume}"  %>
-        <%= "Change: #{details.change_percent_s}"  %>
-        <%= "Latest Price: #{details.latest_price}"  %>
-        <%= "PE Ratio: #{details.pe_ratio}"  %>
-        <%= "Previous Close: #{details.previous_close}"  %>
-        <%= "Primary Exchange: #{details.primary_exchange}"  %>
-      </div>
-    <% end %>
-  </div>
+        <div class="flex flex-col gap-2 p-4 w-full">
+          <%= "Average Total Volume: #{details.avg_total_volume}"  %>
+          <%= "Change: #{details.change_percent_s}"  %>
+          <%= "Latest Price: #{details.latest_price}"  %>
+          <%= "PE Ratio: #{details.pe_ratio}"  %>
+          <%= "Previous Close: #{details.previous_close}"  %>
+          <%= "Primary Exchange: #{details.primary_exchange}"  %>
+        </div>
+      <% end %>
+     </div>
+<% else %>
+  <p class='text-sm text-center text-muted-foreground font-bold mt-4'>No stock selected</p>
 <% end %> 
