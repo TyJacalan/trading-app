@@ -8,6 +8,10 @@ module StocksConcern # rubocop:disable Style/Documentation
   included do
     before_action :set_stock_api
 
+    def fetch_stock(symbol)
+      @client.quote(symbol)
+    end
+
     def map_stock_list(stock_list)
       stock_list.map do |stock|
         symbol = stock.symbol
@@ -19,7 +23,7 @@ module StocksConcern # rubocop:disable Style/Documentation
       end
     end
 
-    def search_stock_data
+    def cache_all_stocks
       Rails.cache.fetch('stock_search_data', expires_in: 1.hour) do
         iex_api = IEXApi.new
         response = iex_api.all_stocks
@@ -53,11 +57,28 @@ module StocksConcern # rubocop:disable Style/Documentation
 
         news.map do |article|
           {
-            datetime: article.datetime.strftime('%Y-%m-%d'),
+            datetime: article.datetime,
             headline: article.headline,
             image: article.image,
             summary: article.summary,
             source: article.source
+          }
+        end
+      end
+    end
+
+    def display_all_news
+      Rails.cache.fetch('index_news', expires_in: 1.hour) do
+        iex_api = IEXApi.new
+        response = iex_api.all_news
+        news = response.success? ? response.parsed_response : []
+        news.map do |article|
+          {
+            datetime: article['datetime'],
+            headline: article['headline'],
+            image: article['image'],
+            summary: article['summary'],
+            source: article['source']
           }
         end
       end

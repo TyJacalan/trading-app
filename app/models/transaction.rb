@@ -34,7 +34,6 @@ class Transaction < ApplicationRecord
         quantity: stock_quantity,
         price_average: stock_price_average(symbol, user_id),
         price: stock.latest_price,
-        day_gain: calculate_day_gain(stock.latest_price, quantity, symbol, user_id),
         value: stock.latest_price * stock_quantity
       }
     end
@@ -63,14 +62,5 @@ class Transaction < ApplicationRecord
 
     total_count.zero? ? 0 : total_weighted_price.to_d / total_count
   end
-
-  def self.calculate_day_gain(latest_price, quantity, symbol, user_id)
-    price_average = stock_price_average(symbol, user_id)
-    return 0 if price_average.zero?
-
-    percentage_gain = ((latest_price - price_average) / price_average) * 100
-    (percentage_gain * quantity).round(2)
-  end
-
 
 end
