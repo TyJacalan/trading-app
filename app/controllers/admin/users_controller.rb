@@ -19,6 +19,8 @@ class Admin::UsersController < AdminsController
   end
 
   def show
+    add_breadcrumb "Home", :admins_path
+    add_breadcrumb "Users", :admin_users_path
     @transactions = @user.transactions.order(created_at: :desc).page(params[:page]).per(5)
   end
 

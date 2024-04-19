@@ -1,9 +1,6 @@
-<div class="flex flex-col h-full w-full gap-4">
-  <div>
-    <%= link_to admin_users_path, class: "text-muted-foreground" do %>
-      <i class="fa fa-arrow-left"></i>
-      <span>Back</span>
-    <% end %>
+<div class="flex flex-col h-full w-full gap-4 text-sm">
+  <div class="w-full mb-6 font-thin text-xs cursor-pointer">
+    <%= render_breadcrumbs :separator => ' > ' %>
   </div>
   <%= render 'user_details', collection: @user %>
   <%= render 'user_transactions', collection: @transactions %>
