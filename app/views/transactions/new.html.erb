@@ -1,9 +1,11 @@
 <div class='h-full w-full flex items-center justify-center'>
   <div class="flex flex-col lg:flex-row items-center lg:items-start w-full gap-4">
     <%= render_card class: 'h-fit w-full max-w-xs p-6' do %>
-      <%= render 'stocks_search/form' %>
+        <%= render 'stocks_search/form' %>
       <%= render_separator class: 'my-6' %>
-      <%= render "form", transaction: @transaction, items: @stocks %>
+      <turbo-frame id="transactions_form">
+        <%= render "form", locals: { transaction: @transaction } %>
+      </turbo-frame>
     <% end %>
 
     <div class='flex-1 w-full'>

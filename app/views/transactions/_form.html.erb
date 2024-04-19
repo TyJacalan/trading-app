@@ -1,20 +1,30 @@
-<%= form_with model: transaction do |form| %>
-  <div class="flex flex-col justify-center p-4">
+<% if @transaction %>
+  <%= form_with model: @transaction do |form| %>
+    <div class="flex flex-col justify-center p-4">
 
-    <%= form.label :symbol, "Symbol" %>
-    <%= form.text_field :symbol %>
+      <%= form.label :symbol, "Symbol" %>
+      <%= form.text_field :symbol %>
 
-    <%= form.label :price, "Price" %>
-    <%= form.text_field :price %>
+      <%# price can be rendered through @stock %>
+      <%# issue: the user should not be able to change the price, so either render a span or a disabled text field %>
+      <%= form.label :price, "Price" %>
+      <%= form.text_field :price %>
 
-    <%= form.label :currency, "Currency" %>
-    <%= form.text_field :currency %>
+      <%# issue: no need to display currency since the default is USD for now %>
+      <%= form.label :currency, "Currency" %>
+      <%= form.text_field :currency %>
 
-    <%= form.label :quantity, "Quantity" %>
-    <%= form.text_field :quantity %>
+      <%= form.label :quantity, "Quantity" %>
+      <%= form.text_field :quantity %>
 
-    <%= form.hidden_field :transaction_type, class: "form-control" %>
+      <%= form.hidden_field :transaction_type, class: "form-control" %>
 
-    <%= form.submit transaction.transaction_type.capitalize, class: "p-4 cursor-pointer button button-primary" %>
-  </div>
+      <%# issue: rendering 'Buy' or 'Sell' conditionally won't work, since this partial is now being rendered by the stocks_details controller. It can work if you pass in params[:transaction_type] in the stocks_search/_form %>
+      <%# form.submit @transaction.transaction_type.capitalize, class: "p-4 cursor-pointer button button-primary" %>
+      <%= form.submit 'Buy' %>
+    </div>
+  <% end %>
 <% end %>
+
+<%# note: this is how to render the stocks information %>
+<%= @stock %>
