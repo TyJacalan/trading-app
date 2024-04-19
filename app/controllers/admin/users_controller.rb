@@ -19,7 +19,7 @@ class Admin::UsersController < AdminsController
   end
 
   def show
-    @transactions = @user.transactions.order(created_at: :desc)
+    @transactions = @user.transactions.order(created_at: :desc).page(params[:page]).per(5)
   end
 
   def create

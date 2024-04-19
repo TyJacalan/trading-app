@@ -9,25 +9,25 @@
     <% end %>
     <%= table_body do %>
       <% @transactions.each do |transaction| %>
-        <% text_color = transaction.transaction_type === "buy" ? "text-success" : "text-destructive" %>
         <% operation = transaction.transaction_type == "buy" ? "" : "-" %>
-        <%= table_row class: text_color do %>
+        <%= table_row do %>
           <%= table_column transaction.id.to_s %>
           <%= table_column transaction.transaction_type.upcase %>
           <%= table_column transaction.symbol %>
           <%= table_column transaction.quantity.to_s %>
           <%= table_column do %>
-            <span>$<%= transaction.price.to_s %></span>
+            <%= number_to_currency(transaction.price) %>
           <% end %>
           <%= table_column do %>
             <% value = transaction.price * transaction.quantity %>
-            <span><%= operation %> $<%= value.to_s %></span>
+            <%= operation %><%= number_to_currency(value) %>
           <% end %>
           <%= table_column transaction.created_at.strftime('%Y - %m - %d') %>
         <% end %>
       <% end %>
     <% end %>
   <% end %>
+  <%= paginate @transactions %>
 
   <% if @transactions.empty? %>
     <div class="my-12 w-full text-center text-sm text-muted-foreground">No transactions found.</div>
