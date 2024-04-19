@@ -1,4 +1,4 @@
-<% headers = ['Id', 'Symbol', 'Type', 'Price', 'User Id', 'Created At', ''] %>
+<% headers = ['Id', 'Symbol', 'Type', 'Price', 'User Id', 'Created At'] %>
 <%= render_card class: 'w-full p-6' do %>
   <%= render_table do %>
     <%= table_head do %>
@@ -9,17 +9,30 @@
     <%= table_body do %>
       <% @transactions.each do |transaction| %>
         <%= table_row do %>
-          <%= table_column transaction.id.to_s %>
-          <%= table_column transaction.symbol %>
-          <%= table_column transaction.transaction_type %>
-          <%= table_column number_to_currency(transaction.price, precision: 2) %>
-          <%= table_column transaction.user_id.to_s %>
-          <%= table_column transaction.created_at.strftime('%Y-%m-%d') %>
           <%= table_column do %>
-            <%= link_to "Show", admin_transaction_path(transaction) %>
+            <%= link_to transaction.id.to_s, admin_user_path(transaction.user_id) %>
+          <% end %>
+          <%= table_column do %>
+            <%= link_to transaction.symbol, admin_user_path(transaction.user_id) %>
+          <% end %>
+          <%= table_column do %>
+            <%= link_to transaction.transaction_type, admin_user_path(transaction.user_id) %>
+          <% end %>
+          <%= table_column do %>
+            <%= link_to number_to_currency(transaction.price, precision: 2), admin_user_path(transaction.user_id) %>
+          <% end %>
+          <%= table_column do %>
+            <%= link_to transaction.user_id.to_s, admin_user_path(transaction.user_id) %>
+          <% end %>
+          <%= table_column do %>
+            <%= link_to transaction.created_at.strftime('%Y-%m-%d'), admin_user_path(transaction.user_id) %>
           <% end %>
         <% end %>
       <% end %>
     <% end %>
   <% end %>
+
+  <div class='flex w-full justify-center'>
+    <%= paginate @transactions %>
+  </div>
 <% end %>
