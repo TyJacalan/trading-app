@@ -6,7 +6,6 @@ class StocksController < ApplicationController
 
   def index
     @transaction = Transaction.new
-    @stocks = search_stock_data.map { |stock| { value: stock[:symbol], name: stock[:name]}} || []
     @stocks = cache_all_stocks.map { |stock| { value: stock[:symbol], name: stock[:name] } }
   end
 

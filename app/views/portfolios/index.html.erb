@@ -13,32 +13,34 @@
     <%= area_chart @chart_data, discrete: true, library: { curve: true, hAxis: { title: 'Stock Symbol' }, vAxis: { title: 'Value' } } %>
   <% end %>
 
-  <%= render_card title: "Portfolio Overview", class: "w-full p-4" do %>
-    <% if @portfolio.present? %>
-      <%= render_table do %>
-        <%= table_head do %>
-          <%= table_header 'Symbol' %>
-          <%= table_header 'Company Name' %>
-          <%= table_header 'Price' %>
-          <%= table_header 'Quantity' %>
-          <%= table_header 'Change' %>
-          <%= table_header 'Value' %>
-        <% end %>
-        <%= table_body do %>
-          <% @portfolio.each do |stock| %>
-            <%= table_row do %>
-              <%= table_column stock[:symbol] %>
-              <%= table_column stock[:name] %>
-              <%= table_column number_to_currency(stock[:price], precision: 2) %>
-              <%= table_column stock[:quantity].to_s %>
-              <%= table_column stock[:change], class: stock[:change].to_d < 0 ? 'text-destructive' : 'text-success' %>
-              <%= table_column number_to_currency(stock[:value], precision: 2) %>
+  <%= turbo_frame_tag "portfolio_frame" do %>
+    <%= render_card title: "Portfolio Overview", class: "w-full p-4" do %>
+      <% if @portfolio.present? %>
+        <%= render_table do %>
+          <%= table_head do %>
+            <%= table_header 'Symbol' %>
+            <%= table_header 'Company Name' %>
+            <%= table_header 'Price' %>
+            <%= table_header 'Quantity' %>
+            <%= table_header 'Change' %>
+            <%= table_header 'Value' %>
+          <% end %>
+          <%= table_body do %>
+            <% @portfolio.each do |stock| %>
+              <%= table_row do %>
+                <%= table_column stock[:symbol] %>
+                <%= table_column stock[:name] %>
+                <%= table_column number_to_currency(stock[:price], precision: 2) %>
+                <%= table_column stock[:quantity].to_s %>
+                <%= table_column stock[:change], class: stock[:change].to_d < 0 ? 'text-destructive' : 'text-success' %>
+                <%= table_column number_to_currency(stock[:value], precision: 2) %>
+              <% end %>
             <% end %>
           <% end %>
         <% end %>
+      <% else %>
+        <p class="w-full px-6 text-muted-foreground">Your portfolio is empty.</p>
       <% end %>
-    <% else %>
-      <p class="w-full px-6 text-muted-foreground">Your portfolio is empty.</p>
     <% end %>
   <% end %>
 </div>
