@@ -3,5 +3,16 @@
     <%= render_breadcrumbs :separator => ' > ' %>
   </div>
   <%= render 'user_details', collection: @user %>
-  <%= render 'user_transactions', collection: @transactions %>
+
+  <%= render_card class: "w-full p-4 min-w-[350px] overflow-hidden" do %>
+    <%= render partial: 'user_transactions_filters' %>
+
+    <%= render_separator class: 'my-6' %>
+
+    <%= render 'user_transactions', collection: @transactions %>
+    <%# turbo_frame_tag 'market_trends_frame', src: stocks_tables_path(filter: params[:filter]) do %>
+      <%# render_skeleton %>
+      <%# end %>
+    <% end %>
 </div>
+

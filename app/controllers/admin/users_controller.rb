@@ -21,7 +21,17 @@ class Admin::UsersController < AdminsController
   def show
     add_breadcrumb "Home", :admins_path
     add_breadcrumb "Users", :admin_users_path
-    @transactions = @user.transactions.order(created_at: :desc).page(params[:page]).per(5)
+
+    transactions = @user.transactions.order(created_at: :desc).page(params[:page]).per(5)
+
+    @transactions = case params[:transaction_type]
+                    when 'buy'
+                      transactions.buys
+                    when 'sell'
+                      transactions.sells
+                    else
+                      transactions
+                    end
   end
 
   def create
