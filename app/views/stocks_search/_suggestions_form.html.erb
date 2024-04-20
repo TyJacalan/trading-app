@@ -1,0 +1,5 @@
+<%= form_with url: stocks_details_path, method: :get do |f| %>
+  <%= f.submit name:'symbol', 
+    value: item[:symbol], 
+    class: 'w-full relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none aria-selected:bg-accent aria-selected:text-accent-foreground hover:bg-accent hover:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50' %>
+<% end %>
