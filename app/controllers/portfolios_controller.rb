@@ -2,7 +2,6 @@ class PortfoliosController < ApplicationController
 
   before_action :authorize_user!
   before_action :set_portfolio
-  before_action :set_stock_api
 
   add_breadcrumb "Home", :root_path
   add_breadcrumb "My Portfolio", :portfolios_path

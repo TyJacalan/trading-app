@@ -1,6 +1,6 @@
 class StocksDetailsController < StocksController
   def show
-    @stock_chart = format_chart_data(@client.chart(params[:symbol], '1w', chart_close_only: true))
+    @stock_chart = format_chart_data(@client.chart(params[:symbol], '1y', chart_close_only: true))
     @stock = fetch_stock(params[:symbol])
     @transaction = Transaction.new
 

@@ -5,5 +5,19 @@
 
 ::-webkit-scrollbar {
     display: none;
+ }
+
+ @keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
   }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.slide-down {
+  animation: slideDown 0.7s ease forwards;
+}
+
   

@@ -2,10 +2,7 @@
 
 class TransactionsController < ApplicationController # rubocop:disable Style/Documentation
   before_action :authorize_user!
-  before_action :set_stock_api
-  before_action :set_portfolio
   before_action :set_transaction, only: %i[new create]
-  include StocksConcern
 
 
   def index

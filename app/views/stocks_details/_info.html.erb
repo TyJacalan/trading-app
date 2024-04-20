@@ -1,23 +1,28 @@
-<% if details %>
-  <div class="flex flex-col gap-2">
-    <%= line_chart chart_data,
-      id: 'stock-chart',
-      xtitle: 'Date',
-      ytitle: 'Close Price',
-      discrete: true,
-      points: false
-    %>
-    <%= render_card do %>
-        <div class="flex flex-col gap-2 p-4 w-full">
-          <%= "Average Total Volume: #{details.avg_total_volume}"  %>
-          <%= "Change: #{details.change_percent_s}"  %>
-          <%= "Latest Price: #{details.latest_price}"  %>
-          <%= "PE Ratio: #{details.pe_ratio}"  %>
-          <%= "Previous Close: #{details.previous_close}"  %>
-          <%= "Primary Exchange: #{details.primary_exchange}"  %>
-        </div>
-      <% end %>
-     </div>
-<% else %>
+<% if details.nil? || details.empty? %>
   <p class='text-sm text-center text-muted-foreground font-bold mt-4'>No stock selected</p>
+<% else %>
+  <div class="shadow-md rounded-md">
+    <%= render_card title: details.company_name, subtitle: details.symbol,
+    body: details.latest_price, 
+    class: "w-full" do %>
+      <div class="flex flex-wrap gap-2 px-4">
+        <p class="text-sm"><span class="font-semibold">Average Total Volume:</span> <%= number_with_delimiter(details.avg_total_volume) %></p>
+        <p class="text-sm"><span class="font-semibold">Change:</span> <span style="color: <%= details.change_percent < 0 ? 'red' : 'inherit' %>;"><%= number_to_percentage(details.change_percent, precision: 2) %></span></p>
+        <p class="text-sm"><span class="font-semibold">Latest Price: $</span> <%= number_with_precision(details.latest_price, precision: 2) %></p>
+        <p class="text-sm"><span class="font-semibold">PE Ratio:</span> <%= number_with_precision(details.pe_ratio, precision: 2) %></p>
+        <p class="text-sm"><span class="font-semibold">Previous Close: $</span> <%= number_with_precision(details.previous_close, precision: 2) %></p>
+        <p class="text-sm"><span class="font-semibold">Primary Exchange:</span> <%= details.primary_exchange %></p>
+      </div>
+      <%= line_chart chart_data,
+        id: 'stock-chart',
+        xtitle: 'Date',
+        ytitle: 'Close Price',
+        discrete: false,
+        points: false,
+        colors: ["#b00", "#666"]
+      %>
+    <% end %>
+  </div>
+
+
 <% end %> 

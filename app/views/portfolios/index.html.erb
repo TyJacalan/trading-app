@@ -10,7 +10,7 @@
 
 <div class="flex flext-col gap-2">
   <%= render_card title: "#{number_to_currency(@total_value, precision: 2)}" do %>
-    <%= area_chart @chart_data, discrete: true, library: { curve: true, hAxis: { title: 'Stock Symbol' }, vAxis: { title: 'Value' } } %>
+    <%= area_chart @chart_data, discrete: true, library: { hAxis: { title: 'Stock Symbol' }, vAxis: { title: 'Value' } } %>
   <% end %>
 
   <%= turbo_frame_tag "portfolio_frame" do %>
