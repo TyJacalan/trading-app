@@ -13,7 +13,7 @@ class Transactions::SearchController < ApplicationController
     
     @transactions = Kaminari.paginate_array(filtered_transactions).page(params[:page]).per(5)
 
-    render turbo_stream: turbo_stream.update('user_transactions', partial: 'transactions/user_transactions_table')
+    render turbo_stream: turbo_stream.update('transactions', partial: 'transactions/user_transactions_table')
   end
 
   private
