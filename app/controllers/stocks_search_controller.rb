@@ -4,7 +4,9 @@ class StocksSearchController < StocksController
     type = params[:as]
 
     @stocks = cache_all_stocks
-    @suggestions = @stocks.select { |stock| stock[:symbol].downcase.include?(query) }
+    @suggestions = @stocks.select do |stock|
+      stock[:symbol].downcase.include?(query) || stock[:name].downcase.include?(query)
+    end
 
     render turbo_stream:
       turbo_stream.update('suggestions', 
