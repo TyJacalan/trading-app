@@ -1,6 +1,4 @@
-<% if details.nil? || details.empty? %>
-  <p class='text-sm text-center text-muted-foreground font-bold mt-4'>No stock selected</p>
-<% else %>
+<% if details %>
   <%= line_chart chart_data,
     id: 'stock-chart',
     xtitle: 'Date',
@@ -8,5 +6,7 @@
     discrete: true,
     points: false
   %>
-  <%= details %>
+<%= details %>
+<% else %>
+  <p class='text-sm text-center text-muted-foreground font-bold mt-4'>No stock selected</p>
 <% end %> 

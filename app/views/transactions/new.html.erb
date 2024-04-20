@@ -3,7 +3,9 @@
     <%= render_card class: 'h-fit w-full max-w-xs p-6' do %>
       <%= render partial: 'stocks_search/form', locals: { type: :form } %>
       <%= render_separator class: 'my-6' %>
-      <%= render "form", transaction: @transaction, items: @stocks %>
+      <turbo-frame id="transactions_form">
+        <%= render "form", locals: { transaction: @transaction } %>
+      </turbo-frame>
     <% end %>
 
     <div class='flex-1 w-full'>
