@@ -5,14 +5,16 @@
   <%= render 'user_details', collection: @user %>
 
   <%= render_card class: "w-full p-4 min-w-[350px] overflow-hidden" do %>
-    <%= render partial: 'user_transactions_filters' %>
+    <div class='h-full w-full flex flex-row'>
+      <%= render partial: 'transactions/search', locals: { user: @user } %>
+      <%= render partial: 'user_transactions_filters' %>
+    </div>
 
     <%= render_separator class: 'my-6' %>
 
-    <%= render 'user_transactions', collection: @transactions %>
-    <%# turbo_frame_tag 'market_trends_frame', src: stocks_tables_path(filter: params[:filter]) do %>
-      <%# render_skeleton %>
-      <%# end %>
+    <turbo-frame id="user_transactions">
+      <%= render partial: 'transactions/user_transactions_table' %>
+    </turbo-frame>
+
     <% end %>
 </div>
-

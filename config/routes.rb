@@ -16,6 +16,10 @@ Rails.application.routes.draw do
   get :stocks_tables, to: 'stocks_tables#show'
   get :stocks_search, to: 'stocks_search#show'
   get :stocks_details, to: 'stocks_details#show'
+  
+  namespace :transactions do
+    get :search, to: 'search#show'
+  end
 
   # Error routes
   get '/404', to: 'errors#not_found', via: :all
