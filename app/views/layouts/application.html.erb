@@ -17,7 +17,7 @@
       <nav class="container mx-auto flex items-center justify-between p-4 lg:px-12" aria-label="Global">
         <div class="flex flex-1 gap-1 items-center">
           <%= render 'components/navbar/logo' %>
-          <span class="font-semibold text-xl text-gray-800">Finance</span>
+          <span class="font-semibold text-xl text-secondary">Finance</span>
         </div>
         <% if current_user.present? && current_user.role == 'admin' %>
           <%= render 'components/navbar/admin' %>

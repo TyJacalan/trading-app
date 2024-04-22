@@ -1,6 +1,8 @@
 <%= render 'devise/shared/auth_head' %>
 
-<%= render_form_for(resource, url: session_path(resource_name), class: "flex flex-col gap-4") do |f| %>
+<% form_url = (request.path == admin_sign_in_path) ? admin_sign_in_path(resource) : session_path(resource_name) %>
+
+<%= render_form_for(resource, url: form_url, method: :post, class: "flex flex-col gap-4") do |f| %>
   <%= f.label :email %>
   <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   
