@@ -2,7 +2,7 @@
   <p class='text-sm text-center text-muted-foreground font-bold mt-4'>No stock selected</p>
 <% else %>
   <div class="shadow-md rounded-md">
-    <%= render_card title: details.company_name, subtitle: details.symbol,
+    <%= render_card title: "#{details.symbol}", subtitle: details.company_name,
     body: details.latest_price, 
     class: "w-full" do %>
       <div class="flex flex-wrap gap-2 px-4">
