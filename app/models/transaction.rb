@@ -3,7 +3,7 @@ class Transaction < ApplicationRecord
   belongs_to :user
   enum transaction_type: { buy: 0, sell: 1 }
 
-  validates :symbol, :transaction_type, :price, :quantity, :currency, presence: true
+  validates :symbol, :transaction_type, :price, :quantity, presence: true
 
   validate :validate_quantity, if: -> { sell? }
 
@@ -41,19 +41,24 @@ class Transaction < ApplicationRecord
     aggregated_stocks
   end
 
+  def self.stock_available_balance(symbol, user_id)
+    controller = ApplicationController.new
+    client = controller.set_stock_api
+    stock = client.quote(symbol)
+    buy_balance = Transaction.buy_by_symbol(symbol, user_id).sum("quantity * #{stock.latest_price}")
+    sell_balance = Transaction.sell_by_symbol(symbol, user_id).sum("quantity * #{stock.latest_price}")
+    buy_balance - sell_balance
+  end
+
   private
 
   def validate_quantity
     return unless price && quantity
 
-    available_balance = stock_available_balance(symbol, user_id)
+    available_balance = Transaction.stock_available_balance(symbol, user_id)
+    puts "quantity: #{quantity}"
+    puts "balance: #{available_balance}"
     errors.add :quantity, 'cannot exceed available balance' if quantity > available_balance
-  end
-
-  def stock_available_balance(symbol, user_id)
-    buy_balance = Transaction.buy_by_symbol(symbol, user_id).sum(:quantity)
-    sell_balance = Transaction.sell_by_symbol(symbol, user_id).sum(:quantity)
-    buy_balance - sell_balance
   end
 
   def self.stock_price_average(symbol, user_id)

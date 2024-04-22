@@ -1,20 +1,33 @@
-<%= form_with model: transaction do |form| %>
-  <div class="flex flex-col justify-center p-4">
+<div class="flex items-center justify-center p-2" data-controller="transaction-form">
+    <div class="p-2">
+      <%= render_form_for(transaction) do |form| %>
+        <div class="flex flex-wrap items-end gap-2 p-4">
 
-    <%= form.label :symbol, "Symbol" %>
-    <%= form.text_field :symbol %>
+          <div>
+            <%= form.label :symbol, class: "py-2" %>
+            <%= form.text_field :symbol, value: stock.present? ? stock.symbol : '', autocomplete: "off", class: "w-24", readonly: true %>
+          </div>
 
-    <%= form.label :price, "Price" %>
-    <%= form.text_field :price %>
+          <div>
+            <%= form.label :price, class: "py-2" %>
+            <%= form.number_field :price, value: stock.present? ? stock.latest_price : nil, placeholder: "0.00", autocomplete: "off", class: "w-24", readonly: true %>
+          </div>
 
-    <%= form.label :currency, "Currency" %>
-    <%= form.text_field :currency %>
+          <div>
+            <%= form.label :quantity, required: true, class: "py-2" %>
+            <%= form.number_field :quantity, placeholder: "0", autofocus: true, autocomplete: "off", class: "w-24 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:border-muted" %>
+          </div>
+          
+          <div class="flex flex-col justify-start">
+            <%= label_tag :total_value, "Total Value", class:"font-semibold text-sm py-2" %>
+            <%= text_field_tag :total_value, nil, placeholder: "0.00", readonly: true, class: "w-24 flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm transition-colors ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 w-24 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:border-muted" %>
+          </div>
 
-    <%= form.label :quantity, "Quantity" %>
-    <%= form.text_field :quantity %>
-
-    <%= form.hidden_field :transaction_type, class: "form-control" %>
-
-    <%= form.submit transaction.transaction_type.capitalize, class: "p-4 cursor-pointer button button-primary" %>
-  </div>
-<% end %>
+          <div>
+            <%= form.hidden_field :transaction_type, value: transaction_type, class: "form-control" %>
+            <%= form.submit transaction_type.capitalize, class: "p-4 cursor-pointer button button-primary" %>
+          </div>  
+        </div>
+      <% end %>
+    </div>
+</div>

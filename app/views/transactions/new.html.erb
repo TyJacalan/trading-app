@@ -1,16 +1,32 @@
-<div class='h-full w-full flex items-center justify-center'>
-  <div class="flex flex-col lg:flex-row items-center lg:items-start w-full gap-4">
-    <%= render_card class: 'h-fit w-full max-w-xs p-6' do %>
-      <%= render partial: 'stocks_search/form', locals: { type: :form } %>
-      <%= render_separator class: 'my-6' %>
-      <%= render "form", transaction: @transaction, items: @stocks %>
-    <% end %>
+<%= turbo_frame_tag "transaction_frame" do %>
+  <div class='h-full w-full flex items-center justify-center border rounded-lg bg-accent py-4 shadow-md slide-down'>
+    <div class="flex flex-col items-center w-full gap-2">
+      <%= render_tabs do %>
+        <%= tab_list do %>
+          <%= tab "Buy", active: true %>
+          <%= tab "Sell" %>
+        <% end %>
 
-    <div class='flex-1 w-full'>
-      <turbo-frame id="details">
-        <%= render partial: 'stocks_details/info', locals: { 
-          details: @details } %>
-      </turbo-frame>
+        <%= tab_panels do %>
+          <div class="p-4 bg-white">
+            <%= render 'stocks_search/form' %>
+          </div>
+
+          <%= tab_panel active: true do %>
+            <%= render_separator class: 'my-2' %>
+            <%= turbo_frame_tag "transaction_buy_form" do %>
+              <%= render "form", transaction: @transaction, stock: @stock, transaction_type: "buy" %>
+            <% end %>
+          <% end %>
+
+          <%= tab_panel do %>
+            <%= render_separator class: 'my-2' %>
+            <%= turbo_frame_tag "transaction_sell_form" do %>
+              <%= render "form", transaction: @transaction, stock: @stock, transaction_type: "sell" %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
   </div>
-</div>
+<% end %>

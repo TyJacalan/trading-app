@@ -1,12 +1,30 @@
 <% if details.nil? || details.empty? %>
   <p class='text-sm text-center text-muted-foreground font-bold mt-4'>No stock selected</p>
 <% else %>
-  <%= line_chart chart_data,
-    id: 'stock-chart',
-    xtitle: 'Date',
-    ytitle: 'Close Price',
-    discrete: true,
-    points: false
-  %>
-  <%= details %>
+  <div class="shadow-md bg-accent">
+    <%= render_card title: "#{details.symbol} | #{number_to_currency(balance, precision: 2)}", subtitle: details.company_name,
+    body: details.latest_price, 
+    class: "w-full" do %>
+      <div class="flex flex-wrap gap-2 px-4">
+        <p class="text-sm"><span class="font-semibold">Average Total Volume:</span> <%= number_with_delimiter(details.avg_total_volume) %></p>
+        <p class="text-sm"><span class="font-semibold">Change:</span> <span style="color: <%= details.change_percent < 0 ? 'red' : 'inherit' %>;"><%= number_to_percentage(details.change_percent, precision: 2) %></span></p>
+        <p class="text-sm"><span class="font-semibold">Latest Price: $</span> <%= number_with_precision(details.latest_price, precision: 2) %></p>
+        <p class="text-sm"><span class="font-semibold">PE Ratio:</span> <%= number_with_precision(details.pe_ratio, precision: 2) %></p>
+        <p class="text-sm"><span class="font-semibold">Previous Close: $</span> <%= number_with_precision(details.previous_close, precision: 2) %></p>
+        <p class="text-sm"><span class="font-semibold">Primary Exchange:</span> <%= details.primary_exchange %></p>
+      </div>
+      <div class="p-4 bg-accent">
+        <%= line_chart chart_data,
+          id: 'stock-chart',
+          xtitle: 'Date',
+          ytitle: 'Close Price',
+          discrete: false,
+          points: false,
+          colors: ["#b00", "#666"]
+        %>
+      </div>
+    <% end %>
+  </div>
+
+
 <% end %> 

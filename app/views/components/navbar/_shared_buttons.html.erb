@@ -3,5 +3,5 @@
 <% end %>
 
 <% if current_user.role == 'standard' %>
-  <%= render_button "Buy / Sell", href: new_transaction_path, variant: :outline, class: 'w-fit' %>
+  <%= render_button("Buy / Sell", variant: :outline, as: :link, href: new_transaction_path, data: { turbo_frame: 'transaction_frame' }) %>
 <% end %>

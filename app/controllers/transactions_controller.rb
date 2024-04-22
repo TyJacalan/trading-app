@@ -2,10 +2,7 @@
 
 class TransactionsController < ApplicationController # rubocop:disable Style/Documentation
   before_action :authorize_user!
-  before_action :set_stock_api
-  before_action :set_portfolio
   before_action :set_transaction, only: %i[new create]
-  include StocksConcern
 
 
   def index
@@ -14,16 +11,22 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
 
   def new
     @transaction = Transaction.new(transaction_type: params[:transaction_type])
+    @stock = []
   end
 
   def create
     @transaction = current_user.transactions.build(transaction_params)
 
     if @transaction.save
-      redirect_to root_path, notice: "#{@transaction.transaction_type.capitalize} successful!"
+      respond_to do |format|
+        format.html { redirect_to root_path }
+        format.turbo_stream { flash[:notice] = "#{@transaction.transaction_type.capitalize} successful!" }
+      end
     else
-      flash[:alert] = @transaction.errors.full_messages.join(', ')
-      render :new, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream { flash[:alert] = "#{@transaction.errors.full_messages.join(', ')}" }
+      end
     end
   end
 
