@@ -12,7 +12,11 @@
 
   <body class="h-full max-h-screen bg-background text-foreground font-sans text-sm">
     <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div class="sm:mx-auto sm:w-full sm:max-w-md">
+      <div class="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center justify-center gap-8 text-center">
+        <div class="flex flex-1 gap-1 items-center">
+          <%= render 'components/navbar/logo' %>
+          <span class="font-semibold text-xl text-secondary">Finance</span>
+        </div>
         <%= yield(:auth_header) if content_for?(:auth_header) %>
       </div>
 
