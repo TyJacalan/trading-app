@@ -13,7 +13,7 @@
   </head>
 
   <body class="flex h-full w-full min-h-screen flex-col p-6 lg:p-12 lg:pt-24">
-    <header data-controller="header-shadow" class="fixed top-0 left-0 w-full bg-white z-50">
+    <header data-controller="header-shadow" class="fixed top-0 left-0 w-full bg-white z-100">
       <nav class="container mx-auto flex items-center justify-between p-4 lg:px-12" aria-label="Global">
         <div class="flex flex-1 gap-1 items-center">
           <%= render 'components/navbar/logo' %>
@@ -27,15 +27,24 @@
       </nav>
     </header>
 
-    <% if notice %>
-      <%= render_toast id: "default_toast", description: notice %>
-    <% end %>
+    <div id="toast">
+      <% if notice %>
+        <%= render_toast id: "default_toast", description: notice %>
+      <% end %>
 
-    <% if alert %>
-      <%= render_toast description: alert, id: "alert_toast", variant: :destructive %>
-    <% end %>
+      <% if alert %>
+        <%= render_toast description: alert, id: "alert_toast", variant: :destructive %>
+      <% end %>
+    </div>
 
-    <div class="mt-16 lg:mt-0">
+    <div class="container mt-16 lg:mt-0">
+      <div class="w-full fixed top-0 left-0 z-50 p-4">
+        <div class="flex flex-col-reverse lg:flex-row justify-center items-start gap-2 mt-16">
+          <%= turbo_frame_tag "details", class: "w-full lg:w-1/2 bg-white rounded-lg" %>
+          <%= turbo_frame_tag "transaction_frame", class: "w-full lg:w-1/2" %>
+        </div>
+      </div>
+
       <%= yield %>
     </div>
     

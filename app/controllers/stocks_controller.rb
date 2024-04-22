@@ -5,6 +5,7 @@ class StocksController < ApplicationController
   include StocksConcern
 
   def index
+    @transaction = Transaction.new
     @stocks = cache_all_stocks.map { |stock| { value: stock[:symbol], name: stock[:name] } }
   end
 

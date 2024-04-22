@@ -28,6 +28,9 @@ application.register("ui--switch-mode", Ui__SwitchModeController)
 import Ui__ToastController from "./ui/toast_controller"
 application.register("ui--toast", Ui__ToastController)
 
+import Ui__TabsController from "./ui/tabs_controller"
+application.register("ui--tabs", Ui__TabsController)
+
 import TransactionForm from "./transaction_form_controller"
 application.register("transaction-form", TransactionForm)
 
@@ -36,3 +39,5 @@ application.register("update-link-appearance", UpdateLinkAppearance)
 
 import HeaderShadow from "./header_shadow_controller"
 application.register("header-shadow", HeaderShadow)
+
+
