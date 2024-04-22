@@ -1,28 +1,41 @@
 <div class="relative flex flex-col gap-2">
   <!-- Search stocks -->
-  <div class="relative flex w-full justify-center items-center p-4 z-10">
+  <div class="relative flex w-full max-w-lg min-w-[350px] mx-auto p-4 z-10">
     <%= render partial: 'stocks_search/form', locals: { type: :link } %>
   </div>
 
   <div class="relative flex flex-col lg:flex-row gap-2 z-0">
-  <!-- Stocks Table -->
-  <%= render_card title: "Market trends", class: "w-full p-4 min-w-[350px] overflow-hidden" do %>
-    <%= render 'stock_filters' %>
-    <%= render_separator class: 'my-6' %>
-
-    <%= turbo_frame_tag 'market_trends_frame', src: stocks_tables_path(filter: params[:filter]) do %>
-      <%= render_skeleton %>
-    <% end %>
-  <% end %>
-
-  <!-- News Articles -->
     <div class="relative w-full lg:w-3/5 z-0">
-      <%= render_card title: "Today's Financial news", class: "w-full min-w-[350px] p-4" do %>
-        <%= turbo_frame_tag :stocks_articles, src: stocks_articles_path do %>
-          <%= render_skeleton %>
+      <%= turbo_frame_tag "details" do %>
+        <!-- Market Trends -->
+        <%= render_card title: "Market trends", class: "w-full p-4 min-w-[350px] overflow-hidden" do %>
+          <%= render 'stock_filters' %>
+          <%= render_separator class: 'my-6' %>
+
+          <%= turbo_frame_tag 'market_trends_frame', src: stocks_tables_path(filter: params[:filter]) do %>
+            <%= render_skeleton %>
+          <% end %>
         <% end %>
       <% end %>
     </div>
-  </div>
 
+    <div class="flex flex-col w-full lg:w-2/5 gap-2">
+      <%= turbo_frame_tag "transaction_frame" do %>
+        <div class="flex flex-col gap-2">
+
+          <!-- Portfolio Overview -->
+          <%= render_card class: 'w-full min-w-[350px] overflow-hidden' do %>
+            <%= turbo_frame_tag "portfolio_frame", src: portfolios_path, class: "w-full max-h-80 overflow-y-auto scroll-smooth scrollbar-none" %>
+          <% end %>
+
+          <!-- Today's Financial News -->
+          <%= render_card title: "Today's Financial news", class: "w-full min-w-[350px] p-4" do %>
+            <%= turbo_frame_tag :stocks_articles, src: stocks_articles_path do %>
+              <%= render_skeleton %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
