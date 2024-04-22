@@ -1,8 +1,8 @@
 <% if details.nil? || details.empty? %>
   <p class='text-sm text-center text-muted-foreground font-bold mt-4'>No stock selected</p>
 <% else %>
-  <div class="shadow-md rounded-md">
-    <%= render_card title: "#{details.symbol}", subtitle: details.company_name,
+  <div class="shadow-md bg-accent">
+    <%= render_card title: "#{details.symbol} | #{number_to_currency(balance, precision: 2)}", subtitle: details.company_name,
     body: details.latest_price, 
     class: "w-full" do %>
       <div class="flex flex-wrap gap-2 px-4">
@@ -13,14 +13,16 @@
         <p class="text-sm"><span class="font-semibold">Previous Close: $</span> <%= number_with_precision(details.previous_close, precision: 2) %></p>
         <p class="text-sm"><span class="font-semibold">Primary Exchange:</span> <%= details.primary_exchange %></p>
       </div>
-      <%= line_chart chart_data,
-        id: 'stock-chart',
-        xtitle: 'Date',
-        ytitle: 'Close Price',
-        discrete: false,
-        points: false,
-        colors: ["#b00", "#666"]
-      %>
+      <div class="p-4 bg-accent">
+        <%= line_chart chart_data,
+          id: 'stock-chart',
+          xtitle: 'Date',
+          ytitle: 'Close Price',
+          discrete: false,
+          points: false,
+          colors: ["#b00", "#666"]
+        %>
+      </div>
     <% end %>
   </div>
 
