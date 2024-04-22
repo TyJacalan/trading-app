@@ -10,12 +10,16 @@ module.exports = {
     "./app/views/**/*.{erb,haml,html,slim}",
   ],
   theme: {
+      screens: {
+        'sm': '640px',
+        'md': '768px',
+        'lg': '1024px',
+        'xl': '1280px',
+        "2xl": "1400px",
+      },
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
     },
     extend: {
       colors: {

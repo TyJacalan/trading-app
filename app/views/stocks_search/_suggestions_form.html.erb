@@ -1,0 +1,13 @@
+<%= form_with url: stocks_details_path, 
+  method: :get, 
+  class: 'w-full relative flex flex-row gap-2 cursor-pointer select-none items-center 
+  rounded-sm px-2 py-1.5 text-xs outline-none overflow-hidden
+  aria-selected:bg-accent aria-selected:text-accent-foreground 
+  hover:bg-accent hover:text-accent-foreground 
+  data-[disabled]:pointer-events-none data-[disabled]:opacity-50' do |f| %>
+  <%= f.submit name: :symbol, 
+    value: item[:symbol], 
+    class: 'w-12 text-center rounded bg-muted text-muted-foreground cursor-pointer' %>
+  <%= f.submit name: :name, value: item[:name], class: 'w-full text-left truncate cursor-pointer' %>
+  <%= f.hidden_field :symbol, value: item[:symbol] %>
+<% end %>

@@ -6,19 +6,19 @@
           <%= tab "Buy", active: true %>
           <%= tab "Sell" %>
         <% end %>
-            
+
         <%= tab_panels do %>
           <div class="p-4 bg-white">
-            <%= render 'stocks_search/form' %>
+            <%= render partial: 'stocks_search/form', locals: { type: :form } %>
           </div>
-          
+
           <%= tab_panel active: true do %>
             <%= render_separator class: 'my-2' %>
             <%= turbo_frame_tag "transaction_buy_form" do %>
               <%= render "form", transaction: @transaction, stock: @stock, transaction_type: "buy" %>
             <% end %>
           <% end %>
-          
+
           <%= tab_panel do %>
             <%= render_separator class: 'my-2' %>
             <%= turbo_frame_tag "transaction_sell_form" do %>
