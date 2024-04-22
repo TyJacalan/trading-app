@@ -9,7 +9,7 @@
 
         <%= tab_panels do %>
           <div class="p-4 bg-white">
-            <%= render 'stocks_search/form' %>
+            <%= render partial: 'stocks_search/form', locals: { type: :form } %>
           </div>
 
           <%= tab_panel active: true do %>
