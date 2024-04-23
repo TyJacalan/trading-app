@@ -15,17 +15,18 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
   end
 
   def create
-    @transaction = current_user.transactions.build(transaction_params)
 
-    if @transaction.save
+    transaction = @transaction_type == 'buy' ? Transaction.buy(current_user, transaction_params) : Transaction.sell(current_user, transaction_params)
+   
+    if transaction
       respond_to do |format|
         format.html { redirect_to root_path }
-        format.turbo_stream { flash[:notice] = "#{@transaction.transaction_type.capitalize} successful!" }
+        format.turbo_stream { flash[:notice] = "#{transaction_params[:transaction_type].capitalize} successful!" }
       end
     else
       respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream { flash[:alert] = "#{@transaction.errors.full_messages.join(', ')}" }
+        format.turbo_stream { flash[:alert] = "" }
       end
     end
   end

@@ -1,71 +1,42 @@
 class Transaction < ApplicationRecord
-
   belongs_to :user
   enum transaction_type: { buy: 0, sell: 1 }
 
-  validates :symbol, :transaction_type, :price, :quantity, presence: true
+  validates :symbol, :transaction_type, :price, :quantity, :value, presence: true
 
-  validate :validate_quantity, if: -> { sell? }
+  before_validation :calculate_value
 
   scope :buys, -> { where(transaction_type: :buy) }
   scope :sells, -> { where(transaction_type: :sell) }
-  scope :buy, ->(user_id) { where(transaction_type: :buy, user_id:) }
-  scope :sell, ->(user_id) { where(transaction_type: :sell, user_id:) }
-  scope :buy_by_symbol, ->(symbol, user_id) { where(symbol:, transaction_type: :buy, user_id:) }
-  scope :sell_by_symbol, ->(symbol, user_id) { where(symbol:, transaction_type: :sell, user_id:) }
-  scope :by_symbol, ->(symbol, user_id) { where(symbol:, user_id:) }
 
-  def self.aggregate_stocks_by_symbol(user_id)
-    controller = ApplicationController.new
-    client = controller.set_stock_api
-    buy_transactions = Transaction.buy(user_id).group(:symbol).sum(:quantity)
-    sell_transactions = Transaction.sell(user_id).group(:symbol).sum(:quantity)
-
-    aggregated_stocks = []
-
-    buy_transactions.each do |symbol, quantity|
-      sales = sell_transactions[symbol] || 0
-      stock_quantity = quantity - sales
-      stock = client.quote(symbol)
-      aggregated_stocks << {
-        symbol: symbol,
-        name: stock.company_name,
-        change: stock.change_percent_s,
-        quantity: stock_quantity,
-        price_average: stock_price_average(symbol, user_id),
-        price: stock.latest_price,
-        value: stock.latest_price * stock_quantity
-      }
+  def self.buy(user, transaction_params)
+    ActiveRecord::Base.transaction do
+      transaction = user.transactions.create!(transaction_params)
+      stock = Stock.find_or_create_stock(user, transaction)
+      Stock.update_stock(stock, transaction)
     end
-
-    aggregated_stocks
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error "Transaction failed: #{e.message}"
+    false
   end
 
-  def self.stock_available_balance(symbol, user_id)
-    controller = ApplicationController.new
-    client = controller.set_stock_api
-    stock = client.quote(symbol)
-    buy_balance = Transaction.buy_by_symbol(symbol, user_id).sum("quantity * #{stock.latest_price}")
-    sell_balance = Transaction.sell_by_symbol(symbol, user_id).sum("quantity * #{stock.latest_price}")
-    buy_balance - sell_balance
+  def self.sell(user, transaction_params)
+    ActiveRecord::Base.transaction do
+      transaction = user.transactions.create!(transaction_params)
+      stock = Stock.find_by(symbol: transaction.symbol, user_id: user.id)
+
+      raise StandardError, "Stock not found" unless stock
+
+      Stock.update_stock(stock, transaction)
+    end
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error "Transaction failed: #{e.message}"
+    false
   end
 
   private
 
-  def validate_quantity
-    return unless price && quantity
-
-    available_balance = Transaction.stock_available_balance(symbol, user_id)
-    puts "quantity: #{quantity}"
-    puts "balance: #{available_balance}"
-    errors.add :quantity, 'cannot exceed available balance' if quantity > available_balance
+  def calculate_value
+    self.value = price * quantity
   end
-
-  def self.stock_price_average(symbol, user_id)
-    total_weighted_price = Transaction.by_symbol(symbol, user_id).sum('price * quantity')
-    total_count = Transaction.by_symbol(symbol, user_id).count
-
-    total_count.zero? ? 0 : total_weighted_price.to_d / total_count
-  end
-
 end
