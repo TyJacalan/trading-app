@@ -29,7 +29,4 @@ class ApplicationController < ActionController::Base
     )
   end
 
-  def set_portfolio
-    @portfolio = Transaction.aggregate_stocks_by_symbol(current_user.id) || []
-  end
 end
