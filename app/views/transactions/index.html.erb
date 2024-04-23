@@ -1,18 +1,43 @@
-<%= link_to root_path, class: "p-4" do %>
-  <i class="fa fa-arrow-left"></i>
-<% end %>
+<div class="w-full mb-6 font-thin text-xs cursor-pointer">
+  <%= render_breadcrumbs :separator => ' > ' %>
+</div>
 
-<h1>Transactions</h1>
-
-<table>
-  <% @transactions.each do |transaction| %>
-    <tr>
-      <td><%= transaction.id %></li>
-      <td><%= transaction.symbol %></li>
-      <td><%= transaction.transaction_type %></li>
-      <td><%= transaction.price %></li>
-      <td><%= transaction.quantity %></li>
-      <td><%= transaction.currency %></li>
-    </tr>
+<%= render_card title: "My Transactions", class: "w-full p-6" do %>
+  <% headers = ['Id', 'Symbol', 'Type', 'Price', 'Quantity', 'Created At'] %>
+  <%= render_table do %>
+    <%= table_head do %>
+      <% headers.each do |header| %>
+        <%= table_header header %>
+      <% end %>
+    <% end %>
+    <%= table_body do %>
+      <% @transactions.each do |transaction| %>
+      <%= table_row do %>
+        <%= table_column do %>
+          <%= transaction.id %>
+        <% end %>
+        <%= table_column do %>
+          <%= transaction.symbol %>
+        <% end %>
+        <%= table_column do %>
+          <%= transaction.transaction_type %>
+        <% end %>
+        <%= table_column do %>
+          <%= "$ #{transaction.price}" %>
+        <% end %>
+        <%= table_column do %>
+          <%= transaction.quantity %>
+        <% end %>
+        <%= table_column do %>
+          <%= transaction.created_at.strftime('%Y-%m-%d') %>
+          <%= transaction.created_at.strftime('%H:%M:%S') %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% end %>
   <% end %>
-</table>
+
+  <div class='flex w-full justify-center'>
+    <%= paginate @transactions %>
+  </div>
+<% end %>
