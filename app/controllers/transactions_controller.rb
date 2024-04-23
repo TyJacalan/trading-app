@@ -6,7 +6,10 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
 
 
   def index
-    @transactions = current_user.transactions
+    add_breadcrumb "Home", :root_path
+    add_breadcrumb "My Transactions", :transactions_path
+
+    @transactions = current_user.transactions.order(created_at: :desc).page(params[:page]).per(20)
   end
 
   def new
