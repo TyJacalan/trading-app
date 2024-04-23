@@ -13,7 +13,9 @@
           <%= render_separator class: 'my-6' %>
 
           <%= turbo_frame_tag 'market_trends_frame', src: stocks_tables_path(filter: params[:filter]) do %>
-            <%= render_skeleton %>
+            <% 10.times do %>
+              <%= render_skeleton %>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
@@ -31,7 +33,9 @@
           <!-- Today's Financial News -->
           <%= render_card title: "Today's Financial news", class: "w-full min-w-[350px] p-4" do %>
             <%= turbo_frame_tag :stocks_articles, src: stocks_articles_path do %>
-              <%= render_skeleton %>
+              <% 5.times do %>
+                <%= render_skeleton %>
+              <% end %>
             <% end %>
           <% end %>
         </div>
