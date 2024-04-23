@@ -13,7 +13,9 @@
           <%= render_separator class: 'my-6' %>
 
           <%= turbo_frame_tag 'market_trends_frame', src: stocks_tables_path(filter: params[:filter]) do %>
-            <%= render_skeleton %>
+            <% 10.times do %>
+              <%= render_skeleton %>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
@@ -24,14 +26,19 @@
         <div class="flex flex-col gap-2">
 
           <!-- Portfolio Overview -->
-          <%= render_card class: 'w-full min-w-[350px] overflow-hidden' do %>
-            <%= turbo_frame_tag "portfolio_frame", src: portfolios_path, class: "w-full max-h-80 overflow-y-auto scroll-smooth scrollbar-none" %>
+          <%= render_card class: 'h-96 w-full min-w-[350px] overflow-hidden' do %>
+            <%= turbo_frame_tag "portfolio_frame", src: portfolios_path, 
+              class: "w-full overflow-y-auto scroll-smooth scrollbar-none" do %>
+              <%= render_spinner %>
+            <% end %>
           <% end %>
 
           <!-- Today's Financial News -->
           <%= render_card title: "Today's Financial news", class: "w-full min-w-[350px] p-4" do %>
             <%= turbo_frame_tag :stocks_articles, src: stocks_articles_path do %>
-              <%= render_skeleton %>
+              <% 5.times do %>
+                <%= render_skeleton %>
+              <% end %>
             <% end %>
           <% end %>
         </div>

@@ -1,16 +1,18 @@
 <%= render_table do %>
   <%= table_body do %>
     <% stocks.each do |stock| %>
-      <%= table_row class: 'flex flex-row' do %>
+      <%= table_row class: 'w-full flex flex-row' do %>
         <%= table_column do %>
           <%= image_tag(stock[:logo_url], width: 25, height: 25) if stock[:logo_url].present? %>
         <% end %>
-        <%= table_column class: 'flex-1 p-4 align-middle' do %>
-          <%= link_to stock[:company_name], 
-            stock_path(stock[:symbol]),
-            class: 'whitespace-nowrap overflow-hidden',
-            data: { turbo: false } %>
-          <br><span class="text-sm text-muted-foreground"><%= stock[:symbol] %></span>
+        <%= table_column class: 'w-1/2 p-4 align-middle overflow-hidden' do %>
+          <div class='w-full flex flex-col'>
+            <%= link_to stock[:company_name], 
+              stock_path(stock[:symbol]),
+              class: 'truncate',
+              data: { turbo: false } %>
+            <span class="text-sm text-muted-foreground"><%= stock[:symbol] %></span>
+          </div>
         <% end %>
         <%= table_column do %>
           <span><%= number_to_currency(stock[:price], precision: 2) %></span>
