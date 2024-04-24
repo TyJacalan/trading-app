@@ -32,7 +32,7 @@
             <% end %>
             <%= table_body do %>
               <% @portfolio.each do |stock| %>
-                <%= table_row class: "hover:bg-background" do %>
+                <%= table_row do %>
                   <%= table_column stock[:symbol], class: "flex justify-center p-2 mx-auto my-2 rounded bg-accent text-secondary text-sm" %>
                   <%= table_column number_to_currency(stock[:price], precision: 2) %>
                   <%= table_column stock[:quantity].to_s, class: "text-center" %>
