@@ -84,6 +84,21 @@ module StocksConcern # rubocop:disable Style/Documentation
       end
     end
 
+    def display_sector_performance
+      iex_api = IEXApi.new
+      response = iex_api.sector_performance
+      perf = response.success? ? response.parsed_response : []
+      perf.map do |sec|
+        {
+          name: sec['name'],
+          performance: sec['performance'],
+          symbol: sec['symbol'],
+          type: sec['type'],
+          lastUpdated: sec['lastUpdated']
+        }
+      end
+    end
+
     def cache_image(symbol)
       Rails.cache.fetch("#{symbol}_image", expires_in: 24.hours) do
         @client.logo(symbol)&.url

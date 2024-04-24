@@ -4,7 +4,7 @@
   { name: 'Gainers', path: 'gainers', icon: 'fas fa-caret-up text-success' },
   { name: 'Losers', path: 'losers', icon: 'fas fa-caret-down text-destructive' }] %>
 
-<ul class="flex flex-row gap-2 px-4">
+<ul class="flex flex-wrap gap-2 px-4">
   <% filters.each do |filter| %>
     <li class='flex flex-row gap-2 flex-nowrap'>
       <%= link_to stocks_tables_path(filter: filter[:path] ),

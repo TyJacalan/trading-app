@@ -1,11 +1,11 @@
 <%= render_table do %>
   <%= table_body do %>
     <% stocks.each do |stock| %>
-      <%= table_row class: 'w-full flex flex-row' do %>
-        <%= table_column do %>
-          <%= image_tag(stock[:logo_url], width: 25, height: 25) if stock[:logo_url].present? %>
+      <%= table_row class: 'w-full flex flex-wrap gap-4' do %>
+        <%= table_column class: "flex justify-center items-center w-full lg:w-[50px] object-cover" do %>
+          <%= image_tag(stock[:logo_url], width: '100%', height: 25) if stock[:logo_url].present? %>
         <% end %>
-        <%= table_column class: 'w-1/2 p-4 align-middle overflow-hidden' do %>
+        <%= table_column class: 'w-full lg:w-1/2 p-4 align-middle overflow-hidden' do %>
           <div class='w-full flex flex-col'>
             <%= link_to stock[:company_name], 
               stock_path(stock[:symbol]),
@@ -14,11 +14,11 @@
             <span class="text-sm text-muted-foreground"><%= stock[:symbol] %></span>
           </div>
         <% end %>
-        <%= table_column do %>
-          <span><%= number_to_currency(stock[:price], precision: 2) %></span>
+        <%= table_column class: "flex justify-end items-center p-2 lg:w-[100px]" do %>
+          <span class="font-semibold text-base"><%= number_to_currency(stock[:price], precision: 2) %></span>
         <% end %>
-        <%= table_column do %>
-          <span class="<%= stock[:change].to_f < 0 ? 'text-destructive' : 'text-success' %>">
+        <%= table_column class: "flex justify-start items-center py-2 lg:w-[100px]" do %>
+          <span class="flex justify-center w-full text-white px-2 py-1 rounded <%= stock[:change].to_f < 0 ? 'bg-destructive' : 'bg-success' %>">
             <%= stock[:change] %>
           </span>
         <% end %>

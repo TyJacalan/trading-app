@@ -1,48 +1,81 @@
 <div class="relative flex flex-col gap-2">
-  <!-- Search stocks -->
-  <div class="relative flex w-full max-w-lg min-w-[350px] mx-auto p-4 z-10">
-    <%= render partial: 'stocks_search/form', locals: { type: :link } %>
-  </div>
-
-  <div class="relative flex flex-col lg:flex-row gap-2 z-0">
-    <div class="relative w-full lg:w-3/5 z-0">
-      <%= turbo_frame_tag "details" do %>
-        <!-- Market Trends -->
-        <%= render_card title: "Market trends", class: "w-full p-4 min-w-[350px] overflow-hidden" do %>
-          <%= render 'stock_filters' %>
-          <%= render_separator class: 'my-6' %>
-
-          <%= turbo_frame_tag 'market_trends_frame', src: stocks_tables_path(filter: params[:filter]) do %>
-            <% 10.times do %>
-              <%= render_skeleton %>
-            <% end %>
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
-
-    <div class="flex flex-col w-full lg:w-2/5 gap-2">
-      <%= turbo_frame_tag "transaction_frame" do %>
-        <div class="flex flex-col gap-2">
-
-          <!-- Portfolio Overview -->
-          <%= render_card class: 'h-96 w-full min-w-[350px] overflow-hidden' do %>
-            <%= turbo_frame_tag "portfolio_frame", src: portfolios_path, 
-              class: "w-full overflow-y-auto scroll-smooth scrollbar-none" do %>
-              <%= render_spinner %>
-            <% end %>
-          <% end %>
-
-          <!-- Today's Financial News -->
-          <%= render_card title: "Today's Financial news", class: "w-full min-w-[350px] p-4" do %>
-            <%= turbo_frame_tag :stocks_articles, src: stocks_articles_path do %>
-              <% 5.times do %>
-                <%= render_skeleton %>
-              <% end %>
-            <% end %>
+  <!-- Sector Performance Cards -->
+  <div class="flex flex-col">
+    <h1 class="flex items-center gap-1 text-xs text-muted-foreground font-semibold">
+      <span class="font-bold"><></span> 
+      <span>SECTOR PERFORMANCE</span>
+    </h1>
+    <div class="flex gap-2 h-24 overflow-x-auto p-2">
+      <% @markets.each do |market| %>
+        <div class="w-[120px] h-full">
+          <%= render_card do %>
+            <div class="flex flex-col gap-1 items-start text-xs py-2 px-4 w-full h-full cursor-pointer hover:bg-muted">
+              <div class="flex gap-2 items-center">
+                <h2 class="font-semibold"><%= market[:symbol] %></h1>
+                <span class="bg-secondary text-white px-2 py-1 rounded"><%= market[:performance] %></span>
+              </div>
+              <div class="flex items-end">
+                <h3 class="text-muted-foreground"><%= market[:name] %></h2>
+              </div>
+            </div>
           <% end %>
         </div>
       <% end %>
     </div>
   </div>
+
+  <!-- Search stocks -->
+  <div class="relative flex w-full max-w-lg min-w-[350px] mx-auto p-10 z-10">
+    <%= render partial: 'stocks_search/form', locals: { type: :link } %>
+  </div>
+
+  <div class="relative flex flex-col lg:flex-row gap-2 z-0">
+    <div class="flex flex-col w-full lg:w-3/5 gap-2">
+      <!-- Market Trends -->
+      <%= render_card title: "Market trends", class: "w-full p-4 min-w-[350px] overflow-hidden" do %>
+        <%= render 'stock_filters' %>
+        <%= render_separator class: 'my-6' %>
+
+        <%= turbo_frame_tag 'market_trends_frame', src: stocks_tables_path(filter: params[:filter]) do %>
+          <% 10.times do %>
+            <%= render_skeleton %>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <!-- Sector Performance Chart -->
+      <%= render_card title: "Today's Sector Performance", class: "w-full p-4" do %>
+        <%= line_chart @perf_chart, 
+          id: "sec-performance-chart", 
+          xtitle: 'Sector',
+          ytitle: 'Performance',
+          colors: ["#b00", "#666"],
+          loading: "Loading..."
+        %>
+      <% end %>
+    </div>
+
+    <div class="flex flex-col w-full lg:w-2/5 gap-2">
+      <div class="flex flex-col gap-2">
+
+        <!-- Portfolio Overview -->
+        <%= render_card class: 'h-96 w-full min-w-[350px] overflow-hidden' do %>
+          <%= turbo_frame_tag "portfolio_frame", src: portfolios_path, 
+            class: "w-full overflow-y-auto scroll-smooth scrollbar-none" do %>
+            <%= render_spinner %>
+          <% end %>
+        <% end %>
+
+        <!-- Today's Financial News -->
+        <%= render_card title: "Today's Financial news", class: "w-full min-w-[350px] p-4" do %>
+          <%= turbo_frame_tag :stocks_articles, src: stocks_articles_path do %>
+            <% 5.times do %>
+              <%= render_skeleton %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
 </div>
