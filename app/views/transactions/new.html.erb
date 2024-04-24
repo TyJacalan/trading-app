@@ -1,6 +1,6 @@
 <%= turbo_frame_tag "transaction_frame" do %>
-  <div class='h-full w-full flex items-center justify-center border rounded-lg bg-accent py-4 shadow-md slide-down'>
-    <div class="flex flex-col items-center w-full gap-2">
+  <div class='h-full w-full flex items-center justify-center border rounded-lg bg-secondary py-4 shadow-md slide-down'>
+    <div class="flex flex-col items-center w-full gap-2 p-4">
       <%= render_tabs do %>
         <%= tab_list do %>
           <%= tab "Buy", active: true %>
@@ -8,7 +8,7 @@
         <% end %>
 
         <%= tab_panels do %>
-          <div class="p-4 bg-white">
+          <div class="py-2">
             <%= render partial: 'stocks_search/form', locals: { type: :form } %>
           </div>
 
