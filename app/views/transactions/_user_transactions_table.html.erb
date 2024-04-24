@@ -26,7 +26,10 @@
     <% end %>
   <% end %>
 <% end %>
-<%= paginate @transactions %>
+
+<div class='flex w-full justify-center'>
+  <%= paginate @transactions %>
+</div>
 
 <% if @transactions.empty? %>
   <div class="my-12 w-full tt-center text-sm text-muted-foreground">No transactions found.</div>

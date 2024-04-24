@@ -4,7 +4,28 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
   before_action :authorize_user!
 
   def index
-    @transactions = current_user.transactions.page(params[:page]).per(20)
+    add_breadcrumb "Home", :root_path
+    add_breadcrumb "My Transactions", :transactions_path
+
+    filter = params[:filter]
+    transactions = case filter
+                 when 'buy'
+                   current_user.transactions.buys
+                 when 'sell'
+                   current_user.transactions.sells
+                 else
+                   current_user.transactions
+                 end
+
+    @transactions = transactions.order(created_at: :desc).page(params[:page]).per(20)
+
+    respond_to do |format|
+      format.html { render :index }
+      format.turbo_stream
+        turbo_stream.update('transactions',
+                            partial: 'transactions/user_transactions_table')
+    end
+
   end
 
   def new
