@@ -1,46 +1,17 @@
-user = User.find(1)
+50.times do
+  counter = SecureRandom.hex(4)
+  email = "example#{counter}@example.com"
 
-Transaction.create!(
-  symbol: 'AAPL',
-  transaction_type: 0,
-  price: 150.25,
-  amount: 100,
-  currency: 'USD',
-  user: user
-)
+  created_at = Time.zone.local(2024, rand(1..7), rand(1..28), rand(0..23), rand(0..59), rand(0..59))
 
-Transaction.create!(
-  symbol: 'AAPL',
-  transaction_type: 0,
-  price: 150.25,
-  amount: 200,
-  currency: 'USD',
-  user: user
-)
-
-Transaction.create!(
-  symbol: 'AAPL',
-  transaction_type: 1,
-  price: 154.25,
-  amount: 50,
-  currency: 'USD',
-  user: user
-)
-
-Transaction.create!(
-  symbol: 'GOOGL',
-  transaction_type: 1,
-  price: 2750.50,
-  amount: 50,
-  currency: 'USD',
-  user: user
-)
-
-Transaction.create!(
-  symbol: 'MSFT',
-  transaction_type: 0,
-  price: 300.75,
-  amount: 75,
-  currency: 'USD',
-  user: user
-)
+  User.create!(
+    first_name: "Example#",
+    last_name: "User",
+    email: email,
+    password: Devise::Encryptor.digest(User, 'password123'),
+    full_name: "Example# User",
+    created_at: created_at,
+    balance: 0,
+    confirmed_at: Time.now.utc
+  )
+end
