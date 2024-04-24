@@ -23,9 +23,7 @@ class Stock < ApplicationRecord
       stock.quantity += transaction.quantity
     elsif transaction.transaction_type == 'sell'
       if stock.quantity >= transaction.quantity
-        Rails.logger.info "Log1: #{stock.quantity}"
         stock.quantity -= transaction.quantity
-        Rails.logger.info "Log2: #{stock.quantity}"
       else
         raise StandardError, "Insufficient quantity to sell."
       end
@@ -43,5 +41,4 @@ class Stock < ApplicationRecord
 
     new_value
   end
-
 end

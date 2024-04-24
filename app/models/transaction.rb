@@ -3,7 +3,7 @@ class Transaction < ApplicationRecord
   enum transaction_type: { buy: 0, sell: 1 }
 
   validates :symbol, :transaction_type, :price, :quantity, :value, presence: true
-
+  
   before_validation :calculate_value
 
   scope :buys, -> { where(transaction_type: :buy) }
