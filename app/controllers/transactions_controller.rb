@@ -9,7 +9,25 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
     add_breadcrumb "Home", :root_path
     add_breadcrumb "My Transactions", :transactions_path
 
-    @transactions = current_user.transactions.order(created_at: :desc).page(params[:page]).per(20)
+    filter = params[:filter]
+    transactions = case filter
+                 when 'buy'
+                   current_user.transactions.buys
+                 when 'sell'
+                   current_user.transactions.sells
+                 else
+                   current_user.transactions
+                 end
+
+    @transactions = transactions.order(created_at: :desc).page(params[:page]).per(20)
+
+    respond_to do |format|
+      format.html { render :index }
+      format.turbo_stream
+        turbo_stream.update('transactions',
+                            partial: 'transactions/user_transactions_table')
+    end
+
   end
 
   def new
@@ -40,7 +58,6 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
   end
 
   def transaction_params
-    # memoization
     @transaction_params ||= params.require(:transaction)
                                   .permit(:symbol, :price, :quantity, :transaction_type, :currency)
                                   .merge(user_id: current_user.id)
