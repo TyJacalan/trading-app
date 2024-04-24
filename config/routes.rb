@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :admins, only: [:index]
   namespace :admin do
     resources :users, except: %i[new edit]
-    resources :transactions, only: %i[index show edit update]
+    resources :transactions, only: %i[index]
     resources :user_roles, only: [:update]
     resources :approve_roles, only: [:update]
   end
