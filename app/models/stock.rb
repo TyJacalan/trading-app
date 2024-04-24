@@ -11,7 +11,10 @@ class Stock < ApplicationRecord
     target_stock = find(stock.id)
 
     target_stock.quantity = calculate_quantity(stock, transaction)
-    target_stock.price_avg = calculate_weighted_average_price(stock, transaction)
+
+    if transaction.transaction_type == 'buy'
+      target_stock.price_avg = calculate_weighted_average_price(stock, transaction)
+    end
 
     target_stock.save
   end
