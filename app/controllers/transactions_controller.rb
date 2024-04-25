@@ -17,13 +17,13 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
 
     transaction = @transaction.transaction_type == 'buy' ? Transaction.buy(current_user, transaction_params) : Transaction.sell(current_user, transaction_params)
 
-    if transaction
+    if transaction[:status]
       respond_to do |format|
         format.turbo_stream { flash.now[:notice] = "#{transaction_params[:transaction_type].capitalize} successful!" }
       end
     else
       respond_to do |format|
-        format.turbo_stream { flash.now[:alert] = "Something went wrong!" }
+        format.turbo_stream { flash.now[:alert] = transaction[:error] || "Transaction failed" }
       end
     end
   rescue StandardError => e
