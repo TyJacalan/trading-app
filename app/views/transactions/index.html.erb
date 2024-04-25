@@ -2,42 +2,13 @@
   <%= render_breadcrumbs :separator => ' > ' %>
 </div>
 
-<%= render_card title: "My Transactions", class: "w-full p-6" do %>
-  <% headers = ['Id', 'Symbol', 'Type', 'Price', 'Quantity', 'Created At'] %>
-  <%= render_table do %>
-    <%= table_head do %>
-      <% headers.each do |header| %>
-        <%= table_header header %>
-      <% end %>
-    <% end %>
-    <%= table_body do %>
-      <% @transactions.each do |transaction| %>
-      <%= table_row do %>
-        <%= table_column do %>
-          <%= transaction.id %>
-        <% end %>
-        <%= table_column do %>
-          <%= transaction.symbol %>
-        <% end %>
-        <%= table_column do %>
-          <%= transaction.transaction_type %>
-        <% end %>
-        <%= table_column do %>
-          <%= "$ #{transaction.price}" %>
-        <% end %>
-        <%= table_column do %>
-          <%= transaction.quantity %>
-        <% end %>
-        <%= table_column do %>
-          <%= transaction.created_at.strftime('%Y-%m-%d') %>
-          <%= transaction.created_at.strftime('%H:%M:%S') %>
-        <% end %>
-      <% end %>
-    <% end %>
-    <% end %>
-  <% end %>
-
-  <div class='flex w-full justify-center'>
-    <%= paginate @transactions %>
+<%= render_card title: "My Transactions", class: "flex flex-col gap-4 w-full p-6" do %>
+  <div class='flex flex-row gap-4 w-full'>
+  <%= render partial: 'search', locals: { user: current_user } %>
+  <%= render partial: 'filters' %>
   </div>
+
+  <turbo-frame id="transactions">
+    <%= render partial: 'user_transactions_table' %>
+  </turbo-frame>
 <% end %>
