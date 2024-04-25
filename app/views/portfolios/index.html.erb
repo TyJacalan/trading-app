@@ -9,7 +9,7 @@
 <%= render_separator class: 'my-6'%>
 
 <div class="flex flext-col gap-2">
-  <%= render_card title: "#{number_to_currency(@total_value, precision: 2)}" do %>
+  <%= render_card title: "#{number_to_currency(@total_value, precision: 2)}", subtitle: "Total Gain" do %>
     <%= area_chart @chart_data, discrete: true, library: { hAxis: { title: 'Stock Symbol' }, vAxis: { title: 'Value' } } %>
   <% end %>
 
