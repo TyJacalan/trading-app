@@ -23,4 +23,8 @@ export default class UIToggleController extends Controller {
       this.element.dataset.state = "checked";
     }
   }
+
+  test(){
+    console.log("this works")
+  }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Avion Finance</title>
+    <title>TradingApp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,43 +12,16 @@
     <%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
   </head>
 
-  <body class="flex h-full w-full min-h-screen flex-col p-6 lg:p-12 lg:pt-24">
-    <header data-controller="header-shadow" class="fixed top-0 left-0 w-full bg-white z-100">
-      <nav class="container mx-auto flex items-center justify-between p-4 lg:px-12" aria-label="Global">
-        <div class="flex flex-1 gap-1 items-center">
-          <%= render 'components/navbar/logo' %>
-          <span class="font-semibold text-xl text-secondary">Finance</span>
-        </div>
-        <% if current_user.present? && current_user.role == 'admin' %>
-          <%= render 'components/navbar/admin' %>
-        <% else %>
-          <%= render 'components/navbar/user' %>
-        <% end %>
-      </nav>
-    </header>
+  <body class="flex h-full w-full min-h-screen flex-col">
+    <% if notice %>
+      <%= render_toast id: "default_toast", description: notice %>
+    <% end %>
 
-    <div id="toast">
-      <% if notice %>
-        <%= render_toast id: "default_toast", description: notice %>
-      <% end %>
+    <% if alert %>
+      <%= render_toast description: alert, id: "alert_toast", variant: :destructive %>
+    <% end %>
 
-      <% if alert %>
-        <%= render_toast description: alert, id: "alert_toast", variant: :destructive %>
-      <% end %>
-    </div>
-
-    <div class="container mt-16 lg:mt-0">
-      <div class="w-full fixed top-0 left-0 z-50 p-4">
-        <div class="flex flex-col-reverse lg:flex-row justify-center items-start gap-2 mt-16">
-          <%= turbo_frame_tag "details", class: "w-full lg:w-1/2 bg-white rounded-lg" %>
-          <%= turbo_frame_tag "transaction_frame", class: "w-full lg:w-1/2" %>
-        </div>
-      </div>
-
-      <%= yield %>
-    </div>
-    
+    <%= yield %>
   </body>
-
 </html>
 

@@ -1,53 +1,29 @@
 # frozen_string_literal: true
 
 class TransactionsController < ApplicationController # rubocop:disable Style/Documentation
+  include TransactionsConcern
+
   before_action :authorize_user!
+  before_action :set_portfolio
   before_action :set_transaction, only: %i[new create]
 
-
   def index
-    add_breadcrumb "Home", :root_path
-    add_breadcrumb "My Transactions", :transactions_path
-
-    filter = params[:filter]
-    transactions = case filter
-                 when 'buy'
-                   current_user.transactions.buys
-                 when 'sell'
-                   current_user.transactions.sells
-                 else
-                   current_user.transactions
-                 end
-
-    @transactions = transactions.order(created_at: :desc).page(params[:page]).per(20)
-
-    respond_to do |format|
-      format.html { render :index }
-      format.turbo_stream
-        turbo_stream.update('transactions',
-                            partial: 'transactions/user_transactions_table')
-    end
-
+    @transactions = current_user.transactions
   end
 
   def new
+    puts "transaction: #{params[:transaction_type]}"
     @transaction = Transaction.new(transaction_type: params[:transaction_type])
-    @stock = []
   end
 
   def create
     @transaction = current_user.transactions.build(transaction_params)
 
     if @transaction.save
-      respond_to do |format|
-        format.html { redirect_to root_path }
-        format.turbo_stream { flash[:notice] = "#{@transaction.transaction_type.capitalize} successful!" }
-      end
+      redirect_to root_path, notice: "#{@transaction.transaction_type.capitalize} successful!"
     else
-      respond_to do |format|
-        format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream { flash[:alert] = "#{@transaction.errors.full_messages.join(', ')}" }
-      end
+      flash[:alert] = @transaction.errors.full_messages.join(', ')
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -58,6 +34,7 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
   end
 
   def transaction_params
+    # memoization
     @transaction_params ||= params.require(:transaction)
                                   .permit(:symbol, :price, :quantity, :transaction_type, :currency)
                                   .merge(user_id: current_user.id)

@@ -5,12 +5,10 @@ class StocksController < ApplicationController
   include StocksConcern
 
   def index
-    @transaction = Transaction.new
-    @stocks = cache_all_stocks.map { |stock| { value: stock[:symbol], name: stock[:name] } }
   end
 
   def show
     @stock = chart_stock(params[:id])
-    @news_feed = cache_news(params[:id], 7)
+    @news_feed = cache_news(params[:id], 5)
   end
 end

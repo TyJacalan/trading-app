@@ -1,21 +1,11 @@
 <%= turbo_frame_tag :stocks_articles do %>
-  <% @news_feed.each do |article| %>
-    <div class='flex flex-col w-full p-4 gap-4'> 
-      <div class='flex flex-row text-xs text-muted-foreground gap-2'>
-        <h2><%= article[:source] %></h2>
-        <span>|</span>
-        <span><%= time_ago(article[:datetime]) %></span>
-      </div>
-      <div class='flex flex-col w-full lg:flex-row gap-2'>
-        <div class='w-full'>
-          <h1 class='font-medium overflow-hidden text-clip'><%= article[:headline] %></h1>
-        </div>
-        <div class='h-auto w-full lg:w-28 rounded overflow-hidden'>
-          <%= image_tag article[:image], 
-            class: 'h-full w-full object-cover' %>
-        </div>
-      </div>
-    </div> 
-    <%= render_separator class: 'my-4' %>
-  <% end %>
+  <div>
+    <% @news_feed.each do |article| %>
+      <%= image_tag(article[:image], class: "h-36 w-36 py-4 rounded-m") %>
+      <h2><%= article[:source] %></h2>
+      <span><%= article[:datetime] %></span>
+      <h1><%= article[:headline] %></h1>
+      <p><%= article[:summary] %></p>
+    <% end %>
+  </div>
 <% end %>

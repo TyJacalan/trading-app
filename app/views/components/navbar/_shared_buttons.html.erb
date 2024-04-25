@@ -1,7 +1,0 @@
-<% if request.path == admin_users_path %>
-  <%= render partial: 'create_user_form', locals: { user: @user } %>
-<% end %>
-
-<% if current_user.role == 'standard' %>
-  <%= render_button("Buy / Sell", variant: :outline, as: :link, href: new_transaction_path, data: { turbo_frame: 'transaction_frame' }) %>
-<% end %>

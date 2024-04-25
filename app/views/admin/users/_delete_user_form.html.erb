@@ -1,7 +1,7 @@
 <%= render_form_for("delete_user", url: admin_user_path(user), method: :delete) do |f| %>
   <%= render_dialog do %>
     <%= dialog_trigger do %>
-      <i class="fa fa-trash cursor-pointer hover:text-destructive"></i>
+      <%= render_button "Delete account", variant: :destructive, class: 'w-full' %>
     <% end %>
 
     <%= dialog_content do %>

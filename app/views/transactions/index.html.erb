@@ -1,14 +1,18 @@
-<div class="w-full mb-6 font-thin text-xs cursor-pointer">
-  <%= render_breadcrumbs :separator => ' > ' %>
-</div>
-
-<%= render_card title: "My Transactions", class: "flex flex-col gap-4 w-full p-6" do %>
-  <div class='flex flex-row gap-4 w-full'>
-  <%= render partial: 'search', locals: { user: current_user } %>
-  <%= render partial: 'filters' %>
-  </div>
-
-  <turbo-frame id="transactions">
-    <%= render partial: 'user_transactions_table' %>
-  </turbo-frame>
+<%= link_to root_path, class: "p-4" do %>
+  <i class="fa fa-arrow-left"></i>
 <% end %>
+
+<h1>Transactions</h1>
+
+<table>
+  <% @transactions.each do |transaction| %>
+    <tr>
+      <td><%= transaction.id %></li>
+      <td><%= transaction.symbol %></li>
+      <td><%= transaction.transaction_type %></li>
+      <td><%= transaction.price %></li>
+      <td><%= transaction.quantity %></li>
+      <td><%= transaction.currency %></li>
+    </tr>
+  <% end %>
+</table>

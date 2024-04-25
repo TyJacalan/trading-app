@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_04_18_115951) do
+ActiveRecord::Schema[7.1].define(version: 2024_04_08_072538) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -30,7 +30,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_18_115951) do
     t.integer "transaction_type", null: false
     t.decimal "price", precision: 15, scale: 8, null: false
     t.integer "quantity", null: false
-    t.string "currency"
+    t.string "currency", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -42,7 +42,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_18_115951) do
     t.string "last_name", default: ""
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "full_name"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -54,7 +53,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_18_115951) do
     t.string "unconfirmed_email"
     t.integer "role", default: 0
     t.integer "approved"
-    t.decimal "balance"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

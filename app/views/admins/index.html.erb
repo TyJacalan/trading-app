@@ -1,24 +1,13 @@
-<div class='flex-1 h-full w-full flex flex-col gap-4'>
-  <%= render 'components/text/header' do %>
-    Transactions Data
-  <% end %>
-  <div class='w-full flex flex-col lg:flex-row gap-4'>
-    <%= render 'transactions_details', collection: @transactions %>
-    <%= render 'chart_transactions_month', collection: @transactions %>
-  </div>
-  <div class='w-full flex flex-col lg:flex-row gap-4'>
-    <%= render 'chart_transactions_day', collection: @transactions %>
-    <%= render 'chart_transactions_volume_month', collection: @transactions %>
-  </div>
+<h1>Admins</h1>
 
-  <%= render_separator class: 'my-4' %>
+<h2>Pages</h2>
+<ul>
+  <li><%= link_to "Users Home", root_path %></li>
+  <li><%= link_to 'Porfolio', portfolios_path %></li>
+  <li><%= link_to 'Transactions', transactions_path %></li>
+  <li><%= link_to "Admins Home", admins_path %></li>
+  <li><%= link_to "Users", admin_users_path %></li>
+  <li><%= link_to "Transactions", admin_transactions_path %></li>
+</ul>
 
-  <%= render 'components/text/header' do %>
-    Users Data
-  <% end %>
-
-  <div class='w-full flex flex-col lg:flex-row gap-4'>
-    <%= render 'users_details', collection: @users %>
-    <%= render 'chart_users_time', collection: @transactions %>
-  </div>
-</div>
+<%= button_to "Log Out", destroy_user_session_path, method: :delete %>

@@ -1,7 +1,42 @@
+<h1>Admin Users</h1>
+
+<%= render partial: 'create_user_form', locals: { user: @user } %>
+
 <ul class="flex flex-row gap-2 p-2">
-  <%= render 'users_filters' %>
+  <%= render partial: 'users_filters' %>
 </ul>
 
-<div class='mt-6'>
-  <%= render 'users_table', collection: @users %>
-</div>
+<%= render_table do %>
+  <%= table_head do %>
+    <%= table_header "First Name" %>
+    <%= table_header "Last Name" %>
+    <%= table_header "Email" %>
+    <%= table_header "Role" %>
+    <%= table_header "Approval" %>
+    <%= table_header "" %>
+    <%= table_header "" %>
+  <% end %>
+  <%= table_body do %>
+    <% @users.each do |user| %>
+      <%= table_row do %>
+        <%= table_column do %>
+          <%= link_to user.first_name, admin_user_path(user), class: 'text-primary' %>
+        <% end %>
+        <%= table_column user.last_name %>
+        <%= table_column user.email %>
+        <%= table_column do %>
+          <%= render partial: 'role_form', locals: { user: user } %>
+        <% end %>
+        <%= table_column do %>
+          <%= render partial: 'approved_form', locals: { user: user } %>
+        <% end %>
+        <%= table_column do %>
+          <%= render partial: 'edit_user_form', locals: { user: user } %>
+        <% end %>
+        <%= table_column do %>
+          <%= render partial: 'delete_user_form', locals: { user: user } %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
