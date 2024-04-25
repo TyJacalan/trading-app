@@ -3,7 +3,13 @@ class StocksDetailsController < StocksController
     @stock_chart = format_chart_data(@client.chart(params[:symbol], '1y', chart_close_only: true))
     @stock = fetch_stock(params[:symbol])
     @transaction = Transaction.new
-    @stock_balance = Transaction.stock_available_balance(params[:symbol], current_user.id)
+    @stock_balance = current_user.stocks.find_by(symbol: params[:symbol])
+
+    if @stock_balance
+      @stock_balance = @stock_balance.quantity
+    else
+      @stock_balance = 0
+    end
 
     render turbo_stream:[
       turbo_stream.update('details',
