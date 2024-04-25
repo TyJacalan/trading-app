@@ -4,20 +4,40 @@
 
 import { application } from "./application"
 
+import AutoSubmit from '@stimulus-components/auto-submit'
+application.register('auto-submit', AutoSubmit)
+
 import Ui__DialogController from "./ui/dialog_controller"
 application.register("ui--dialog", Ui__DialogController)
+
+import Ui__FilterController from "./ui/filter_controller"
+application.register("ui--filter", Ui__FilterController)
 
 import Ui__PopoverController from "./ui/popover_controller"
 application.register("ui--popover", Ui__PopoverController)
 
+import Ui__SheetController from "./ui/sheet_controller"
+application.register("ui--sheet", Ui__SheetController)
+
 import Ui__SwitchController from "./ui/switch_controller"
 application.register("ui--switch", Ui__SwitchController)
+
+import Ui__SwitchModeController from "./ui/switch_mode_controller"
+application.register("ui--switch-mode", Ui__SwitchModeController)
 
 import Ui__ToastController from "./ui/toast_controller"
 application.register("ui--toast", Ui__ToastController)
 
-import Ui__SwitchModeController from "./ui/switch_mode_controller"
-application.register("ui--switch_mode", Ui__SwitchModeController)
+import Ui__TabsController from "./ui/tabs_controller"
+application.register("ui--tabs", Ui__TabsController)
 
-import AutoSubmit from '@stimulus-components/auto-submit'
-application.register('auto-submit', AutoSubmit)
+import TransactionForm from "./transaction_form_controller"
+application.register("transaction-form", TransactionForm)
+
+import UpdateLinkAppearance from "./update_link_appearance_controller"
+application.register("update-link-appearance", UpdateLinkAppearance)
+
+import HeaderShadow from "./header_shadow_controller"
+application.register("header-shadow", HeaderShadow)
+
+

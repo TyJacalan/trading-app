@@ -1,0 +1,15 @@
+<%# Link to the "First" page
+  - available local variables
+    url:           url to the first page
+    current_page:  a page object for the currently displayed page
+    total_pages:   total number of pages
+    per_page:      number of items to fetch per page
+    remote:        data-remote
+-%>
+<div class='h-6 w-6 rounded-md ring-1 ring-muted-foreground/50 text-center'>
+  <% unless current_page.first? %>
+    <%= link_to url, remote: remote do %>
+      <i class='fa fa-angle-double-left' aria-hidden='true'></i>
+    <% end %>
+  <% end %>
+</div>

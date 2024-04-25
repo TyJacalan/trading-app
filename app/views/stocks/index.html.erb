@@ -1,31 +1,48 @@
-<h1>Stocks</h1>
+<div class="relative flex flex-col gap-2">
+  <!-- Search stocks -->
+  <div class="relative flex w-full max-w-lg min-w-[350px] mx-auto p-4 z-10">
+    <%= render partial: 'stocks_search/form', locals: { type: :link } %>
+  </div>
 
-<h2>Pages</h2>
-<ul>
-  <li><%= link_to 'Home', root_path %></li>
-  <li><%= link_to 'Porfolio', portfolios_path %></li>
-  <li><%= link_to 'Transactions', transactions_path %></li>
-  <li><%= link_to "Users", admin_users_path %></li>
-  <li><%= link_to "Transactions", admin_transactions_path %></li>
-</ul>
+  <div class="relative flex flex-col lg:flex-row gap-2 z-0">
+    <div class="relative w-full lg:w-3/5 z-0">
+      <%= turbo_frame_tag "details" do %>
+        <!-- Market Trends -->
+        <%= render_card title: "Market trends", class: "w-full p-4 min-w-[350px] overflow-hidden" do %>
+          <%= render 'stock_filters' %>
+          <%= render_separator class: 'my-6' %>
 
-<ul class="flex flex-row gap-2">
-  <li><%= link_to "Most Active", root_path(filter: 'most-active') %></li>
-  <li><%= link_to "Gainers", root_path(filter: 'gainers') %></li>
-  <li><%= link_to "Losers", root_path(filter: 'losers') %></li>
-</ul>
+          <%= turbo_frame_tag 'market_trends_frame', src: stocks_tables_path(filter: params[:filter]) do %>
+            <% 10.times do %>
+              <%= render_skeleton %>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
 
-<div class="flex space-x-4">
-  <%= link_to "Buy", new_transaction_path(transaction_type: 'buy'), method: :get, class: "button button-primary" %>
-  <%= link_to "Sell", new_transaction_path(transaction_type: 'sell'), method: :get, class: "button button-primary" %>
+    <div class="flex flex-col w-full lg:w-2/5 gap-2">
+      <%= turbo_frame_tag "transaction_frame" do %>
+        <div class="flex flex-col gap-2">
+
+          <!-- Portfolio Overview -->
+          <%= render_card class: 'h-96 w-full min-w-[350px] overflow-hidden' do %>
+            <%= turbo_frame_tag "portfolio_frame", src: portfolios_path, 
+              class: "w-full overflow-y-auto scroll-smooth scrollbar-none" do %>
+              <%= render_spinner %>
+            <% end %>
+          <% end %>
+
+          <!-- Today's Financial News -->
+          <%= render_card title: "Today's Financial news", class: "w-full min-w-[350px] p-4" do %>
+            <%= turbo_frame_tag :stocks_articles, src: stocks_articles_path do %>
+              <% 5.times do %>
+                <%= render_skeleton %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<%= turbo_frame_tag :stocks_articles, src: stocks_articles_path do %>
-  Loading...
-<% end %>
-
-<%= turbo_frame_tag :stocks_tables, src: stocks_tables_path(filter: params[:filter]) do %>
-  Loading...
-<% end %>
-
-<%= button_to "Log out", destroy_user_session_path, method: :delete %>

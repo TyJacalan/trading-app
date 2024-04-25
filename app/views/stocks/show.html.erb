@@ -33,7 +33,7 @@
   </div>
 
   <%= turbo_frame_tag :stocks_articles, src: stocks_articles_path(symbol: params[:id]) do %>
-    Loading...
+    <%= render_skeleton %>
   <% end %>
   
 </div>

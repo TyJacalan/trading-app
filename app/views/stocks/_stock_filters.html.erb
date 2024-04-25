@@ -1,0 +1,17 @@
+<% filters = [
+  { name: 'Iex Volume', path: 'iexvolume', icon: 'fas fa-chart-line' },
+  { name: 'Most Active', path: 'most-active', icon: 'fas fa-chart-line' },
+  { name: 'Gainers', path: 'gainers', icon: 'fas fa-caret-up text-success' },
+  { name: 'Losers', path: 'losers', icon: 'fas fa-caret-down text-destructive' }] %>
+
+<ul class="flex flex-row gap-2 px-4">
+  <% filters.each do |filter| %>
+    <li class='flex flex-row gap-2 flex-nowrap'>
+      <%= link_to stocks_tables_path(filter: filter[:path] ),
+        data: { turbo_frame: 'market_trends_frame', controller: 'update-link-appearance' },  
+        class: "border rounded-full py-2 px-4 text-sm truncate" do %>
+        <i class="<%= filter[:icon] %> mr-1"></i> <%= filter[:name] %>
+    <% end %>
+    </li>
+  <% end %> 
+</ul>

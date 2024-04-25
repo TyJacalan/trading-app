@@ -1,6 +1,6 @@
 <%= render_dialog do %>
   <%= dialog_trigger do %>
-    <%= render_button "Edit account", variant: :outline %>
+    <i class="fa fa-pen cursor-pointer hover:text-muted-foreground"></i>
   <% end %>
   <%= dialog_content do %>
     <%= render_form_for(user, url: admin_user_path(user), method: :put, class: 'flex flex-col gap-4', html: { id: "edit_form_#{user.id}" }) do |f| %>
