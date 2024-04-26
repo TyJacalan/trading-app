@@ -9,7 +9,7 @@
     <li class='flex flex-row gap-2 flex-nowrap'>
       <%= link_to stocks_tables_path(filter: filter[:path] ),
         data: { turbo_frame: 'market_trends_frame', controller: 'update-link-appearance' },  
-        class: "border rounded-full py-2 px-4 text-sm truncate" do %>
+        class: "border rounded-full py-2 px-4 text-sm truncate hover:bg-accent" do %>
         <i class="<%= filter[:icon] %> mr-1"></i> <%= filter[:name] %>
     <% end %>
     </li>

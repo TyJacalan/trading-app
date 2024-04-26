@@ -2,24 +2,19 @@
   <!-- Sector Performance Cards -->
   <div class="flex flex-col">
     <h1 class="flex items-center gap-1 text-xs text-muted-foreground font-semibold">
-      <span class="font-bold"><></span> 
       <span>SECTOR PERFORMANCE</span>
     </h1>
     <div class="flex gap-2 h-24 overflow-x-auto p-2">
       <% @markets.each do |market| %>
-        <div class="w-[120px] h-full">
-          <%= render_card do %>
-            <div class="flex flex-col gap-1 items-start text-xs py-2 px-4 w-full h-full cursor-pointer hover:bg-muted">
-              <div class="flex gap-2 items-center">
-                <h2 class="font-semibold"><%= market[:symbol] %></h1>
-                <span class="bg-secondary text-white px-2 py-1 rounded"><%= market[:performance] %></span>
-              </div>
-              <div class="flex items-end">
-                <h3 class="text-muted-foreground"><%= market[:name] %></h2>
-              </div>
-            </div>
-          <% end %>
-        </div>
+        <%= render_card class: "flex flex-col gap-1 justify-between text-xs w-[120px] h-full p-4 cursor-pointer hover:bg-muted" do %>
+          <div class="flex gap-2 items-center">
+            <h2 class="font-semibold"><%= market[:symbol] %></h2>
+            <span class="px-2 py-1 rounded <%= market[:performance].to_d < 0 ? 'bg-destructive text-white' : 'bg-success-light text-success' %>"><%= market[:performance] %></span>
+          </div>
+          <div class="flex justify-start">
+            <h3 class="text-muted-foreground truncate" title="<%= market[:name] %>"><%= market[:name] %></h3>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
@@ -32,7 +27,7 @@
   <div class="relative flex flex-col lg:flex-row gap-2 z-0">
     <div class="flex flex-col w-full lg:w-3/5 gap-2">
       <!-- Market Trends -->
-      <%= render_card title: "Market trends", class: "w-full p-4 min-w-[350px] overflow-hidden" do %>
+      <%= render_card title: "Market trends", class: "w-full p-4 min-w-[350px]" do %>
         <%= render 'stock_filters' %>
         <%= render_separator class: 'my-6' %>
 
