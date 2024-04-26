@@ -5,8 +5,7 @@ class Transaction < ApplicationRecord
   validates :symbol, :transaction_type, :price, :quantity, :value, presence: true
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }
 
-  # before_validation :calculate_value
-  after_initialize :calculate_value
+  before_validation :calculate_value
 
   scope :buys, -> { where(transaction_type: :buy) }
   scope :sells, -> { where(transaction_type: :sell) }
