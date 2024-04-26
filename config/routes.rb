@@ -20,11 +20,12 @@ Rails.application.routes.draw do
   resources :stocks, only: %i[index show]
   resources :portfolios, only: %i[index show]
   resources :transactions, only: %i[index new create]
+  resources :wallets, only: %i[index create]
   get :stocks_articles, to: 'stocks_articles#show'
   get :stocks_tables, to: 'stocks_tables#show'
   get :stocks_search, to: 'stocks_search#show'
   get :stocks_details, to: 'stocks_details#show'
-  
+
   namespace :transactions do
     get :search, to: 'search#show'
   end

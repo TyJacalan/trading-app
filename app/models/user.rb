@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   has_many :transactions
   has_many :stocks
+  has_many :wallets
+
+  after_initialize :initialize_balance
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
@@ -26,5 +30,11 @@ class User < ApplicationRecord
     return if password.match?(/[!@#$%^&*]/)
 
     errors.add(:password, 'must contain at least one special character')
+  end
+
+  private
+
+  def initialize_balance
+    self.balance ||= 0
   end
 end
