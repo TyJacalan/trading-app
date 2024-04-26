@@ -24,7 +24,8 @@ Rails.application.routes.draw do
   get :stocks_tables, to: 'stocks_tables#show'
   get :stocks_search, to: 'stocks_search#show'
   get :stocks_details, to: 'stocks_details#show'
-  
+  get :home, to: 'pages#index'
+
   namespace :transactions do
     get :search, to: 'search#show'
   end
