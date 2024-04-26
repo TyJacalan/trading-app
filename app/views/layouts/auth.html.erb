@@ -11,6 +11,16 @@
   </head>
 
   <body class="h-full max-h-screen bg-background text-foreground font-sans text-sm">
+    <div id="toast">
+      <% if notice %>
+        <%= render_toast id: "default_toast", description: notice %>
+      <% end %>
+
+      <% if alert %>
+        <%= render_toast description: alert, id: "alert_toast", variant: :destructive %>
+      <% end %>
+    </div>
+
     <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div class="sm:mx-auto sm:w-full sm:max-w-md flex flex-col items-center justify-center gap-8 text-center">
         <div class="flex flex-1 gap-1 items-center">
