@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  root 'stocks#index'
+  # root 'stocks#index'
+  root 'pages#index'
 
   devise_scope :user do
     get 'admin/sign_in', to: 'admin/sessions#new'
