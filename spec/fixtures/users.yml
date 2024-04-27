@@ -1,7 +1,10 @@
-# spec/fixtures/users.yml
 valid_user:
+  id: 1
   email: valid_user@example.com
   first_name: Valid
+  role: standard
+  confirmed_at: 2024-04-25 18:23:00
+  approved: true
   
 missing_first_name_user:
   email: missing_firstname@example.com
