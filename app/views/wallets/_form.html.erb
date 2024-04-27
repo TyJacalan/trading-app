@@ -1,7 +1,7 @@
 <%= render_form_for(@wallet) do |form| %>
   <div class="flex items-end gap-2">
     <div class="flex flex-col justify-start">
-      <%= form.label :amount, class: "py-2 text-white" %>
+      <%= form.label :amount, class: "py-2" %>
       <%= form.number_field :amount, placeholder: "0.00", autofocus: true, autocomplete: "off", class: "py-2" %>
     </div>
 

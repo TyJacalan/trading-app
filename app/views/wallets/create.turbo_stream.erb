@@ -7,3 +7,4 @@
       <%= render_toast description: alert, id: "alert_toast", variant: :destructive %>
     <% end %>
 <% end %>
+<%= turbo_stream.update "account-balance" %>
