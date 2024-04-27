@@ -1,12 +1,12 @@
 <div class= 'w-full relative flex cursor-pointer select-none items-center 
-  rounded-sm px-2 py-1.5 text-sm outline-none 
+  rounded-sm px-2 py-1.5 outline-none 
   aria-selected:bg-accent aria-selected:text-accent-foreground 
   hover:bg-accent hover:text-accent-foreground 
   data-[disabled]:pointer-events-none data-[disabled]:opacity-50'>
   <%= link_to stock_path(item[:symbol]), 
     class: 'w-full',
     data: { turbo: false } do %>
-    <div class='flex flex-row gap-2 text-xs'>
+    <div class='flex flex-row gap-2'>
       <div class='w-12 text-center rounded bg-muted text-muted-foreground' >
         <%= item[:symbol] %>
       </div>

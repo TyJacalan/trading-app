@@ -48,16 +48,8 @@
       <%= yield %>
     </div>
 
-    <footer class="mt-16 p-6 lg:p-12 lg:pt-24">
-      <%= render_separator %>
-      <ul class="flex justify-start items-end gap-4 py-4">
-        <li class="font-semibold text-2xl">Avion</li>
-        <li class="text-muted-foreground">Help</li>
-        <li class="text-muted-foreground">Send Feedback</li>
-        <li class="text-muted-foreground">Privacy</li>
-        <li class="text-muted-foreground">Terms</li>
-        <li class="text-muted-foreground">Disclaimer</li>
-      <ul>
+    <footer class="w-full mt-16 p-6 lg:p-12 lg:pt-24">
+      <%= render "components/shared/footer" %>
     </footer>
     
   </body>

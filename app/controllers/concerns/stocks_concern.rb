@@ -88,15 +88,6 @@ module StocksConcern # rubocop:disable Style/Documentation
       iex_api = IEXApi.new
       response = iex_api.sector_performance
       perf = response.success? ? response.parsed_response : []
-      perf.map do |sec|
-        {
-          name: sec['name'],
-          performance: sec['performance'],
-          symbol: sec['symbol'],
-          type: sec['type'],
-          lastUpdated: sec['lastUpdated']
-        }
-      end
     end
 
     def cache_image(symbol)

@@ -1,22 +1,7 @@
 <div class="relative flex flex-col gap-2">
   <!-- Sector Performance Cards -->
   <div class="flex flex-col">
-    <h1 class="flex items-center gap-1 text-xs text-muted-foreground font-semibold">
-      <span>SECTOR PERFORMANCE</span>
-    </h1>
-    <div class="flex gap-2 h-24 overflow-x-auto p-2">
-      <% @markets.each do |market| %>
-        <%= render_card class: "flex flex-col gap-1 justify-between text-xs w-[120px] h-full p-4 cursor-pointer hover:bg-muted" do %>
-          <div class="flex gap-2 items-center">
-            <h2 class="font-semibold"><%= market[:symbol] %></h2>
-            <span class="px-2 py-1 rounded <%= market[:performance].to_d < 0 ? 'bg-destructive text-white' : 'bg-success-light text-success' %>"><%= market[:performance] %></span>
-          </div>
-          <div class="flex justify-start">
-            <h3 class="text-muted-foreground truncate" title="<%= market[:name] %>"><%= market[:name] %></h3>
-          </div>
-        <% end %>
-      <% end %>
-    </div>
+    <%= render "sector_performance/cards" %>
   </div>
 
   <!-- Search stocks -->
@@ -39,15 +24,7 @@
       <% end %>
 
       <!-- Sector Performance Chart -->
-      <%= render_card title: "Today's Sector Performance", class: "w-full p-4" do %>
-        <%= line_chart @perf_chart, 
-          id: "sec-performance-chart", 
-          xtitle: 'Sector',
-          ytitle: 'Performance',
-          colors: ["#b00", "#666"],
-          loading: "Loading..."
-        %>
-      <% end %>
+      <%= render "sector_performance/chart" %>
     </div>
 
     <div class="flex flex-col w-full lg:w-2/5 gap-2">
