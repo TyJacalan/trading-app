@@ -40,4 +40,7 @@ application.register("update-link-appearance", UpdateLinkAppearance)
 import HeaderShadow from "./header_shadow_controller"
 application.register("header-shadow", HeaderShadow)
 
+import ToggleFrame from "./toggle_frame_controller"
+application.register("toggle-frame", ToggleFrame)
+
 
