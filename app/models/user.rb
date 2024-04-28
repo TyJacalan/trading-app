@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-  has_many :transactions
-  has_many :stocks
+  has_many :transactions, dependent: :delete_all
+  has_many :stocks, dependent: :delete_all
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
