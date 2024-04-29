@@ -1,4 +1,4 @@
-module UserCacheManagement
+module UserCacheable
   extend ActiveSupport::Concern
 
   included do
