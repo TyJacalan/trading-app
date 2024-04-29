@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'stocks#index'
+  root 'pages#index'
 
   devise_scope :user do
     get 'admin/sign_in', to: 'admin/sessions#new'
@@ -14,8 +14,9 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, except: %i[new edit]
     resources :transactions, only: %i[index]
-    resources :user_roles, only: [:update]
-    resources :approve_roles, only: [:update]
+    get :approve_roles, to: 'approve_roles#update'
+    get :user_roles, to: 'users_roles#update'
+    get :users_tables, to: 'users_tables#show'
   end
   resources :stocks, only: %i[index show]
   resources :portfolios, only: %i[index show]
@@ -24,7 +25,8 @@ Rails.application.routes.draw do
   get :stocks_tables, to: 'stocks_tables#show'
   get :stocks_search, to: 'stocks_search#show'
   get :stocks_details, to: 'stocks_details#show'
-  
+  get :home, to: 'pages#index'
+
   namespace :transactions do
     get :search, to: 'search#show'
   end

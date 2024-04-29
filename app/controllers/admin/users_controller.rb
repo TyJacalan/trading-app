@@ -4,18 +4,6 @@ class Admin::UsersController < AdminsController
 
   def index
     @user = User.new
-    @users = case params[:filter]
-             when 'pending'
-               fetch_users(User.pending)
-             when 'approved'
-               fetch_users(User.approved)
-             when 'admins'
-               fetch_users(User.admins)
-             when 'standards'
-               fetch_users(User.standards)
-             else
-               fetch_users(User.all)
-             end
   end
 
   def show

@@ -1,0 +1,55 @@
+<%= render_table do %>
+  <%= table_head do %>
+    <%= table_header "First Name" %>
+    <%= table_header "Last Name" %>
+    <%= table_header "Email" %>
+    <%= table_header "Role" %>
+    <%= table_header "Approval" %>
+    <%= table_header "" %>
+    <%= table_header "" %>
+  <% end %>
+  <%= table_body do %>
+    <% @users.each do |user| %>
+      <%= table_row do %>
+        <%= table_column do %>
+          <%= link_to user.first_name, 
+            admin_user_path(user),
+            data: { turbo: false }
+          %>
+        <% end %>
+        <%= table_column do %>
+          <%= link_to user.last_name,
+            admin_user_path(user),
+            data: { turbo: false }
+          %>
+        <% end %>
+        <%= table_column do %>
+          <%= link_to user.email,
+            admin_user_path(user),
+            data: { turbo: false }  
+          %>
+        <% end %>
+        <%= table_column do %>
+          <%= render partial: 'admin/user_roles/role_form', 
+            locals: { user: user } %>
+        <% end %>
+        <%= table_column do %>
+          <%= render partial: 'admin/approve_roles/approved_form', 
+            locals: { user: user } %>
+        <% end %>
+        <%= table_column do %>
+          <%= render partial: 'admin/users/edit_user_form', 
+            locals: { user: user } %>
+        <% end %>
+        <%= table_column do %>
+          <%= render partial: 'admin/users/delete_user_form', 
+            locals: { user: user } %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if @users.empty? %>
+  <div class="my-12 w-full text-center text-sm text-muted-foreground">No transactions found.</div>
+<% end %>

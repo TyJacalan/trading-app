@@ -15,7 +15,7 @@ module UserCacheManagement
     def fetch_users(scope)
       cache_key = "#{params[:filter] || 'users'}_ids"
       Rails.cache.fetch(cache_key, expires_in: 5.minutes) do
-        scope.order(first_name: :desc).to_a
+        scope
       end
     end
   end

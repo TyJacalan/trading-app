@@ -1,7 +1,11 @@
-<ul class="flex flex-row gap-2 p-2">
+<ul class="flex flex-row gap-2 p-2 mb-4">
   <%= render 'users_filters' %>
 </ul>
 
-<div class='mt-6'>
-  <%= render 'users_table', collection: @users %>
-</div>
+<%= render_card class: 'h-full w-full min-w-[350px] p-6 overflow-hidden' do %>
+  <%= turbo_frame_tag :users_tables, src: admin_users_tables_path(filter: params[:filter])  do %>
+    <%= 10.times do %>
+      <%= render_skeleton %>
+    <% end %>
+  <% end %>
+<% end %>

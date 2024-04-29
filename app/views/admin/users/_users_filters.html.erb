@@ -10,9 +10,10 @@
   <% filters.each do |link| %>
     <%= render_button link[:name], 
       as: :link, 
-      href: admin_users_path(filter: link[:filter]),
+      href: admin_users_tables_path(filter: link[:filter]),
       variant: :outline,
-      class: 'rounded-3xl w-24'
+      class: 'rounded-3xl w-24 text-xs',
+      data: { turbo_frame: :users_tables }
     %>
   <% end %>
 </div>

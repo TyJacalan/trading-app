@@ -10,7 +10,7 @@
       <% @transactions.each do |transaction| %>
         <%= table_row do %>
           <%= table_column do %>
-            <%= link_to transaction.id.to_s, admin_user_path(transaction.user_id) %>
+            <%= link_to transaction.id.to_s, admin_user_path(transaction.user_id) %> 
           <% end %>
           <%= table_column do %>
             <%= link_to transaction.symbol, admin_user_path(transaction.user_id) %>
