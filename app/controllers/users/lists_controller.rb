@@ -1,5 +1,4 @@
-class Admin::UsersTablesController < AdminsController
-  include UserCacheManagement
+class Users::ListsController < AdminsController
   def show
     filter = params[:filter]
     users = case filter

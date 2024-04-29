@@ -1,5 +1,6 @@
 class AdminsController < ApplicationController
   before_action :authorize_admin!
+  include UserCacheable
 
   def index
     @transactions = Transaction

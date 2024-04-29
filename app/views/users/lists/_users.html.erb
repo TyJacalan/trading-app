@@ -30,11 +30,11 @@
           %>
         <% end %>
         <%= table_column do %>
-          <%= render partial: 'admin/user_roles/role_form', 
+          <%= render partial: 'users/roles/form', 
             locals: { user: user } %>
         <% end %>
         <%= table_column do %>
-          <%= render partial: 'admin/approve_roles/approved_form', 
+          <%= render partial: 'users/approvals/form', 
             locals: { user: user } %>
         <% end %>
         <%= table_column do %>

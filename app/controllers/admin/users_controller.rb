@@ -1,6 +1,5 @@
 class Admin::UsersController < AdminsController
   before_action :set_user, only: [:show, :update, :destroy]
-  include UserCacheManagement
 
   def index
     @user = User.new

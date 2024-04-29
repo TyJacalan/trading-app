@@ -14,10 +14,14 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users, except: %i[new edit]
     resources :transactions, only: %i[index]
-    get :approve_roles, to: 'approve_roles#update'
-    get :user_roles, to: 'users_roles#update'
-    get :users_tables, to: 'users_tables#show'
   end
+
+  namespace :users do
+    patch :approvals, to: 'approvals#update'
+    patch :roles, to: 'roles#update'
+    get :lists, to: 'lists#show'
+  end
+
   resources :stocks, only: %i[index show]
   resources :portfolios, only: %i[index show]
   resources :transactions, only: %i[index new create]

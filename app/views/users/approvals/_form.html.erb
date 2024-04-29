@@ -1,5 +1,6 @@
-<%= form_for(user, url: admin_approve_roles_path(user), method: :patch, data: { controller: 'auto-submit' }, html: { id: "approve_form_#{user.id}" }) do |f| %>
+<%= form_for(user, url: users_approvals_path(user), method: :patch, data: { controller: 'auto-submit' }, html: { id: "approve_form_#{user.id}" }) do |f| %>
   <% checked = user.approved === "true" ? "checked" : "" %>
+  <%= f.hidden_field :id, value: user.id %>
   <%= f.check_box :approved, 
     { data: { action: 'auto-submit#submit', state: checked }, 
       id: "approved_checkbox_#{user.id}",
