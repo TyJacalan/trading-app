@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     patch :approvals, to: 'approvals#update'
     patch :roles, to: 'roles#update'
     get :lists, to: 'lists#show'
+    get :search, to: 'search#show'
   end
 
   resources :stocks, only: %i[index show]

@@ -1,4 +1,4 @@
-<%= turbo_frame_tag :users_tables do %>
+<%= turbo_frame_tag :users_table do %>
   <%= render "users", collection: @users %>
   <div class='flex w-full justify-center'>
     <%= paginate @users %>
