@@ -85,7 +85,7 @@ module StocksConcern # rubocop:disable Style/Documentation
     end
 
     def display_sector_performance
-      iex_api = IEXApi.new
+      iex_api = IexApi.new
       response = iex_api.sector_performance
       perf = response.success? ? response.parsed_response : []
     end
