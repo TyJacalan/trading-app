@@ -9,14 +9,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name])
   end
 
-  def after_sign_in_path_for(resource_or_scope)
-    if current_user.standard?
-      stocks_path # Redirect to stocks#index for standard users
-    else
-      '/admins' # Redirect to admins index for admin users
-    end
-  end
-
   private
 
   def authorize_user!

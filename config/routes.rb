@@ -17,14 +17,14 @@ Rails.application.routes.draw do
     resources :user_roles, only: [:update]
     resources :approve_roles, only: [:update]
   end
-  resources :stocks, only: %i[index show]
+  get :home, to: 'stocks#index'
+  resources :stocks, only: %i[ show]
   resources :portfolios, only: %i[index show]
   resources :transactions, only: %i[index new create]
   get :stocks_articles, to: 'stocks_articles#show'
   get :stocks_tables, to: 'stocks_tables#show'
   get :stocks_search, to: 'stocks_search#show'
   get :stocks_details, to: 'stocks_details#show'
-  get :home, to: 'pages#index'
 
   namespace :transactions do
     get :search, to: 'search#show'
