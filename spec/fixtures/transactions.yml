@@ -1,0 +1,31 @@
+buy_stock:
+  symbol: 'AAPL'
+  price: 100.0
+  quantity: 1
+  transaction_type: 'buy'
+  currency: 'USD'
+  user_id: 1
+
+sell_stock:
+  symbol: 'AAPL'
+  price: 100.0
+  quantity: 1
+  transaction_type: 'sell'
+  currency: 'USD'
+  user_id: 1
+
+sell_stock_two:
+  symbol: 'AAPL'
+  price: 100.0
+  quantity: 2
+  transaction_type: 'sell'
+  currency: 'USD'
+  user_id: 1
+
+invalid_buy_stock:
+  symbol: ''
+  price: 100.0
+  quantity: 1
+  transaction_type: 'buy'
+  currency: 'USD'
+  user_id: 1

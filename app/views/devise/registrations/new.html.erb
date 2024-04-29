@@ -1,6 +1,8 @@
 <%= render 'devise/shared/auth_head' %>
 
 <%= render_form_for(resource, as: resource_name, url: registration_path(resource_name), class: "flex flex-col gap-2") do |f| %>
+  <%= f.hidden_field :role, value: 0 %>
+  <%= f.hidden_field :approved, value: 0 %>
 
   <div class="flex w-full flex-row gap-2">
     <div class= "flex w-1/2 flex-col gap-2">

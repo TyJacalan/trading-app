@@ -2,7 +2,7 @@
 
 require 'httparty'
 
-class IEXApi # rubocop:disable Style/Documentation
+class IexApi # rubocop:disable Style/Documentation
   include HTTParty
   base_uri 'https://api.iex.cloud/v1/data/core'
 
@@ -16,5 +16,9 @@ class IEXApi # rubocop:disable Style/Documentation
 
   def all_news
     self.class.get('/news?last=10', @options)
+  end
+
+  def sector_performance
+    self.class.get('/sector_performance/market', @options)
   end
 end

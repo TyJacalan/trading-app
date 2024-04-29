@@ -1,0 +1,10 @@
+<%= render_card title: "Today's Sector Performance", class: "w-full p-4" do %>
+  <%= area_chart @perf_chart, 
+    id: "sec-performance-chart", 
+    xtitle: 'Sector',
+    ytitle: 'Performance',
+    colors: ["#b00", "#666"],
+    loading: "Loading...",
+    curve: true
+  %>
+<% end %>
