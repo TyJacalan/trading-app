@@ -2,7 +2,7 @@
 
 require 'httparty'
 
-class IEXApi # rubocop:disable Style/Documentation
+class IexApi # rubocop:disable Style/Documentation
   include HTTParty
   base_uri 'https://api.iex.cloud/v1/data/core'
 

@@ -25,7 +25,7 @@ module StocksConcern # rubocop:disable Style/Documentation
 
     def cache_all_stocks
       Rails.cache.fetch('stock_search_data', expires_in: 1.hour) do
-        iex_api = IEXApi.new
+        iex_api = IexApi.new
         response = iex_api.all_stocks
         stocks = response.success? ? response.parsed_response : []
         stocks.map { |stock| { symbol: stock['symbol'], name: stock['name'] } }
@@ -69,7 +69,7 @@ module StocksConcern # rubocop:disable Style/Documentation
 
     def display_all_news
       Rails.cache.fetch('index_news', expires_in: 1.hour) do
-        iex_api = IEXApi.new
+        iex_api = IexApi.new
         response = iex_api.all_news
         news = response.success? ? response.parsed_response : []
         news.map do |article|
