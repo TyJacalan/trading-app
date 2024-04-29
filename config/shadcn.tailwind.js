@@ -43,6 +43,7 @@ module.exports = {
         success: {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
+          light: "hsl(var(--success-light))",
         },
         info: {
           DEFAULT: "hsl(var(--info))",
