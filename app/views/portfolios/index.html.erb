@@ -8,12 +8,22 @@
 
 <%= render_separator class: 'my-6' %>
 
-<div class="flex flext-col gap-2">
-  <%= render_card title: "#{number_to_currency(@total_value, precision: 2)}", subtitle: "Total Gain" do %>
-    <%= area_chart @chart_data, discrete: true, library: { hAxis: { title: 'Stock Symbol' }, vAxis: { title: 'Value' } } %>
+<div class="flex flex-col lg:flex-row gap-2">
+  <%= render_card title: "#{number_to_currency(@total_value, precision: 2)}", subtitle: "Total Gain", class: "w-full lg:w-3/4" do %>
+    <div class="flex flex-col">
+      <%= pie_chart @chart_data, 
+        discrete: true, 
+        colors: generate_random_colors(0..30, @chart_data.count),
+        legend: true,
+        legend_position: "bottom" %>
+      <%= area_chart @chart_data, 
+        discrete: true, 
+        library: { hAxis: { title: 'Stock Symbol' }, vAxis: { title: 'Value' } },
+        colors: ["#b00","666"] %>
+    </div>
   <% end %>
 
-  <div class="w-full lg:w-1/2">
+  <div class="w-full lg:w-1/4">
     <%= turbo_frame_tag "portfolio_frame" do %>
       <%= render_card class: "w-full p-4 " do %>
         <div class="flex items-center gap-2 py-6">
@@ -34,10 +44,10 @@
             <%= table_body do %>
               <% @portfolio.each do |stock| %>
                 <%= table_row do %>
-                  <%= table_column stock[:symbol], class: "flex justify-center p-2 mx-auto my-2 rounded bg-accent text-secondary text-sm" %>
+                  <%= table_column stock[:symbol], class: "flex justify-center p-2 mx-auto my-2 rounded bg-muted text-muted-foreground text-sm" %>
                   <%= table_column number_to_currency(stock[:price], precision: 2) %>
                   <%= table_column stock[:quantity].to_s, class: "text-center" %>
-                  <%= table_column stock[:change], class: "flex justify-center p-2 mx-auto my-2 rounded #{stock[:change].to_d < 0 ? 'bg-destructive text-white' : 'bg-success-light text-success'}" %>
+                  <%= table_column stock[:change], class: "flex justify-center p-2 mx-auto my-2 rounded #{stock[:change].to_d < 0 ? 'bg-accent text-destructive' : 'bg-success-light text-success'}" %>
                   <%= table_column number_to_currency(stock[:value], precision: 2) %>
                 <% end %>
               <% end %>
