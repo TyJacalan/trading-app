@@ -17,4 +17,8 @@ class IexApi # rubocop:disable Style/Documentation
   def all_news
     self.class.get('/news?last=10', @options)
   end
+
+  def sector_performance
+    self.class.get('/sector_performance/market', @options)
+  end
 end

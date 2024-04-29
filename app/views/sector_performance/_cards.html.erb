@@ -1,0 +1,16 @@
+<h1 class="flex items-center gap-1 text-xs text-muted-foreground font-semibold">
+  <span>SECTOR PERFORMANCE</span>
+</h1>
+<div class="flex gap-2 h-24 overflow-x-auto p-2">
+  <% @markets.each do |market| %>
+    <%= render_card class: "flex flex-col gap-1 justify-between text-xs w-[120px] h-full p-4 cursor-pointer hover:bg-muted" do %>
+      <div class="flex gap-2 items-center">
+        <h2 class="font-semibold"><%= market['symbol'] %></h2>
+        <span class="px-2 py-1 rounded <%= market['performance'].to_d < 0 ? 'bg-accent text-primary' : 'bg-success-light text-success' %>"><%= market['performance'] %></span>
+      </div>
+      <div class="flex justify-start">
+        <h3 class="text-muted-foreground truncate" title="<%= market['name'] %>"><%= market['name'] %></h3>
+      </div>
+    <% end %>
+  <% end %>
+</div>
