@@ -8,15 +8,10 @@
 
 <%= render_separator class: 'my-6' %>
 
-<div class="flex flex-col gap-4 lg:flex-row">
-  <div class="w-full lg:w-1/2">
-    <%= render_card title: "#{number_to_currency(@total_value, precision: 2)}", subtitle: "Total Balance", class: "w-full" do %>
-      <%= area_chart @chart_data, 
-        discrete: true, 
-        colors: ["#b00", "#666"],
-        library: { hAxis: { title: 'Stock Symbol' }, vAxis: { title: 'Value' } } %>
-    <% end %>
-  </div>
+<div class="flex flext-col gap-2">
+  <%= render_card title: "#{number_to_currency(@total_value, precision: 2)}", subtitle: "Total Gain" do %>
+    <%= area_chart @chart_data, discrete: true, library: { hAxis: { title: 'Stock Symbol' }, vAxis: { title: 'Value' } } %>
+  <% end %>
 
   <div class="w-full lg:w-1/2">
     <%= turbo_frame_tag "portfolio_frame" do %>
