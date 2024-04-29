@@ -6,14 +6,14 @@
   { name: 'Standards', filter: 'standards' }
 ] %>
 
-<div class='flex flex-row gap-4 w-full'>
+<div class='flex flex-row gap-4 w-full min-w-[350px] overflow-auto'>
   <% filters.each do |link| %>
     <%= render_button link[:name], 
       as: :link, 
       href: users_lists_path(filter: link[:filter]),
       variant: :outline,
-      class: 'rounded-3xl w-24 text-xs',
-      data: { turbo_frame: :users_tables }
+      class: 'h-fit w-fit text-xs px-4 py-1.5 rounded-full',
+      data: { turbo_frame: :users_table }
     %>
   <% end %>
 </div>
