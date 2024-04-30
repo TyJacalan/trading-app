@@ -1,41 +1,27 @@
 class Wallet < ApplicationRecord
   belongs_to :user
-  enum transaction_type: { deposit: 0, withdraw: 1 }
+  
+  validates :balance, :currency, presence: true
+  validates :balance, numericality: { greater_than_or_equal_to: 0 }
+  validates :user_id, uniqueness: true
 
-  validates :transaction_type, :amount, presence: true
-  validates :amount, numericality: { greater_than_or_equal_to: 0 }
-
-  scope :deposits, -> { where(transaction_type: :deposit) }
-  scope :withdrawals, -> { where(transaction_type: :withdraw) }
-
-  def self.deposit(user, amount)
-    ActiveRecord::Base.transaction do
-      wallet = user.wallets.create!(transaction_type: :deposit, amount: amount)
-
-      # Update user account balance
-      user.update(balance: user.balance + amount)
-
-      { status: true, error: nil }
+  def self.check_balance(balance, quantity)
+    if balance < quantity
+      raise StandardError, "Insufficient account balance."
     end
-  rescue ActiveRecord::RecordInvalid => e
-    { status: false, error: e.message }
   end
 
-  def self.withdraw(user, amount)
-    ActiveRecord::Base.transaction do
-      # Check user account balance
-      unless user.balance >= amount
-        raise StandardError, "Insufficient Account Balance"
+  def self.update_balance(user, transaction)
+    wallet = user.wallet
+
+    if transaction.transaction_type == 'deposit' || transaction.transaction_type == 'sell'
+      wallet.update(balance: wallet.balance + transaction.value)
+    elsif transaction.transaction_type == 'withdrawal' || transaction.transaction_type == 'buy'
+      if transaction.amount < wallet.balance
+      wallet.update(balance: wallet.balance - transaction.value)
+      else
+        raise StandardError, "Insufficient account balance." 
       end
-
-      wallet = user.wallets.create!(transaction_type: :withdraw, amount: amount)
-
-      # Update user account balance
-      user.update(balance: user.balance - amount)
-
-      { status: true, error: nil }
     end
-  rescue ActiveRecord::RecordInvalid => e
-    { status: false, error: e.message }
   end
 end
