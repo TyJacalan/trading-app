@@ -1,28 +1,30 @@
-<%= render_table do %>
-  <%= table_body do %>
-    <% stocks.each do |stock| %>
-      <%= table_row class: 'w-full flex flex-row' do %>
-        <%= table_column do %>
-          <%= image_tag(stock[:logo_url], width: 25, height: 25) if stock[:logo_url].present? %>
-        <% end %>
-        <%= table_column class: 'w-1/2 p-4 align-middle overflow-hidden' do %>
-          <div class='w-full flex flex-col'>
-            <%= link_to stock[:company_name], 
-              stock_path(stock[:symbol]),
-              class: 'truncate',
-              data: { turbo: false } %>
-            <span class="text-sm text-muted-foreground"><%= stock[:symbol] %></span>
-          </div>
-        <% end %>
-        <%= table_column do %>
-          <span><%= number_to_currency(stock[:price], precision: 2) %></span>
-        <% end %>
-        <%= table_column do %>
-          <span class="<%= stock[:change].to_f < 0 ? 'text-destructive' : 'text-success' %>">
-            <%= stock[:change] %>
-          </span>
+<div class="overflow-x-auto">
+  <%= render_table do %>
+    <%= table_body do %>
+      <% stocks.each do |stock| %>
+        <%= table_row class: 'w-full cursor-pointer hover:bg-muted' do %>
+          <%= table_column class: "w-full lg:w-[70px] p-2" do %>
+            <%= image_tag(stock[:logo_url], width: '50', height: '50') if stock[:logo_url].present? %>
+          <% end %>
+          <%= table_column class: 'flex justify-start p-2' do %>
+            <div class='w-full lg:w-[400px] flex flex-col'>
+              <%= link_to stock[:company_name], 
+                stock_path(stock[:symbol]),
+                class: 'truncate',
+                data: { turbo: false } %>
+              <span class="text-sm text-muted-foreground"><%= stock[:symbol] %></span>
+            </div>
+          <% end %>
+          <%= table_column class: "p-2 lg:w-[100px]" do %>
+            <span><%= number_to_currency(stock[:price], precision: 2) %></span>
+          <% end %>
+          <%= table_column class: "py-2 lg:w-[100px]" do %>
+            <span class="flex justify-center w-full px-2 py-1 rounded <%= stock[:change].to_f < 0 ? 'text-destructive' : 'text-success' %>">
+              <%= stock[:change] %>
+            </span>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
   <% end %>
-<% end %>
+</div>

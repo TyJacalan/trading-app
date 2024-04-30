@@ -1,5 +1,5 @@
 <% unless @suggestions.nil? || @suggestions.empty? %>
-  <ul style="top: 3rem" class='bg-background absolute left-0 h-fit w-full rounded'>
+  <ul style="top: 3rem" class='bg-background absolute left-0 h-fit w-full shadow-md rounded-lg'>
     <% @suggestions.cycle.take([@suggestions.count, 5].min).each do |item| %>
       <% if type === 'form' %>
         <%= render partial: 'suggestions_form', locals: { item: item } %>

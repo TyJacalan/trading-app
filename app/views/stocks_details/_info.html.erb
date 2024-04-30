@@ -1,10 +1,10 @@
 <% if details.nil? || details.empty? %>
-  <p class='text-sm text-center text-muted-foreground font-bold mt-4'>No stock selected</p>
+  <p class='text-sm text-center text-muted-foreground font-bold border-2 mt-4'>No stock selected</p>
 <% else %>
-  <div class="shadow-md bg-secondary rounded-lg">
+  <div class="shadow-md bg-background rounded-lg">
     <%= render_card title: "#{details.symbol} | #{number_to_currency(balance, precision: 2)}", subtitle: details.company_name,
     body: details.latest_price, 
-    class: "flex flex-col gap-2 w-full p-4 text-white" do %>
+    class: "flex flex-col gap-2 w-full p-4" do %>
       <div class="flex flex-wrap gap-2 px-4">
         <p class="text-sm"><span class="font-semibold">Average Total Volume:</span> <%= number_with_delimiter(details.avg_total_volume) %></p>
         <p class="text-sm"><span class="font-semibold">Change:</span> <span style="color: <%= details.change_percent < 0 ? 'red' : 'inherit' %>;"><%= number_to_percentage(details.change_percent, precision: 2) %></span></p>

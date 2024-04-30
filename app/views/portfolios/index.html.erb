@@ -6,41 +6,47 @@
   My Portfolio
 <% end %>
 
-<%= render_separator class: 'my-6'%>
+<%= render_separator class: 'my-6' %>
 
 <div class="flex flext-col gap-2">
-  <%= render_card title: "#{number_to_currency(@total_value, precision: 2)}" do %>
+  <%= render_card title: "#{number_to_currency(@total_value, precision: 2)}", subtitle: "Total Gain" do %>
     <%= area_chart @chart_data, discrete: true, library: { hAxis: { title: 'Stock Symbol' }, vAxis: { title: 'Value' } } %>
   <% end %>
 
-  <%= turbo_frame_tag "portfolio_frame" do %>
-    <%= render_card title: "Portfolio Overview", class: "w-full p-4" do %>
-      <% if @portfolio.present? %>
-        <%= render_table do %>
-          <%= table_head do %>
-            <%= table_header 'Symbol' %>
-            <%= table_header 'Company Name' %>
-            <%= table_header 'Price' %>
-            <%= table_header 'Quantity' %>
-            <%= table_header 'Change' %>
-            <%= table_header 'Value' %>
-          <% end %>
-          <%= table_body do %>
-            <% @portfolio.each do |stock| %>
-              <%= table_row do %>
-                <%= table_column stock[:symbol] %>
-                <%= table_column stock[:name] %>
-                <%= table_column number_to_currency(stock[:price], precision: 2) %>
-                <%= table_column stock[:quantity].to_s %>
-                <%= table_column stock[:change], class: stock[:change].to_d < 0 ? 'text-destructive' : 'text-success' %>
-                <%= table_column number_to_currency(stock[:value], precision: 2) %>
+  <div class="w-full lg:w-1/2">
+    <%= turbo_frame_tag "portfolio_frame" do %>
+      <%= render_card class: "w-full p-4 " do %>
+        <div class="flex items-center gap-2 py-6">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0 0 20.25 18V6A2.25 2.25 0 0 0 18 3.75H6A2.25 2.25 0 0 0 3.75 6v12A2.25 2.25 0 0 0 6 20.25Z" />
+          </svg>
+          <h3 class="text-2xl font-semibold leading-none tracking-tight">Portfolio Overview</h3>
+        </div>
+        <% if @portfolio.present? %>
+          <%= render_table do %>
+            <%= table_head do %>
+              <%= table_header 'Symbol' %>
+              <%= table_header 'Price' %>
+              <%= table_header 'Quantity' %>
+              <%= table_header 'Change' %>
+              <%= table_header 'Value' %>
+            <% end %>
+            <%= table_body do %>
+              <% @portfolio.each do |stock| %>
+                <%= table_row do %>
+                  <%= table_column stock[:symbol], class: "flex justify-center p-2 mx-auto my-2 rounded bg-accent text-secondary text-sm" %>
+                  <%= table_column number_to_currency(stock[:price], precision: 2) %>
+                  <%= table_column stock[:quantity].to_s, class: "text-center" %>
+                  <%= table_column stock[:change], class: "flex justify-center p-2 mx-auto my-2 rounded #{stock[:change].to_d < 0 ? 'bg-destructive text-white' : 'bg-success-light text-success'}" %>
+                  <%= table_column number_to_currency(stock[:value], precision: 2) %>
+                <% end %>
               <% end %>
             <% end %>
           <% end %>
+        <% else %>
+          <p class="w-full px-6 text-muted-foreground">Your portfolio is empty.</p>
         <% end %>
-      <% else %>
-        <p class="w-full px-6 text-muted-foreground">Your portfolio is empty.</p>
       <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>

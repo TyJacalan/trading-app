@@ -7,6 +7,8 @@ class StocksController < ApplicationController
   def index
     @transaction = Transaction.new
     @stocks = cache_all_stocks.map { |stock| { value: stock[:symbol], name: stock[:name] } }
+    @markets = display_sector_performance.sort_by { |market| market['name'] }
+    @perf_chart = @markets.map { |sector| [ sector['name'], sector['performance'] ] }
   end
 
   def show

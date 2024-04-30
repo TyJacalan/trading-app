@@ -12,6 +12,20 @@ module StocksConcern # rubocop:disable Style/Documentation
       @client.quote(symbol)
     end
 
+    def format_portfolio(stock_data)
+      stock_data.map do |stock|
+        quote = fetch_stock(stock[:symbol])
+        {
+          symbol: stock[:symbol],
+          name: quote.company_name,
+          price: quote.latest_price,
+          quantity: stock[:quantity],
+          change: quote.change_percent_s,
+          value: quote.latest_price * stock[:quantity]
+        }
+      end
+    end
+
     def map_stock_list(stock_list)
       stock_list.map do |stock|
         symbol = stock.symbol
@@ -25,7 +39,7 @@ module StocksConcern # rubocop:disable Style/Documentation
 
     def cache_all_stocks
       Rails.cache.fetch('stock_search_data', expires_in: 1.hour) do
-        iex_api = IEXApi.new
+        iex_api = IexApi.new
         response = iex_api.all_stocks
         stocks = response.success? ? response.parsed_response : []
         stocks.map { |stock| { symbol: stock['symbol'], name: stock['name'] } }
@@ -69,7 +83,7 @@ module StocksConcern # rubocop:disable Style/Documentation
 
     def display_all_news
       Rails.cache.fetch('index_news', expires_in: 1.hour) do
-        iex_api = IEXApi.new
+        iex_api = IexApi.new
         response = iex_api.all_news
         news = response.success? ? response.parsed_response : []
         news.map do |article|
@@ -82,6 +96,12 @@ module StocksConcern # rubocop:disable Style/Documentation
           }
         end
       end
+    end
+
+    def display_sector_performance
+      iex_api = IexApi.new
+      response = iex_api.sector_performance
+      perf = response.success? ? response.parsed_response : []
     end
 
     def cache_image(symbol)
