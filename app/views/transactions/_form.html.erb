@@ -27,6 +27,7 @@
 
             <div>
               <%= form.hidden_field :transaction_type, value: transaction_type, class: "form-control" %>
+              <%= form.hidden_field :currency, value: 'USD' %>
               <%= form.submit transaction_type.capitalize, class: "p-4 cursor-pointer button button-primary" %>
             </div>  
           </div>
