@@ -43,7 +43,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_04_30_051045) do
     t.string "last_name", default: ""
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "full_name"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

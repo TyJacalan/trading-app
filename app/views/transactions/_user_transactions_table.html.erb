@@ -8,7 +8,7 @@
   <% end %>
   <%= table_body do %>
     <% @transactions.each do |transaction| %>
-      <% operation = transaction.transaction_type == "buy" ? "" : "-" %>
+      <% operation = transaction.transaction_type == "buy" || transaction.transaction_type == "deposit" ? "" : "-" %>
       <%= table_row do %>
         <%= table_column transaction.id.to_s %>
         <%= table_column transaction.transaction_type.upcase %>
@@ -18,8 +18,7 @@
           <%= number_to_currency(transaction.price) %>
         <% end %>
         <%= table_column do %>
-          <% value = transaction.price * transaction.quantity %>
-          <%= operation %><%= number_to_currency(value) %>
+            <%= operation %><%= number_to_currency(transaction.value) %>
         <% end %>
         <%= table_column transaction.created_at.strftime('%Y - %m - %d') %>
       <% end %>

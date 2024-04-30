@@ -82,9 +82,12 @@ class Transaction < ApplicationRecord
   private
 
   def calculate_value
-    return unless %w[buy sell].include?(transaction_type)
-
-    return if price.nil? || quantity.nil?
-    self.value = price * quantity
+    if %w[deposit withdraw].include?(transaction_type)
+      return if quantity.nil?
+        self.value = quantity
+    elsif %w[buy sell].include?(transaction_type)
+      return if price.nil? || quantity.nil?
+        self.value = price * quantity
+    end
   end
 end
