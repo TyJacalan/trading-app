@@ -1,8 +1,7 @@
-class Admin::UserRolesController < AdminsController
-  include UserCacheManagement
+class Users::RolesController < AdminsController
 
   def update
-    @user = User.find(params[:id])
+    @user = User.find(user_params[:id])
 
     if @user.update(user_params)
       invalidate_cache
@@ -15,6 +14,6 @@ class Admin::UserRolesController < AdminsController
   private
 
   def user_params
-    params.require(:user).permit(:role)
+    params.require(:user).permit(:id, :role)
   end
 end
