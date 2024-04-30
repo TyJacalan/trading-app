@@ -1,6 +1,6 @@
 <%= render_card class: 'w-full lg:w-[50%] p-6 text-center' do %>
   <label class='text-lg text-primary font-bold tracking-tight'>Transactions Volume</label>
-  <%= column_chart @transactions.group_by_month(:created_at, format: "%b %Y").count, 
+  <%= column_chart @transactions.group_by_month(:created_at, format: "%b %Y").sum(:value), 
     xtitle: 'Month', 
     ytitle: 'Value', 
     empty: 'No transactions data', 
