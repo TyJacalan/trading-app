@@ -2,7 +2,7 @@ class Transaction < ApplicationRecord
   belongs_to :user
   enum transaction_type: { buy: 0, sell: 1, deposit: 2, withdraw: 3 }
 
-  validates :symbol, :transaction_type, :quantity, :value, presence: true
+  validates :transaction_type, :quantity, presence: true
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }
 
   before_validation :calculate_value
@@ -21,7 +21,7 @@ class Transaction < ApplicationRecord
       stock = Stock.find_or_create_stock(user, transaction)
       Stock.update_stock(stock, transaction)
       
-      Wallet.check_balance(wallet.balance - transaction.value)
+      Wallet.check_balance(wallet.balance, transaction.value)
       Wallet.update(balance: wallet.balance - transaction.value)
 
       { status: true, error: "" }
@@ -82,6 +82,8 @@ class Transaction < ApplicationRecord
   private
 
   def calculate_value
+    return unless %w[buy sell].include?(transaction_type)
+
     return if price.nil? || quantity.nil?
     self.value = price * quantity
   end
