@@ -12,6 +12,20 @@ module StocksConcern # rubocop:disable Style/Documentation
       @client.quote(symbol)
     end
 
+    def format_portfolio(stock_data)
+      stock_data.map do |stock|
+        quote = fetch_stock(stock[:symbol])
+        {
+          symbol: stock[:symbol],
+          name: quote.company_name,
+          price: quote.latest_price,
+          quantity: stock[:quantity],
+          change: quote.change_percent_s,
+          value: quote.latest_price * stock[:quantity]
+        }
+      end
+    end
+
     def map_stock_list(stock_list)
       stock_list.map do |stock|
         symbol = stock.symbol
