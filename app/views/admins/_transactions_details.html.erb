@@ -15,10 +15,10 @@
     <div>
       <%# TODO: Add 'value' to transactions model in order to calculate for volume' %>
       <%= render partial: 'components/text/featured_number',
-        locals: { label: 'Total Volume', value: '$1,000,000.00'} %>
+        locals: { label: 'Total Volume', value: number_to_currency(@purchases_volume) } %>
     </div>
     <div>
-      <%= render partial: 'chart_transactions_type', collections: @transactions %> 
+      <%= render partial: 'chart_transactions_type', collections: @purchases %> 
     </div>
   </div>
 <% end %>

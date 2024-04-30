@@ -7,8 +7,9 @@ class Transaction < ApplicationRecord
 
   before_validation :calculate_value
 
-  scope :buys, -> { where(transaction_type: :buy) }
-  scope :sells, -> { where(transaction_type: :sell) }
+  scope :buys, -> { where(transaction_type: :buy).order(created_at: :desc) }
+  scope :sells, -> { where(transaction_type: :sell).order(created_at: :desc) }
+  scope :purchases, -> { where(transaction_type: [:buy, :sell]) }
   scope :deposits, -> { where(transaction_type: :deposit) }
   scope :withdrawals, -> { where(transaction_type: :withdraw) }
 

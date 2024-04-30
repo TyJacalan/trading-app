@@ -1,10 +1,10 @@
-class Admin::ApproveRolesController < AdminsController
+class Users::ApprovalsController < AdminsController
   include AdminConcern
-  include UserCacheManagement
 
   def update
-    @user = User.find(params[:id])
-    approval_status = params[:user][:approved] == "true" ? 'approved' : 'unapproved'
+    Rails.logger.info "User: #{user_params[:id]}"
+    @user = User.find(user_params[:id])
+    approval_status = user_params[:approved] == "true" ? 'approved' : 'unapproved'
 
     if @user.update(user_params)
       invalidate_cache
@@ -17,6 +17,6 @@ class Admin::ApproveRolesController < AdminsController
   private
  
   def user_params
-    params.require(:user).permit(:approved)
+    params.require(:user).permit(:id, :approved)
   end
 end

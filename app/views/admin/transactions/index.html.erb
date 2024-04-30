@@ -1,5 +1,5 @@
 <% headers = ['Id', 'Symbol', 'Type', 'Price', 'User Id', 'Created At'] %>
-<%= render_card class: 'w-full p-6' do %>
+<%= render_card class: 'w-full p-6 overflow-x-auto' do %>
   <%= render_table do %>
     <%= table_head do %>
       <% headers.each do |header| %>
@@ -10,7 +10,7 @@
       <% @transactions.each do |transaction| %>
         <%= table_row do %>
           <%= table_column do %>
-            <%= link_to transaction.id.to_s, admin_user_path(transaction.user_id) %>
+            <%= link_to transaction.id.to_s, admin_user_path(transaction.user_id) %> 
           <% end %>
           <%= table_column do %>
             <%= link_to transaction.symbol, admin_user_path(transaction.user_id) %>
