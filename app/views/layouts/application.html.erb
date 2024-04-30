@@ -3,6 +3,7 @@
   <head>
     <title>Avion Finance</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.svg">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -21,8 +22,10 @@
         </div>
         <% if current_user.present? && current_user.role == 'admin' %>
           <%= render 'components/navbar/admin' %>
-        <% else %>
+        <% elsif current_user.present? %>
           <%= render 'components/navbar/user' %>
+        <% else %>
+          <%= render 'components/navbar/home' %>
         <% end %>
       </nav>
     </header>

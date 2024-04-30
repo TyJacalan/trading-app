@@ -1,8 +1,12 @@
 <div class="hidden lg:flex lg:gap-x-12 items-center text-muted-foreground">
-  <%= render 'components/navbar/shared_buttons' %>
+  <% if current_user.present? %>
+    <%= render 'components/navbar/shared_buttons' %>
+  <% end %>
   <% links.each do |link| %>
     <% active_link = (request.path == link[:path]) ? "text-foreground" : "" %>
     <%= link_to link[:name], link[:path], class:  active_link %>
   <% end %>
-  <%= render 'components/navbar/nav_account_menu' %>
+  <% if current_user.present? %>
+    <%= render 'components/navbar/nav_account_menu' %>
+  <% end %>
 </div>

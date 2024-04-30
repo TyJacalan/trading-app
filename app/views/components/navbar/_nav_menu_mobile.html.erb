@@ -9,13 +9,17 @@
     </button>
   <% end %>
   <%= sheet_content do %>
-    <%= render 'components/navbar/nav_account_menu' %>
+    <% if current_user.present? %>
+      <%= render 'components/navbar/nav_account_menu' %>
+    <% end %>
     <div class="flex flex-col mt-10 gap-4">
       <% links.each do |link| %>
         <% active_link = (request.path == link[:path]) ? "text-foreground" : "" %>
         <%= link_to link[:name], link[:path], class: active_link %>
       <% end %>
-      <%= render 'components/navbar/shared_buttons' %>
+      <% if current_user.present? %>
+        <%= render 'components/navbar/shared_buttons' %>
+      <% end %>
     </div>
   <% end %>
 <% end %>    
