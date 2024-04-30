@@ -1,0 +1,7 @@
+<% links = [
+  { name: 'Login', path: new_user_session_path },
+  { name: 'Signup', path: new_user_registration_path }
+]%>
+
+<%= render partial: 'components/navbar/nav_menu_mobile', locals: { links: links } %>
+<%= render partial: 'components/navbar/nav_menu', locals: { links: links } %> 
