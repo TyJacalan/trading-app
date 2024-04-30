@@ -3,7 +3,7 @@
   <%= render 'users_filters' %>
 </ul>
 
-<%= render_card class: 'h-full w-full min-w-[350px] p-6 overflow-hidden' do %>
+<%= render_card class: 'h-full w-full min-w-[350px] p-6 overflow-x-auto' do %>
   <%= turbo_frame_tag :users_table, src: users_lists_path(filter: params[:filter])  do %>
     <%= 10.times do %>
       <%= render_skeleton %>

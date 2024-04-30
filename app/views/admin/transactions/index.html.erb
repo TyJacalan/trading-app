@@ -1,5 +1,5 @@
 <% headers = ['Id', 'Symbol', 'Type', 'Price', 'User Id', 'Created At'] %>
-<%= render_card class: 'w-full p-6' do %>
+<%= render_card class: 'w-full p-6 overflow-x-auto' do %>
   <%= render_table do %>
     <%= table_head do %>
       <% headers.each do |header| %>
