@@ -1,0 +1,14 @@
+<%= render_form_for(transaction) do |form| %>
+  <div class="flex items-end gap-2">
+    <div class="flex flex-col justify-start">
+      <%= form.label :quantity, class: "py-2" %>
+      <%= form.number_field :quantity, placeholder: "0.00", autofocus: true, autocomplete: "off", class: "py-2" %>
+    </div>
+
+    <div>
+      <%= form.hidden_field :transaction_type, value: transaction_type, class: "form-control" %>
+      <%= form.hidden_field :symbol, value: current_user.wallet.currency %>
+      <%= form.submit transaction_type.capitalize, class: "p-4 cursor-pointer button button-primary w-[200px]" %>
+    </div>  
+  </div>
+<% end %>
