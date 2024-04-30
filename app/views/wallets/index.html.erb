@@ -14,14 +14,16 @@
             <%= tab_panel active: true do %>
               <%= render_separator class: 'my-2' %>
               <%= turbo_frame_tag "deposit_form" do %>
-                <%= render "form", transaction_type: "deposit" %>
+                <%= render partial: 'transactions/form', locals: { transaction: @transaction, transaction_type: 'deposit' } %>
+                <%# render "form", transaction_type: "deposit" %>
               <% end %>
             <% end %>
 
             <%= tab_panel do %>
               <%= render_separator class: 'my-2' %>
               <%= turbo_frame_tag "withdraw_form" do %>
-                <%= render "form", transaction_type: "withdraw" %>
+                <%= render partial: 'transactions/form', locals: { transaction: @transaction, transaction_type: 'withdraw' } %>
+                <%# render "form", transaction_type: "withdraw" %>
               <% end %>
             <% end %>
           <% end %>
