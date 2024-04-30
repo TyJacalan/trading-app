@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController # rubocop:disable Style/Doc
   before_action :authorize_user!
 
   def index
-    add_breadcrumb "Home", :root_path
+    add_breadcrumb "Home", :home_path
     add_breadcrumb "My Transactions", :transactions_path
 
     filter = params[:filter]
