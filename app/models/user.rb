@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   has_many :transactions, dependent: :delete_all
   has_many :stocks, dependent: :delete_all
+  has_one :wallet, dependent: :destroy
+
+  after_create :create_user_wallet
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
@@ -17,6 +21,8 @@ class User < ApplicationRecord
   scope :admins, -> { where(role: 1) }
   scope :standards, -> { where(role: 0) }
 
+  private
+
   def password_complexity
     return unless password.present?
 
@@ -26,5 +32,12 @@ class User < ApplicationRecord
     return if password.match?(/[!@#$%^&*]/)
 
     errors.add(:password, 'must contain at least one special character')
+  end
+
+  def create_user_wallet
+    self.create_wallet(
+      balance: 0,
+      currency: 'USD'
+    )
   end
 end
