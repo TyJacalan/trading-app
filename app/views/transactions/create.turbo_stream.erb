@@ -12,3 +12,4 @@
 <%= turbo_stream.update "transaction_sell_frame" %>
 <%= turbo_stream.update "transaction_frame" %>
 <%= turbo_stream.update "details" %>
+<%= turbo_stream.update "account-balance", html: number_to_currency(current_user.wallet.balance, precision: 2) %>
