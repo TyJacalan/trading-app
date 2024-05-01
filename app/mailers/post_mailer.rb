@@ -17,7 +17,7 @@ class PostMailer < ApplicationMailer
       "hello@avionfinance.com"
     else
       email_address = Rails.application.credentials.dig(:GOOGLE_SMTP_EMAIL)
-      email_address.present? ? "Avion Finance <#{email_address}>" : "Avion Finance <tyjacalan@example.com>"
+      email_address.present? ? "Avion Finance <#{email_address}>" : "Avion Finance <tyjacalan@gmail.com>"
     end
   end
 end
