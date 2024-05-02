@@ -21,9 +21,9 @@ class Transaction < ApplicationRecord
 
       stock = Stock.find_or_create_stock(user, transaction)
       Stock.update_stock(stock, transaction)
-      
+
       Wallet.check_balance(wallet.balance, transaction.value)
-      Wallet.update(balance: wallet.balance - transaction.value)
+      wallet.update!(balance: wallet.balance - transaction.value)
 
       { status: true, error: "" }
     end
@@ -35,12 +35,12 @@ class Transaction < ApplicationRecord
     ActiveRecord::Base.transaction do
       transaction = user.transactions.create!(transaction_params)
       wallet = user.wallet
-      
+
       stock = Stock.find_by(symbol: transaction.symbol, user_id: user.id)
       raise StandardError, "Stock not in Portfolio" unless stock
       Stock.update_stock(stock, transaction)
 
-      Wallet.update(balance: wallet.balance + transaction.value)
+      wallet.update!(balance: wallet.balance + transaction.value)
 
       { status: true, error: "" }
     end
@@ -53,7 +53,7 @@ class Transaction < ApplicationRecord
       transaction = user.transactions.create!(transaction_params)
       wallet = user.wallet
 
-      Wallet.update(balance: wallet.balance + transaction.quantity)
+      wallet.update!(balance: wallet.balance + transaction.quantity)
 
       { status: true, error: "" }
     end
@@ -67,7 +67,7 @@ class Transaction < ApplicationRecord
       wallet = user.wallet
 
       Wallet.check_balance(wallet.balance, transaction.quantity)
-      Wallet.update(balance: wallet.balance - transaction.quantity)
+      wallet.update!(balance: wallet.balance - transaction.quantity)
 
       { status: true, error: "" }
     end
