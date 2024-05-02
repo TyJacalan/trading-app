@@ -25,12 +25,8 @@
 
       <div>
         <%= form.hidden_field :transaction_type, value: transaction_type, class: "form-control" %>
-        <%= form.submit transaction_type.capitalize, class: "p-4 cursor-pointer button button-primary submit-button", data: { action: "click->transaction-form#handleSubmit" } %>
-        <div class="spinner hidden p-2">
-          <i class='fa fa-spinner animate-spin text-muted-foreground text-xl'></i>
-        </div>
+        <%= form.submit transaction_type.capitalize, class: "p-4 cursor-pointer button button-primary" %>
       </div>  
-    </div>
     </div>
   </div>
 <% end %>
