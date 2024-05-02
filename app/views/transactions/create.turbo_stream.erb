@@ -8,6 +8,12 @@
     <% end %>
 <% end %>
 
+<% if @portfolio.present? %>
+  <%= turbo_stream.update "portfolio_table_frame" do %>
+    <%= render partial: "portfolios/portfolio_table", locals: { portfolio: @portfolio } %>
+  <% end %>
+<% end %>
+
 <%= turbo_stream.update "transaction_buy_frame" %>
 <%= turbo_stream.update "transaction_sell_frame" %>
 <%= turbo_stream.update "transaction_frame" %>

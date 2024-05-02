@@ -2,6 +2,7 @@
 
 class TransactionsController < ApplicationController
   before_action :authorize_user!
+  include StocksConcern
 
   def index
     add_breadcrumb "Home", :root_path
@@ -74,6 +75,7 @@ class TransactionsController < ApplicationController
 
   def handle_transaction(transaction)
     if transaction[:status]
+      @portfolio = format_portfolio(current_user.stocks)
       respond_to do |format|
         format.turbo_stream { flash.now[:notice] = "#{transaction_params[:transaction_type].capitalize} successful!" }
       end

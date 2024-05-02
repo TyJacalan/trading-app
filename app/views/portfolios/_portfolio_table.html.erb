@@ -1,0 +1,20 @@
+<%= render_table do %>
+  <%= table_head do %>
+    <%= table_header 'Symbol' %>
+    <%= table_header 'Price' %>
+    <%= table_header 'Quantity' %>
+    <%= table_header 'Change' %>
+    <%= table_header 'Value' %>
+  <% end %>
+  <%= table_body do %>
+    <% portfolio.each do |stock| %>
+      <%= table_row do %>
+        <%= table_column stock[:symbol], class: "flex justify-center p-2 mx-auto my-2 rounded bg-muted text-muted-foreground text-sm" %>
+        <%= table_column number_to_currency(stock[:price], precision: 2) %>
+        <%= table_column stock[:quantity].to_s, class: "text-center" %>
+        <%= table_column stock[:change], class: "flex justify-center p-2 mx-auto my-2 rounded #{stock[:change].to_d < 0 ? 'bg-accent text-destructive' : 'bg-success-light text-success'}" %>
+        <%= table_column number_to_currency(stock[:value], precision: 2) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
