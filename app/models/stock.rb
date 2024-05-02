@@ -1,10 +1,12 @@
 class Stock < ApplicationRecord
   belongs_to :user
 
-  validates :symbol, presence: true, uniqueness: true
+  validates :symbol, presence: true
 
   def self.find_or_create_stock(user, transaction)
-    user.stocks.find_or_create_by(symbol: transaction.symbol, currency: transaction.currency)
+    stock = user.stocks.find_or_create_by(symbol: transaction.symbol, currency: transaction.currency)
+    raise StandardError, "Failed to find or create stock." unless stock.persisted?
+    stock
   end
 
   def self.update_stock(stock, transaction)
