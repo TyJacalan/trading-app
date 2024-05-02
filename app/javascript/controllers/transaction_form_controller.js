@@ -4,14 +4,6 @@ export default class TransactionForm extends Controller {
 
     connect() {
         this.calculateTotal()
-
-        this.submitButton = this.element.querySelector(".submit-button")
-        this.spinner = this.element.querySelector(".spinner")
-    }
-
-    handleSubmit() {
-        this.submitButton.classList.add("hidden")
-        this.spinner.classList.remove("hidden")
     }
 
     calculateTotal() {

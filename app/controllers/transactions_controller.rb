@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
   before_action :authorize_user!
 
   def index
-    add_breadcrumb "Home", :home_path
+    add_breadcrumb "Home", :root_path
     add_breadcrumb "My Transactions", :transactions_path
 
     transactions = filter_transactions(params[:filter])
