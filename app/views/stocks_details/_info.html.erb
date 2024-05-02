@@ -2,7 +2,7 @@
   <p class='text-sm text-center text-muted-foreground font-bold border-2 mt-4'>No stock selected</p>
 <% else %>
   <div class="shadow-md bg-background rounded-lg">
-    <%= render_card title: "#{details.symbol} | #{number_to_currency(balance, precision: 2)}", subtitle: details.company_name,
+    <%= render_card title: "#{details.symbol} | #{details.company_name}", subtitle: "Portfolio Quantity: #{balance}",
     body: details.latest_price, 
     class: "flex flex-col gap-2 w-full p-4" do %>
       <div class="flex flex-wrap gap-2 px-4">
@@ -25,6 +25,4 @@
       </div>
     <% end %>
   </div>
-
-
 <% end %> 

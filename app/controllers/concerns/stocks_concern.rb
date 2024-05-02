@@ -99,9 +99,11 @@ module StocksConcern # rubocop:disable Style/Documentation
     end
 
     def display_sector_performance
-      iex_api = IexApi.new
-      response = iex_api.sector_performance
-      perf = response.success? ? response.parsed_response : []
+      Rails.cache.fetch('sector_perf', expires_in: 0.25.hour) do
+        iex_api = IexApi.new
+        response = iex_api.sector_performance
+        perf = response.success? ? response.parsed_response : []
+      end
     end
 
     def cache_image(symbol)
