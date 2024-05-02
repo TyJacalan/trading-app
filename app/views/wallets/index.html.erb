@@ -1,5 +1,12 @@
-<div class="flex gap-4">
-  <%= render_card title: "#{number_to_currency(@balance, precision: 2)}", subtitle: "Account Balance", id: "account-balance" %>
+<div class="flex flex-col gap-4">
+  <%= render_card class: "p-6" do %>
+    <h3 class="font-semibold text-3xl px-6">
+      <%= turbo_frame_tag "account-balance" do %>
+        <%= number_to_currency(@balance, precision: 2) %>
+      <% end %>
+    </h3>
+    <span class="text-muted-foreground text-sm p-6 mb-6">Account Balance</span>
+  <% end %>
 
   <%= turbo_frame_tag "wallet_frame" do %>
     <div class='h-full w-full flex items-center justify-center border rounded-lg bg-background py-4 shadow-md slide-down'>
