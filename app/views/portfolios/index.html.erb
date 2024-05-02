@@ -9,23 +9,11 @@
 <%= render_separator class: 'my-6' %>
 
 <div class="flex flex-col lg:flex-row gap-2 w-full">
-  <%= render_card title: "#{number_to_currency(@total_value, precision: 2)}", subtitle: "Total Value", class: "w-full lg:w-1/2" do %>
-    <div class="flex flex-col">
-      <%= pie_chart @chart_data, 
-        discrete: true, 
-        colors: generate_random_colors(0..60, @chart_data.count),
-        legend: true,
-        legend_position: "bottom",
-        donut: true %>
-      <%= area_chart @chart_data,
-        library: { 
-          hAxis: { title: 'Stock Symbol' }, 
-          vAxis: { title: 'Value' },
-          pointSize: 5,
-          curveType: 'function' },
-        colors: ["#b00", "#666"] %>
-    </div>
-  <% end %>
+  <div class="w-full lg:w-1/2">
+    <%= turbo_frame_tag "portfolio_charts_frame" do %>
+      <%= render partial: "portfolio_charts", locals: { total_value: @total_value, chart_data: @chart_data } %>
+    <% end %>
+  </div>
 
   <div class="w-full lg:w-1/2">
     <%= turbo_frame_tag "portfolio_frame" do %>
