@@ -1,4 +1,5 @@
 class Admin::UsersController < AdminsController
+  include Mailable
   before_action :set_user, only: [:show, :update, :destroy]
 
   def index
@@ -43,6 +44,7 @@ class Admin::UsersController < AdminsController
   end
 
   def destroy
+    notify_user(:deleted_user_email)
     @user.destroy
     invalidate_cache
     redirect_to admin_users_path, alert: "#{@user.first_name}'s account was successfully deleted."
