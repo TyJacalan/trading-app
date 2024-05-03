@@ -2,9 +2,10 @@
 
 class TransactionsController < ApplicationController
   before_action :authorize_user!
+  include StocksConcern
 
   def index
-    add_breadcrumb "Home", :root_path
+    add_breadcrumb "Home", :home_path
     add_breadcrumb "My Transactions", :transactions_path
 
     transactions = filter_transactions(params[:filter])
@@ -74,6 +75,10 @@ class TransactionsController < ApplicationController
 
   def handle_transaction(transaction)
     if transaction[:status]
+      @portfolio = format_portfolio(current_user.stocks)
+      @chart_data = @portfolio.map { |stock| [stock[:symbol], stock[:value]] }
+      @total_value = @portfolio.sum { |stock| stock[:value] }
+
       respond_to do |format|
         format.turbo_stream { flash.now[:notice] = "#{transaction_params[:transaction_type].capitalize} successful!" }
       end

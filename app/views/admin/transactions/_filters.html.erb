@@ -1,0 +1,19 @@
+<% filters = [
+  { name: 'All' },
+  { name: 'Buy', filter: 'buy' },
+  { name: 'Sell', filter: 'sell' },
+  { name: 'Deposit', filter: 'deposit' },
+  { name: 'Withdraw', filter: 'withdraw' }
+] %>
+
+<div class='flex flex-row gap-4 w-full min-w-[350px] overflow-auto text-muted-foreground'>
+  <% filters.each do |link| %>
+    <%= render_button link[:name], 
+      as: :link, 
+      href: admin_transactions_path(filter: link[:filter]),
+      data: { turbo_frame: 'transactions' },
+      variant: :outline,
+      class: 'h-fit w-fit text-xs px-4 py-1.5 rounded-full'
+    %>
+  <% end %>
+</div>

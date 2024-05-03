@@ -8,6 +8,15 @@
     <% end %>
 <% end %>
 
+<% if @portfolio.present? %>
+  <%= turbo_stream.update "portfolio_table_frame" do %>
+    <%= render partial: "portfolios/portfolio_table", locals: { portfolio: @portfolio } %>
+  <% end %>
+  <%= turbo_stream.update "portfolio_charts_frame" do %>
+    <%= render partial: "portfolios/portfolio_charts", locals: { total_value: @total_value, chart_data: @chart_data } %>
+  <% end %>
+<% end %>
+
 <%= turbo_stream.update "transaction_buy_frame" %>
 <%= turbo_stream.update "transaction_sell_frame" %>
 <%= turbo_stream.update "transaction_frame" %>

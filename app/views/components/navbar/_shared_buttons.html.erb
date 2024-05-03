@@ -3,5 +3,5 @@
 <% end %>
 
 <% if current_user.role == 'standard' %>
-  <%= render_button("Buy / Sell", variant: :outline, data: { turbo_frame: "transaction_frame", action: "click->toggle-frame#toggleFrame click->ui--sheet#close" }) %>
+    <%= render_button("Buy / Sell", variant: :outline, as: :link, href: new_transaction_path, data: { turbo_frame: "transaction_frame", action: "click->toggle-frame#toggleFrame click->ui--sheet#close" }) %>
 <% end %>

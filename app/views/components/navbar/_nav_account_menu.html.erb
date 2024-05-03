@@ -9,8 +9,10 @@
     <%= dropdown_menu_item do %>
       <%= link_to "Profile", edit_user_registration_path %>
     <% end %>
-    <%= dropdown_menu_item do %>
-      <%= link_to "Wallet", wallets_path %>
+    <% if current_user.role == 'standard' %>
+      <%= dropdown_menu_item do %>
+        <%= link_to "Wallet", wallets_path %>
+      <% end %>
     <% end %>
     <%= dropdown_menu_item do %>
       <%= button_to "Logout", destroy_user_session_path, method: :delete %>

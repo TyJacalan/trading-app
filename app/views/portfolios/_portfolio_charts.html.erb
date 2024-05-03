@@ -1,0 +1,19 @@
+<%= render_card title: "#{number_to_currency(total_value, precision: 2)}", 
+  subtitle: "Total Value", 
+  class: "w-full" do %>
+  <div class="flex flex-col">
+    <%= pie_chart chart_data, 
+      discrete: true, 
+      colors: generate_random_colors(0..60, chart_data.count),
+      legend: true,
+      legend_position: "bottom",
+      donut: true %>
+    <%= area_chart chart_data,
+      library: { 
+        hAxis: { title: 'Stock Symbol' }, 
+        vAxis: { title: 'Value' },
+        pointSize: 5,
+        curveType: 'function' },
+        colors: ["#b00", "#666"] %>
+  </div>
+<% end %>
