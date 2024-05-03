@@ -1,0 +1,37 @@
+<% headers = ['Id', 'Symbol', 'Type', 'Price', 'User Id', 'Created At'] %>
+
+<%= render_table do %>
+  <%= table_head do %>
+    <% headers.each do |header| %>
+      <%= table_header header %>
+    <% end %>
+  <% end %>
+  <%= table_body do %>
+    <% @transactions.each do |transaction| %>
+      <%= table_row do %>
+        <%= table_column do %>
+          <%= link_to transaction.id.to_s, admin_user_path(transaction.user_id) %> 
+        <% end %>
+        <%= table_column do %>
+          <%= link_to transaction.symbol, admin_user_path(transaction.user_id) %>
+        <% end %>
+        <%= table_column do %>
+          <%= link_to transaction.transaction_type, admin_user_path(transaction.user_id) %>
+        <% end %>
+        <%= table_column do %>
+          <% if transaction.price.present? %>
+            <%= link_to number_to_currency(transaction.price, precision: 2), admin_user_path(transaction.user_id) %>
+          <% else %>
+            <span>-</span>
+          <% end %>
+        <% end %>
+        <%= table_column do %>
+          <%= link_to transaction.user_id.to_s, admin_user_path(transaction.user_id) %>
+        <% end %>
+        <%= table_column do %>
+          <%= link_to transaction.created_at.strftime('%Y-%m-%d'), admin_user_path(transaction.user_id) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
