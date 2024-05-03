@@ -1,10 +1,10 @@
-<div class='flex flex-row gap-4 w-full mb-4'>
+<div class='flex flex-col lg:flex-row gap-4 w-full min-w-[350px] items-center mb-4 overflow-x-auto'>
   <%= render partial: 'search' %>
   <%= render partial: 'filters' %>
 </div>
 
 
-<%= render_card class: 'w-full p-6 overflow-x-auto' do %>
+<%= render_card class: 'w-full min-w-[350px] p-6 overflow-x-auto' do %>
   <%= turbo_frame_tag 'transactions' do %>
     <%= render partial: 'admin_transactions_table' %>
   <% end %>
