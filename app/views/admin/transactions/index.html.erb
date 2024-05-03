@@ -8,8 +8,4 @@
   <%= turbo_frame_tag 'transactions' do %>
     <%= render partial: 'admin_transactions_table' %>
   <% end %>
-
-  <div class='flex w-full justify-center'>
-    <%= paginate @transactions %>
-  </div>
 <% end %>
