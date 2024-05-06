@@ -10,6 +10,26 @@ class PostMailer < ApplicationMailer
       from: configure_from_address)
   end
 
+  def declined_user_email(user)
+    @user = user
+    @body = "Your account has been declined. Kindly contact the administrators for more information and next steps."
+
+    mail(
+      to: @user.email,
+      subject: "Your account has been declined.",
+      from: configure_from_address)
+  end
+
+  def deleted_user_email(user)
+    @user = user
+    @body = "Your data has been removed from our servers. If you did not request this, kindly contact the administrators for more information and next steps."
+
+    mail(
+      to: @user.email,
+      subject: "Your account has been deleted.",
+      from: configure_from_address)
+  end
+
   private
 
   def configure_from_address
